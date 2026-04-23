@@ -176,6 +176,32 @@
     color: var(--brass-300);
   }
 
+  .hero-title {
+    max-width: 1100px;
+  }
+  .hero-line {
+    display: block;
+  }
+  .hero-line-white {
+    color: var(--white);
+  }
+  .hero-line-gold {
+    color: var(--brass-300);
+  }
+  @media (min-width: 769px) {
+    .hero-line {
+      white-space: nowrap;
+    }
+  }
+  @media (max-width: 768px) {
+    .hero-title {
+      max-width: 100%;
+    }
+    .hero-line {
+      white-space: normal;
+    }
+  }
+
   .hero-desc {
     font-size: 15px;
     font-weight: 300;
@@ -1171,7 +1197,12 @@
 <section class="hero">
   <div class="hero-rule"></div>
   <p class="hero-eyebrow">Construction &amp; Engineering Disputes · Expert Appointments · Expert Advisory</p>
-  <h1>Independent Expertise Across<br><span style="color: var(--brass-300); font-style: normal;">Complex Construction Disputes, Expert Evidence And Project Advisory</span></h1>
+  <h1 class="hero-title">
+    <span class="hero-line hero-line-white">Independent Expertise Across</span>
+    <span class="hero-line hero-line-gold">Complex Construction</span>
+    <span class="hero-line hero-line-gold">Disputes, Expert Evidence And</span>
+    <span class="hero-line hero-line-gold">Project Advisory</span>
+  </h1>
   <p class="hero-desc">Avonstowe advises on complex construction and engineering matters across disputes, expert appointments and project advisory. We provide quantum, delay and technical expertise in arbitration, adjudication and litigation, alongside strategic commercial and contractual advice across the lifecycle of major projects.</p>
 
 <div class="hero-actions">
