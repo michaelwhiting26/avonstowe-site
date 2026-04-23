@@ -5041,35 +5041,43 @@
     <h2 style="font-family:'Cormorant Garamond',Georgia,serif; font-size:2.4rem; font-weight:300; color:#fff; margin-bottom:0.8rem;">Discuss Your Matter</h2>
     <p style="font-size:14px; color:#8aaee8; line-height:1.8;">All enquiries are handled in strict confidence. We assess the issues, provide an initial view, and advise on next steps across disputes, expert appointments and project advisory.</p>
     <p style="font-size:14px; color:#8aaee8; line-height:1.8; margin-top:0.8rem;">A senior expert will respond within one business day.</p>
-    <div class="contact-form">
-      <div class="form-row">
-        <div class="form-field">
-          <label class="form-label">Name</label>
-          <input class="form-input" type="text" placeholder="Your name">
-        </div>
-        <div class="form-field">
-          <label class="form-label">Organisation</label>
-          <input class="form-input" type="text" placeholder="Your firm">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-field">
-          <label class="form-label">Email</label>
-          <input class="form-input" type="email" placeholder="your@email.com">
-        </div>
-        <div class="form-field">
-          <label class="form-label">Nature Of Matter</label>
-          <input class="form-input" type="text" placeholder="e.g. Arbitration, Adjudication, Expert Appointment, Project Advisory">
-        </div>
-      </div>
-      <div class="form-field">
-        <label class="form-label">Brief Description</label>
-        <textarea class="form-input" placeholder="Outline the key issues and how we may assist"></textarea>
-      </div>
-      <div>
-        <button class="btn-primary" style="cursor:pointer;">Submit Enquiry</button>
-      </div>
+    <form
+  class="contact-form"
+  id="contact-form"
+  action="https://formsubmit.co/ajax/michael@avonstowe.com"
+  method="POST"
+>
+  <input type="hidden" name="_subject" value="New Avonstowe enquiry">
+  <input type="hidden" name="_captcha" value="false">
+  <div class="form-row">
+    <div class="form-field">
+      <label class="form-label" for="name">Name</label>
+      <input class="form-input" id="name" name="name" type="text" placeholder="Your name" required>
     </div>
+    <div class="form-field">
+      <label class="form-label" for="organisation">Organisation</label>
+      <input class="form-input" id="organisation" name="organisation" type="text" placeholder="Your firm">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-field">
+      <label class="form-label" for="email">Email</label>
+      <input class="form-input" id="email" name="email" type="email" placeholder="your@email.com" required>
+    </div>
+    <div class="form-field">
+      <label class="form-label" for="matter">Nature Of Matter</label>
+      <input class="form-input" id="matter" name="matter" type="text" placeholder="e.g. Arbitration, Adjudication, Expert Appointment, Project Advisory" required>
+    </div>
+  </div>
+  <div class="form-field">
+    <label class="form-label" for="description">Brief Description</label>
+    <textarea class="form-input" id="description" name="description" placeholder="Outline the key issues and how we may assist" required></textarea>
+  </div>
+  <div>
+    <button class="btn-primary" id="submit-button" type="submit">Submit Enquiry</button>
+  </div>
+  <p id="form-status" style="display:none; margin-top:1rem; color:#d4b56a;"></p>
+</form>
   </div>
 </section>
 
@@ -11010,45 +11018,34 @@ document.addEventListener('keydown', function(e) {
 });
 
 
-const contactForm = document.getElementById('contact-form');
-const formStatus = document.getElementById('form-status');
-const submitButton = document.getElementById('submit-button');
-
-if (contactForm) {
-  contactForm.addEventListener('submit', async function (e) {
+const form = document.getElementById('contact-form');
+const status = document.getElementById('form-status');
+const button = document.getElementById('submit-button');
+if (form) {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
-
-    formStatus.style.display = 'none';
-    formStatus.textContent = '';
-    submitButton.disabled = true;
-    submitButton.textContent = 'Sending...';
-
+    status.style.display = 'none';
+    button.disabled = true;
+    button.textContent = 'Sending...';
     try {
-      const formData = new FormData(contactForm);
-
-      const response = await fetch(contactForm.action, {
+      const res = await fetch(form.action, {
         method: 'POST',
-        body: formData,
-        headers: {
-          Accept: 'application/json'
-        }
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
       });
-
-      if (response.ok) {
-        contactForm.reset();
-        formStatus.textContent = 'Thank you for contacting Avonstowe. Your enquiry has been submitted successfully. A senior expert will respond within one business day.';
-        formStatus.style.display = 'block';
+      if (res.ok) {
+        form.reset();
+        status.textContent = 'Thank you for contacting Avonstowe. Your enquiry has been submitted successfully. A senior expert will respond within one business day.';
       } else {
-        formStatus.textContent = 'There was a problem submitting your enquiry. Please email michael@avonstowe.com directly.';
-        formStatus.style.display = 'block';
+        status.textContent = 'There was a problem submitting your enquiry. Please email michael@avonstowe.com directly.';
       }
-    } catch (error) {
-      formStatus.textContent = 'There was a problem submitting your enquiry. Please email michael@avonstowe.com directly.';
-      formStatus.style.display = 'block';
-    } finally {
-      submitButton.disabled = false;
-      submitButton.textContent = 'Submit Enquiry';
+      status.style.display = 'block';
+    } catch {
+      status.textContent = 'There was a problem submitting your enquiry. Please email michael@avonstowe.com directly.';
+      status.style.display = 'block';
     }
+    button.disabled = false;
+    button.textContent = 'Submit Enquiry';
   });
 }
 </script>
