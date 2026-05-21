@@ -1197,6 +1197,37 @@
   }
 
 
+
+  /* CUSTOM CURSOR */
+  @media (pointer: fine) {
+    *, *::before, *::after { cursor: none !important; }
+    #cursor-dot {
+      position: fixed; top: 0; left: 0;
+      width: 8px; height: 8px;
+      background: var(--brass-400);
+      border-radius: 50%;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, background 0.2s ease;
+    }
+    #cursor-ring {
+      position: fixed; top: 0; left: 0;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(201, 164, 74, 0.45);
+      border-radius: 50%;
+      pointer-events: none; z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+    }
+    #cursor-dot.hovering {
+      background: var(--brass-300);
+      transform: translate(-50%, -50%) scale(2);
+    }
+    #cursor-ring.hovering {
+      width: 56px; height: 56px;
+      border-color: rgba(212, 181, 106, 0.75);
+    }
+  }
 </style>
 </head>
 <body>
@@ -11227,6 +11258,50 @@ if (form) {
     <p>For more information, contact: michael@avonstowe.com</p>
   </div>
 </div>
+
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<script>
+(function() {
+  if (window.matchMedia('(pointer: fine)').matches) {
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', function(e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.left = mouseX + 'px';
+      dot.style.top = mouseY + 'px';
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.left = ringX + 'px';
+      ring.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    const hoverTargets = 'a, button, [role="button"], .tab-btn, .btn-primary, .btn-ghost, .nav-cta, input, textarea, select, label';
+    document.addEventListener('mouseover', function(e) {
+      if (e.target.closest(hoverTargets)) {
+        dot.classList.add('hovering');
+        ring.classList.add('hovering');
+      }
+    });
+    document.addEventListener('mouseout', function(e) {
+      if (e.target.closest(hoverTargets)) {
+        dot.classList.remove('hovering');
+        ring.classList.remove('hovering');
+      }
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
