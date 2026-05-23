@@ -1228,9 +1228,138 @@
       border-color: rgba(212, 181, 106, 0.75);
     }
   }
+
+  /* Scroll progress bar */
+  #scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--brass-400);
+    z-index: 200;
+    transition: width 0.1s linear;
+  }
+
+  /* Active nav link */
+  .nav-links a.nav-active {
+    color: var(--brass-300);
+  }
+
+  /* Back to top button */
+  #back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--brass-500);
+    background: rgba(10, 22, 40, 0.92);
+    color: var(--brass-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 150;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, background 0.2s;
+    backdrop-filter: blur(6px);
+  }
+  #back-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #back-to-top:hover {
+    background: var(--brass-500);
+    color: var(--navy-900);
+  }
+  #back-to-top svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  /* Cookie consent banner */
+  #cookie-banner {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--navy-800);
+    border-top: 1px solid rgba(200, 164, 74, 0.2);
+    padding: 1.2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    z-index: 180;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+    flex-wrap: wrap;
+  }
+  #cookie-banner.visible {
+    transform: translateY(0);
+  }
+  #cookie-banner p {
+    font-size: 13px;
+    color: var(--navy-200);
+    margin: 0;
+    line-height: 1.6;
+  }
+  #cookie-banner a {
+    color: var(--brass-300);
+    text-decoration: none;
+  }
+  #cookie-banner a:hover {
+    text-decoration: underline;
+  }
+  .cookie-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+  .cookie-btn {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+  .cookie-btn-accept {
+    background: var(--brass-500);
+    color: var(--navy-900);
+  }
+  .cookie-btn-accept:hover { background: var(--brass-400); }
+  .cookie-btn-decline {
+    background: transparent;
+    color: var(--navy-300);
+    border: 1px solid rgba(138, 174, 232, 0.25);
+  }
+  .cookie-btn-decline:hover { border-color: var(--brass-500); color: var(--brass-300); }
 </style>
 </head>
 <body>
+
+<!-- Scroll progress bar -->
+<div id="scroll-progress"></div>
+
+<!-- Back to top button -->
+<button id="back-to-top" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
+<!-- Cookie consent banner -->
+<div id="cookie-banner" role="region" aria-label="Cookie consent">
+  <p>This website uses essential cookies only. See our <a href="/cookie-policy">Cookie Policy</a> for details.</p>
+  <div class="cookie-actions">
+    <button class="cookie-btn cookie-btn-accept" id="cookie-accept">Accept</button>
+    <button class="cookie-btn cookie-btn-decline" id="cookie-decline">Decline</button>
+  </div>
+</div>
 
 <nav>
   <div class="nav-brand">
@@ -1252,7 +1381,7 @@
     <span class="hero-line hero-line-white">Independent expertise in</span>
     <span class="hero-line hero-line-gold">complex construction matters</span>
   </h1>
-  <p class="hero-desc">Avonstowe provides quantum, delay and technical expertise for adjudication and arbitration, alongside major project advisory.</p>
+  <p class="hero-desc">Avonstowe advises on complex construction and engineering disputes and major projects. We provide independent expert analysis, commercial judgement and senior-led dispute resolution - across arbitration, adjudication, litigation and project advisory.</p>
 
 <div class="hero-actions">
     <a href="#contact" class="btn-primary">Discuss Your Matter</a>
@@ -11261,7 +11390,6 @@ if (form) {
 
 
 <div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
 <script>
 (function() {
   if (window.matchMedia('(pointer: fine)').matches) {
@@ -11300,6 +11428,78 @@ if (form) {
       }
     });
   }
+})();
+</script>
+
+<script>
+// Scroll progress bar
+(function() {
+  var bar = document.getElementById('scroll-progress');
+  function updateProgress() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+})();
+
+// Back to top button
+(function() {
+  var btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 500) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+  btn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+// Active nav link on scroll
+(function() {
+  var sections = [
+    { id: 'services', link: document.querySelector('.nav-links a[href="#services"]') },
+    { id: 'geography', link: document.querySelector('.nav-links a[href="#geography"]') },
+    { id: 'contact', link: document.querySelector('.nav-links a[href="#contact"]') }
+  ].filter(function(s) { return s.link; });
+
+  function onScroll() {
+    var scrollMid = window.scrollY + window.innerHeight / 2;
+    var active = null;
+    sections.forEach(function(s) {
+      var el = document.getElementById(s.id);
+      if (el && el.offsetTop <= scrollMid) {
+        active = s;
+      }
+    });
+    sections.forEach(function(s) {
+      s.link.classList.toggle('nav-active', s === active);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+// Cookie consent banner
+(function() {
+  var banner = document.getElementById('cookie-banner');
+  var accept = document.getElementById('cookie-accept');
+  var decline = document.getElementById('cookie-decline');
+  var key = 'avonstowe_cookie_consent';
+
+  if (!localStorage.getItem(key)) {
+    setTimeout(function() { banner.classList.add('visible'); }, 600);
+  }
+  function dismiss(value) {
+    localStorage.setItem(key, value);
+    banner.classList.remove('visible');
+  }
+  accept.addEventListener('click', function() { dismiss('accepted'); });
+  decline.addEventListener('click', function() { dismiss('declined'); });
 })();
 </script>
 
