@@ -434,6 +434,31 @@
     border-bottom-color: var(--brass-400);
   }
 
+  @keyframes tab-pulse {
+    0%, 35%, 100% {
+      color: var(--navy-300);
+      text-shadow: none;
+    }
+    15% {
+      color: var(--brass-300);
+      text-shadow: 0 0 12px rgba(200, 164, 74, 0.35);
+    }
+  }
+
+  .tab-btn.tab-hint {
+    animation: tab-pulse 4s ease-in-out infinite;
+  }
+
+  /* Project Advisory fires half a cycle later */
+  .tab-btn.tab-hint:nth-child(3) {
+    animation-delay: 2s;
+  }
+
+  .tab-btn.tab-hint:hover {
+    animation: none;
+    color: var(--brass-300);
+  }
+
   
 
   
@@ -1444,8 +1469,8 @@
 
   <div class="service-tabs" role="tablist" aria-label="Our practice areas">
     <button class="tab-btn active" type="button" onclick="showServicePanel('disputes', this)" aria-selected="true">Claims &amp; Disputes</button>
-    <button class="tab-btn" type="button" onclick="showServicePanel('expert', this)" aria-selected="false">Expert Appointments</button>
-    <button class="tab-btn" type="button" onclick="showServicePanel('advisory', this)" aria-selected="false">Project Advisory</button>
+    <button class="tab-btn tab-hint" type="button" onclick="showServicePanel('expert', this)" aria-selected="false">Expert Appointments</button>
+    <button class="tab-btn tab-hint" type="button" onclick="showServicePanel('advisory', this)" aria-selected="false">Project Advisory</button>
   </div>
 
   <div class="service-panel" id="panel-disputes" style="display:block;">
@@ -5326,6 +5351,7 @@ function showServicePanel(panelName, btn) {
   if (target) target.style.display = 'block';
   document.querySelectorAll('.service-tabs .tab-btn').forEach(button => {
     button.classList.remove('active');
+    button.classList.remove('tab-hint');
     button.setAttribute('aria-selected', 'false');
   });
   if (btn) {
