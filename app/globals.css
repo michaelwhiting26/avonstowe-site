@@ -162,6 +162,32 @@
     pointer-events: none;
   }
 
+  /* Ambient navy -> brass field that drifts almost imperceptibly behind the
+     hero. Two soft radial glows on a slow (28s) alternating drift; blurred so
+     it reads as light, not shapes. Under reduced-motion the global guard
+     freezes the drift and it simply becomes a static gradient. */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: -25%;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(38% 48% at 24% 32%, rgba(184, 144, 47, 0.12), transparent 70%),
+      radial-gradient(46% 56% at 78% 66%, rgba(35, 74, 148, 0.30), transparent 72%);
+    filter: blur(24px);
+    animation: hero-drift 28s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  @keyframes hero-drift {
+    from { transform: translate3d(-2%, -1%, 0) scale(1.02); }
+    to   { transform: translate3d(3%,  2%, 0) scale(1.09); }
+  }
+
+  /* Keep hero content above both gradient layers. */
+  .hero > * { position: relative; z-index: 1; }
+
   .hero-rule {
     width: 48px;
     height: 1px;
@@ -182,7 +208,9 @@
     font-family: var(--serif);
     font-size: clamp(3rem, 6vw, 5.5rem);
     font-weight: 300;
-    line-height: 1.08;
+    line-height: 1.06;
+    /* Optical tightening: large serif display reads sharper slightly negative. */
+    letter-spacing: -0.02em;
     color: var(--white);
     margin-bottom: 2rem;
     max-width: 780px;
@@ -406,8 +434,11 @@
 
   .section-title {
     font-family: var(--serif);
-    font-size: 2.6rem;
+    /* More editorial presence on wide viewports; unchanged (2.6rem) on mobile. */
+    font-size: clamp(2.6rem, 3.4vw, 3.4rem);
     font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
     color: var(--white);
     margin-bottom: 0.5rem;
   }
