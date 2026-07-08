@@ -9,14 +9,13 @@ import CookieBanner from "@/components/CookieBanner";
 import CustomCursor from "@/components/CustomCursor";
 
 // SEO metadata preserved verbatim from the original <head>.
+// Favicons come from the App Router file convention (app/icon.png,
+// app/apple-icon.png) using the current Avonstowe brand mark, which replaces
+// the stale green logo that was in the old favicon.ico.
 export const metadata: Metadata = {
   title: "Avonstowe | Construction & Engineering Disputes",
   description:
     "Independent quantum, delay and commercial expertise across construction and engineering disputes. Partner-level service across the Middle East, UK and internationally.",
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/favicon.ico",
-  },
 };
 
 export const viewport: Viewport = {
