@@ -67,6 +67,16 @@ export default function ContactSection() {
         >
           <input type="hidden" name="_subject" value="New Avonstowe enquiry" />
           <input type="hidden" name="_captcha" value="false" />
+          {/* Honeypot: hidden from real users; if a bot fills it, FormSubmit
+              discards the submission. Reduces automated spam/phishing. */}
+          <input
+            type="text"
+            name="_honey"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{ display: "none" }}
+          />
           <div className="form-row">
             <div className="form-field">
               <label className="form-label" htmlFor="name">
