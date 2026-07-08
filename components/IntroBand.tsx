@@ -1,3 +1,5 @@
+import { Reveal, Stagger, Item } from "./Motion";
+
 const differentiators = [
   {
     title: "Partner-Led Delivery",
@@ -34,7 +36,7 @@ export default function IntroBand() {
   return (
     <section className="intro-band">
       <div className="intro-grid">
-        <div>
+        <Reveal>
           <p className="intro-label">The Avonstowe Approach</p>
           <h2 className="intro-heading">Senior-led from instruction to resolution.</h2>
           <p className="intro-body">
@@ -42,18 +44,18 @@ export default function IntroBand() {
             where major projects and complex disputes require clear analysis, commercial judgement
             and defensible evidence.
           </p>
-        </div>
-        <div className="differentiators">
+        </Reveal>
+        <Stagger className="differentiators">
           {differentiators.map((item) => (
-            <div className="diff-item" key={item.title}>
+            <Item className="diff-item" key={item.title}>
               <div className="diff-icon">{item.icon}</div>
               <div>
                 <div className="diff-title">{item.title}</div>
                 <div className="diff-desc">{item.desc}</div>
               </div>
-            </div>
+            </Item>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

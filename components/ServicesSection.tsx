@@ -6,6 +6,7 @@ import { commissions, PREVIEW_COUNT, type ServiceKey } from "@/lib/commissions";
 import { useOverlay } from "./OverlayProvider";
 import CommissionTable from "./CommissionTable";
 import CommissionCards from "./CommissionCards";
+import { Reveal } from "./Motion";
 
 export default function ServicesSection() {
   const [active, setActive] = useState<ServiceKey>("disputes");
@@ -21,10 +22,10 @@ export default function ServicesSection() {
 
   return (
     <section className="services-section" id="services">
-      <div className="section-header">
+      <Reveal className="section-header">
         <p className="section-eyebrow">What We Do</p>
         <h2 className="section-title">Our practice areas</h2>
-      </div>
+      </Reveal>
 
       <div className="service-tabs" role="tablist" aria-label="Our practice areas">
         {practiceAreas.map((area) => {

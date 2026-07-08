@@ -7,6 +7,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import BackToTop from "@/components/BackToTop";
 import CookieBanner from "@/components/CookieBanner";
 import CustomCursor from "@/components/CustomCursor";
+import SmoothScroll from "@/components/SmoothScroll";
 
 // SEO metadata preserved verbatim from the original <head>.
 // Favicons come from the App Router file convention (app/icon.png,
@@ -39,13 +40,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <OverlayProvider>
-          <ScrollProgress />
-          <BackToTop />
-          <CookieBanner />
-          <Nav />
-          {children}
-          <Footer />
-          <CustomCursor />
+          <SmoothScroll>
+            <ScrollProgress />
+            <BackToTop />
+            <CookieBanner />
+            <Nav />
+            {children}
+            <Footer />
+            <CustomCursor />
+          </SmoothScroll>
         </OverlayProvider>
       </body>
     </html>

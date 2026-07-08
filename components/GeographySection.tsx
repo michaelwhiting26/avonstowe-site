@@ -1,3 +1,5 @@
+import { Reveal, Stagger, Item } from "./Motion";
+
 const headingStyle = {
   fontFamily: "'Cormorant Garamond',Georgia,serif",
   fontSize: "2.2rem",
@@ -28,21 +30,23 @@ const regions = [
 export default function GeographySection() {
   return (
     <section className="geography-section" id="credentials">
-      <p className="section-eyebrow">Geographic Reach</p>
-      <h2 className="section-title" style={headingStyle}>
-        International construction experience
-      </h2>
-      <p style={leadStyle}>
-        Advising on major projects across civil and common law jurisdictions.
-      </p>
-      <div className="geo-grid">
+      <Reveal>
+        <p className="section-eyebrow">Geographic Reach</p>
+        <h2 className="section-title" style={headingStyle}>
+          International construction experience
+        </h2>
+        <p style={leadStyle}>
+          Advising on major projects across civil and common law jurisdictions.
+        </p>
+      </Reveal>
+      <Stagger className="geo-grid">
         {regions.map((r) => (
-          <div className="geo-item" key={r.region}>
+          <Item className="geo-item" key={r.region}>
             <div className="geo-region">{r.region}</div>
             <div className="geo-count">{r.count}</div>
-          </div>
+          </Item>
         ))}
-      </div>
+      </Stagger>
     </section>
   );
 }
