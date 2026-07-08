@@ -1,4 +1,5 @@
 import { Stagger, Item } from "./Motion";
+import MagneticButton from "./MagneticButton";
 
 export default function Hero() {
   return (
@@ -20,12 +21,12 @@ export default function Hero() {
           - across arbitration, adjudication, litigation and project advisory.
         </Item>
         <Item className="hero-actions">
-          <a href="#contact" className="btn-primary">
+          <MagneticButton href="#contact" className="btn-primary">
             Discuss Your Matter
-          </a>
-          <a href="#services" className="btn-ghost">
+          </MagneticButton>
+          <MagneticButton href="#services" className="btn-ghost">
             What We Do
-          </a>
+          </MagneticButton>
         </Item>
       </Stagger>
     </section>

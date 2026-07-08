@@ -7,6 +7,7 @@ import { useOverlay } from "./OverlayProvider";
 import CommissionTable from "./CommissionTable";
 import CommissionCards from "./CommissionCards";
 import { Reveal } from "./Motion";
+import CountUp from "./CountUp";
 
 export default function ServicesSection() {
   const [active, setActive] = useState<ServiceKey>("disputes");
@@ -82,7 +83,7 @@ export default function ServicesSection() {
               className="mobile-view-all"
               onClick={() => openCommissions(area.key)}
             >
-              View All Commissions ({items.length})
+              View All Commissions (<CountUp value={items.length} />)
             </button>
           </div>
         );
