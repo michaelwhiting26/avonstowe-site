@@ -6,7 +6,9 @@ export default function Hero() {
         Construction &amp; Engineering Disputes · Expert Appointments · Project Advisory
       </p>
       <h1 className="hero-title">
-        <span className="hero-line hero-line-white">Independent expertise in</span>
+        {/* The two spans render inline on mobile (<=768px); the original HTML kept a
+            whitespace-collapsed space between them, which JSX would otherwise drop. */}
+        <span className="hero-line hero-line-white">Independent expertise in</span>{" "}
         <span className="hero-line hero-line-gold">complex construction matters</span>
       </h1>
       <p className="hero-desc">
