@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 
 const headingStyle = {
-  fontFamily: "'Cormorant Garamond',Georgia,serif",
+  fontFamily: "var(--font-serif), 'Cormorant Garamond', Georgia, serif",
   fontSize: "2.4rem",
   fontWeight: 300,
   color: "#fff",

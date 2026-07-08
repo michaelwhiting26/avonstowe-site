@@ -1,7 +1,7 @@
 import { Reveal, Stagger, Item } from "./Motion";
 
 const headingStyle = {
-  fontFamily: "'Cormorant Garamond',Georgia,serif",
+  fontFamily: "var(--font-serif), 'Cormorant Garamond', Georgia, serif",
   // Match the elevated .section-title scale/tracking for cross-section consistency.
   fontSize: "clamp(2.6rem, 3.4vw, 3.4rem)",
   lineHeight: 1.1,
