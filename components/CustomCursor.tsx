@@ -2,15 +2,11 @@
 
 import { useEffect, useRef } from "react";
 
-// Custom cursor: a brass dot with a trailing ring on fine-pointer (desktop)
-// devices. The site's CSS already styles #cursor-dot, #cursor-ring and their
-// `.hovering` states — historically the ring was never rendered and the hover
-// logic threw, so only a bare dot showed. Tier 2 wires the full behaviour:
-//   - the dot tracks the pointer closely; the ring lerps behind it (a calm,
-//     weighted trail rather than a rigid follow)
-//   - over interactive elements both grow into a "focus" state
-// Honours reduced-motion by snapping instantly (no trail) and relies on the
-// global reduced-motion CSS to neutralise the scale transitions.
+// Custom cursor: a brass dot inside a ring, on fine-pointer (desktop) devices.
+// Both are pinned exactly to the pointer; over interactive elements the dot
+// grows and the ring widens. The site's CSS styles #cursor-dot, #cursor-ring
+// and their `.hovering` states, and centres each on its coordinates with a
+// translate(-50%, -50%).
 export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
@@ -21,24 +17,20 @@ export default function CustomCursor() {
     const ring = ringRef.current;
     if (!dot || !ring) return;
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    // Target (pointer) and current (rendered) positions for the trailing ring.
-    let tx = -100,
-      ty = -100;
-    let rx = tx,
-      ry = ty;
+    // Park both offscreen until the pointer first moves, otherwise they render
+    // in the top-left corner on load.
+    for (const el of [dot, ring]) {
+      el.style.left = "-100px";
+      el.style.top = "-100px";
+    }
 
     function onMove(e: MouseEvent) {
-      tx = e.clientX;
-      ty = e.clientY;
-      // Dot always sits exactly under the pointer.
-      dot!.style.left = tx + "px";
-      dot!.style.top = ty + "px";
-      if (reduce) {
-        ring!.style.left = tx + "px";
-        ring!.style.top = ty + "px";
-      }
+      const x = e.clientX + "px";
+      const y = e.clientY + "px";
+      dot!.style.left = x;
+      dot!.style.top = y;
+      ring!.style.left = x;
+      ring!.style.top = y;
     }
 
     // Interactive-element hover -> focus state on both dot and ring.
@@ -60,24 +52,10 @@ export default function CustomCursor() {
     document.addEventListener("mouseover", onOver);
     document.addEventListener("mouseout", onOut);
 
-    let raf = 0;
-    if (!reduce) {
-      const follow = () => {
-        // Ease the ring toward the pointer for a weighted trail.
-        rx += (tx - rx) * 0.18;
-        ry += (ty - ry) * 0.18;
-        ring!.style.left = rx + "px";
-        ring!.style.top = ry + "px";
-        raf = requestAnimationFrame(follow);
-      };
-      raf = requestAnimationFrame(follow);
-    }
-
     return () => {
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseover", onOver);
       document.removeEventListener("mouseout", onOut);
-      if (raf) cancelAnimationFrame(raf);
     };
   }, []);
 

@@ -26,6 +26,7 @@ export default function CommissionsOverlay({
     <div
       id="commissions-overlay"
       className={`commissions-overlay${section ? " active" : ""}`}
+      data-lenis-prevent
     >
       <div className="overlay-header">
         <h3 className="overlay-title" id="overlay-title">

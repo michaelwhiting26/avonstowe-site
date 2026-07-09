@@ -18,7 +18,7 @@ export default function LegalOverlays({
 }) {
   return (
     <>
-      <div id="legal-privacy" className={`legal-overlay${active === "privacy" ? " active" : ""}`}>
+      <div id="legal-privacy" className={`legal-overlay${active === "privacy" ? " active" : ""}`} data-lenis-prevent>
         <div className="legal-close">
           <button onClick={() => onClose("privacy")}>Close ✕</button>
         </div>
@@ -105,7 +105,7 @@ export default function LegalOverlays({
         </div>
       </div>
 
-      <div id="legal-terms" className={`legal-overlay${active === "terms" ? " active" : ""}`}>
+      <div id="legal-terms" className={`legal-overlay${active === "terms" ? " active" : ""}`} data-lenis-prevent>
         <div className="legal-close">
           <button onClick={() => onClose("terms")}>Close ✕</button>
         </div>
@@ -146,7 +146,7 @@ export default function LegalOverlays({
         </div>
       </div>
 
-      <div id="legal-cookies" className={`legal-overlay${active === "cookies" ? " active" : ""}`}>
+      <div id="legal-cookies" className={`legal-overlay${active === "cookies" ? " active" : ""}`} data-lenis-prevent>
         <div className="legal-close">
           <button onClick={() => onClose("cookies")}>Close ✕</button>
         </div>

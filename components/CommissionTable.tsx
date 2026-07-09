@@ -7,8 +7,10 @@ const scopeStyle = { color: "#6a8fc4", fontSize: "11px" } as const;
 
 // Desktop scrollable table of commissions, mirroring the original .table-wrap markup.
 export default function CommissionTable({ items }: { items: Commission[] }) {
+  // data-lenis-prevent: Lenis' smooth wheel handler swallows wheel events
+  // page-wide, so without it this inner scroll area never scrolls natively.
   return (
-    <div className="table-wrap">
+    <div className="table-wrap" data-lenis-prevent>
       <table>
         <thead>
           <tr>
