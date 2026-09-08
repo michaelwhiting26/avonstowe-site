@@ -1,77 +1,75 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
-import OverlayProvider from "@/components/OverlayProvider";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
-import ScrollProgress from "@/components/ScrollProgress";
-import BackToTop from "@/components/BackToTop";
-import CookieBanner from "@/components/CookieBanner";
-import CustomCursor from "@/components/CustomCursor";
-import SmoothScroll from "@/components/SmoothScroll";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import JsonLd from "@/components/seo/JsonLd";
+import { site } from "@/content/site";
+import { getPublishableLead } from "@/lib/consent";
+import { assertContentValid } from "@/lib/content-validation";
+import { graph, personSchema, professionalServiceSchema } from "@/lib/structured-data";
 
-// Self-hosted via next/font: fonts are served from our own origin (no
-// render-blocking third-party request, automatic preload, display: swap).
-// Exposed as CSS variables the stylesheet consumes through --serif / --sans.
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-serif",
-  display: "swap",
-});
-const sans = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-sans",
-  display: "swap",
-});
+/**
+ * BUILD GATE.
+ * Runs during `next build` for every page. Publishing a person without evidenced
+ * consent, or shipping prohibited claims, fails the build here rather than being
+ * caught by someone reading the site later.
+ */
+assertContentValid();
 
-const SITE_URL = "https://www.avonstowe.com";
-const TITLE = "Avonstowe | Construction & Engineering Disputes";
-const DESCRIPTION =
-  "Independent quantum, delay and commercial expertise across construction and engineering disputes. Partner-level service across the Middle East, UK and internationally.";
+const TITLE = "Avonstowe | Forensic Quantum & Delay Analysis";
+const DESCRIPTION = `${site.positioning.headline} ${site.positioning.supporting}`;
 
-// Favicons come from the App Router file convention (app/icon.png,
-// app/apple-icon.png) using the current Avonstowe brand mark.
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: TITLE,
+  metadataBase: new URL(site.url),
+  title: {
+    default: TITLE,
+    // Sub-pages set their own title; this appends the firm name consistently.
+    template: "%s | Avonstowe",
+  },
   description: DESCRIPTION,
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    url: SITE_URL,
-    siteName: "Avonstowe",
+    url: site.url,
+    siteName: site.name,
     title: TITLE,
     description: DESCRIPTION,
+    locale: "en_GB",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
-  },
+  twitter: { card: "summary", title: TITLE, description: DESCRIPTION },
+  robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#0b1e3b",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const lead = getPublishableLead();
+
+  // Site-wide entity graph. Person and ProfessionalService reference each other by
+  // @id so search engines can resolve them as one organisation and one named person.
+  const entityGraph = graph(
+    lead ? [professionalServiceSchema(lead), personSchema(lead)] : [professionalServiceSchema(null)],
+  );
+
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable}`}>
-      <body>
-        <OverlayProvider>
-          <SmoothScroll>
-            <ScrollProgress />
-            <BackToTop />
-            <CookieBanner />
-            <Nav />
-            {children}
-            <Footer />
-            <CustomCursor />
-          </SmoothScroll>
-        </OverlayProvider>
+    <html lang="en-GB">
+      <body className="flex min-h-screen flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-[var(--color-navy)] focus:px-4 focus:py-2 focus:text-[var(--color-paper)]"
+        >
+          Skip to content
+        </a>
+        <Header />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <Footer />
+        <JsonLd data={entityGraph} />
       </body>
     </html>
   );

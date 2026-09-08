@@ -1,0 +1,19 @@
+# Cloudflare Pages redirects.
+#
+# The previous site was a single page using in-page anchors, so there are few real
+# legacy URLs. These map the anchors and any speculative legacy paths onto the new
+# information architecture so that old links and bookmarks land somewhere sensible
+# rather than on a 404.
+#
+# NOTE: GitHub Pages ignores this file — it has no redirect support for static
+# sites. On GitHub Pages these paths will 404 to app/not-found.tsx instead.
+
+/services            /what-we-do        301
+/what-we-do.html     /what-we-do        301
+/geographic-reach    /experience        301
+/geography           /experience        301
+/credentials         /experience        301
+/commissions         /experience        301
+/enquire             /contact           301
+/contact.html        /contact           301
+/index.html          /                  301
