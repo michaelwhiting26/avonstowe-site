@@ -15,10 +15,7 @@ export default function DisciplineSection() {
       <Reveal>
         <p className="section-eyebrow">One discipline</p>
         <div className="discipline-body">
-          <p>
-            Avonstowe does one thing: it works out what the money should be, and proves it from the
-            record.
-          </p>
+          <p>Avonstowe is an independent quantum practice.</p>
           <p>
             That means valuing the change, testing what the other side has claimed for it, and
             building the analysis to a standard that survives a joint statement and a hearing. It is

@@ -105,8 +105,8 @@ export default function GeographyMap() {
         <p className="geo-map-lead">
           Quantum analysis on matters in {drawn.length} jurisdictions, across civil and common law,
           in arbitration, adjudication, litigation and negotiated settlement. Every highlighted
-          jurisdiction is one in which a commission has been recorded — the map is drawn from the
-          same {OVERALL.commissions} commissions listed above, not from a target market.
+          jurisdiction is one in which a commission has been recorded — {OVERALL.commissions} in
+          total — not a target market.
         </p>
       </Reveal>
 

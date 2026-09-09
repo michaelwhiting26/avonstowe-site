@@ -1,7 +1,7 @@
 import Hero from "@/components/Hero";
 import DisciplineSection from "@/components/DisciplineSection";
 import AnalysisScope from "@/components/AnalysisScope";
-import ServicesSection from "@/components/ServicesSection";
+import MattersSection from "@/components/MattersSection";
 import GeographyMap from "@/components/GeographyMap";
 import PersonSection from "@/components/PersonSection";
 import MethodSection from "@/components/MethodSection";
@@ -17,7 +17,7 @@ export default function Home() {
       <Hero />
       <DisciplineSection />
       <AnalysisScope />
-      <ServicesSection />
+      <MattersSection />
       <GeographyMap />
       <PersonSection />
       <MethodSection />
