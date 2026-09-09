@@ -54,9 +54,9 @@ export default function ContactSection() {
     <section className="contact-section" id="contact">
       <div className="contact-inner">
         <p className="section-eyebrow">Enquiries</p>
-        <h2 style={headingStyle}>Discuss Your Matter</h2>
+        <h2 style={headingStyle}>Discuss a matter</h2>
         <p style={leadStyle}>
-          All enquiries are treated in confidence. We will review your matter and respond directly.
+          Send the issue and the documents you have. You will get a straight view on whether the quantum can be supported, and what it would take to build it. All enquiries are treated in confidence.
         </p>
         <form
           className="contact-form"
@@ -127,7 +127,7 @@ export default function ContactSection() {
                 id="matter"
                 name="matter"
                 type="text"
-                placeholder="e.g. Arbitration, Adjudication, Expert Appointment, Project Advisory"
+                placeholder="e.g. Variations, Prolongation, Disruption, Final Account"
                 required
               />
             </div>

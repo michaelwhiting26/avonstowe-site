@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { practiceAreas } from "@/lib/practiceAreas";
 import { commissions, PREVIEW_COUNT, type ServiceKey } from "@/lib/commissions";
 import { useOverlay } from "./OverlayProvider";
 import CommissionTable from "./CommissionTable";
@@ -9,85 +7,40 @@ import CommissionCards from "./CommissionCards";
 import { Reveal } from "./Motion";
 import CountUp from "./CountUp";
 
+/**
+ * The commission record — the proof link.
+ *
+ * rev3 presented this behind three practice-area tabs, which made the taxonomy
+ * the navigation and forced the reader to choose a service line before seeing
+ * any evidence. The tabs are gone: one list, in one continuous scroll. ServiceKey
+ * survives as a data field because lib/commissions.ts is keyed by it and that
+ * file is evidence and is not modified — but it no longer steers the page.
+ */
+const ORDER: ServiceKey[] = ["expert", "disputes", "advisory"];
+const allCommissions = ORDER.flatMap((key) => commissions[key]);
+
 export default function ServicesSection() {
-  const [active, setActive] = useState<ServiceKey>("expert");
-  // The two inactive tabs pulse ("tab-hint") until the first interaction,
-  // exactly as the original showServicePanel() cleared the hint on first click.
-  const [interacted, setInteracted] = useState(false);
   const { openCommissions } = useOverlay();
 
-  function selectTab(key: ServiceKey) {
-    setActive(key);
-    setInteracted(true);
-  }
-
   return (
-    <section className="services-section" id="services">
+    <section className="services-section" id="commissions">
       <Reveal className="section-header">
-        <p className="section-eyebrow">What We Do</p>
-        <h2 className="section-title">Our practice areas</h2>
+        <p className="section-eyebrow">The record</p>
+        <h2 className="section-title">Selected commissions</h2>
       </Reveal>
 
-      <div className="service-tabs" role="tablist" aria-label="Our practice areas">
-        {practiceAreas.map((area) => {
-          const isActive = area.key === active;
-          const hint = !interacted && !isActive;
-          const className = `tab-btn${isActive ? " active" : ""}${hint ? " tab-hint" : ""}`;
-          return (
-            <button
-              key={area.key}
-              className={className}
-              type="button"
-              role="tab"
-              onClick={() => selectTab(area.key)}
-              aria-selected={isActive}
-            >
-              {area.title}
-            </button>
-          );
-        })}
+      <div className="service-panel">
+        <p className="commissions-header">Selected Commissions (Scroll To View All)</p>
+
+        <CommissionTable items={allCommissions} />
+
+        <div className="mobile-list mobile-preview">
+          <CommissionCards items={allCommissions.slice(0, PREVIEW_COUNT)} />
+        </div>
+        <button className="mobile-view-all" onClick={() => openCommissions("expert")}>
+          View All Commissions (<CountUp value={allCommissions.length} />)
+        </button>
       </div>
-
-      {practiceAreas.map((area) => {
-        const items = commissions[area.key];
-        const isActive = area.key === active;
-        return (
-          <div
-            className="service-panel"
-            id={`panel-${area.key}`}
-            style={{ display: isActive ? "block" : "none" }}
-            key={area.key}
-          >
-            <div className="service-intro">
-              <div className="service-number">{area.number}</div>
-              <div>
-                <h3 className="service-title">{area.title}</h3>
-                <p className="service-desc">{area.desc}</p>
-                <div className="service-tags">
-                  {area.tags.map((tag) => (
-                    <span className="tag" key={tag}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <p className="commissions-header">Selected Commissions (Scroll To View All)</p>
-
-            <CommissionTable items={items} />
-
-            <div className="mobile-list mobile-preview" id={`${area.key}-mobile-preview`}>
-              <CommissionCards items={items.slice(0, PREVIEW_COUNT)} />
-            </div>
-            <button
-              className="mobile-view-all"
-              onClick={() => openCommissions(area.key)}
-            >
-              View All Commissions (<CountUp value={items.length} />)
-            </button>
-          </div>
-        );
-      })}
     </section>
   );
 }

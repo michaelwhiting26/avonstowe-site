@@ -1,5 +1,5 @@
 import type { CountryAttribution } from "@/lib/geoAttribution";
-import { AREA_LABELS, OVERALL } from "@/lib/geoAttribution";
+import { OVERALL } from "@/lib/geoAttribution";
 
 /**
  * The attribution panel. Presentational only: it renders what it is given.
@@ -12,8 +12,6 @@ import { AREA_LABELS, OVERALL } from "@/lib/geoAttribution";
 
 type Props = { country: CountryAttribution | null };
 
-const AREAS = ["disputes", "expert", "advisory"] as const;
-
 export default function GeographyPanel({ country }: Props) {
   if (!country) {
     return (
@@ -21,14 +19,9 @@ export default function GeographyPanel({ country }: Props) {
         <p className="geo-panel-eyebrow">All jurisdictions</p>
         <p className="geo-panel-total">{OVERALL.commissions}</p>
         <p className="geo-panel-caption">commissions recorded</p>
-        <dl className="geo-panel-areas">
-          {AREAS.map((area) => (
-            <div key={area}>
-              <dt>{AREA_LABELS[area]}</dt>
-              <dd>{OVERALL.byArea[area]}</dd>
-            </div>
-          ))}
-        </dl>
+        <p className="geo-panel-caption geo-panel-sub">
+          in {OVERALL.jurisdictions} jurisdictions
+        </p>
         <p className="geo-panel-hint">
           Select a jurisdiction on the map or in the list to see the work recorded there.
         </p>
@@ -43,14 +36,6 @@ export default function GeographyPanel({ country }: Props) {
       <p className="geo-panel-caption">
         {country.total === 1 ? "commission recorded" : "commissions recorded"}
       </p>
-      <dl className="geo-panel-areas">
-        {AREAS.filter((area) => country.byArea[area] > 0).map((area) => (
-          <div key={area}>
-            <dt>{AREA_LABELS[area]}</dt>
-            <dd>{country.byArea[area]}</dd>
-          </div>
-        ))}
-      </dl>
       <div className="geo-panel-meta">
         <p className="geo-panel-label">Forums</p>
         <p className="geo-panel-value">{country.forums.join(" · ")}</p>

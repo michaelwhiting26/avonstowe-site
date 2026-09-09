@@ -1,18 +1,26 @@
 import Hero from "@/components/Hero";
-import ServiceIndex from "@/components/ServiceIndex";
+import DisciplineSection from "@/components/DisciplineSection";
+import AnalysisScope from "@/components/AnalysisScope";
 import ServicesSection from "@/components/ServicesSection";
-import GeographySection from "@/components/GeographySection";
 import GeographyMap from "@/components/GeographyMap";
+import PersonSection from "@/components/PersonSection";
+import MethodSection from "@/components/MethodSection";
 import ContactSection from "@/components/ContactSection";
 
+/**
+ * One page, one argument. Each section answers the question the section above it
+ * provokes: claim -> proof -> person -> reassurance -> contact.
+ */
 export default function Home() {
   return (
     <>
       <Hero />
-      <ServiceIndex />
+      <DisciplineSection />
+      <AnalysisScope />
       <ServicesSection />
-      <GeographySection />
       <GeographyMap />
+      <PersonSection />
+      <MethodSection />
       <ContactSection />
     </>
   );

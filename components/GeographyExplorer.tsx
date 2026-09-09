@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import GeographyPanel from "./GeographyPanel";
-import { AREA_LABELS, type CountryAttribution, type PracticeAreaKey } from "@/lib/geoAttribution";
+import type { CountryAttribution } from "@/lib/geoAttribution";
 import type { MapFrame } from "@/lib/worldPaths";
 
 /**
@@ -55,18 +55,14 @@ type Props = {
 
 const LEAVE_GRACE_MS = 150;
 
-const AREAS: PracticeAreaKey[] = ["disputes", "expert", "advisory"];
-
 /**
  * The button's accessible name carries the whole summary, so a screen reader
  * user gets the figures on focus. The panel is therefore not a live region —
  * announcing it on every hover would talk over everything else on the page.
  */
 function describe(c: CountryAttribution) {
-  const areas = AREAS.filter((a) => c.byArea[a] > 0)
-    .map((a) => `${AREA_LABELS[a]} ${c.byArea[a]}`)
-    .join(", ");
-  return `${c.name}: ${c.total} ${c.total === 1 ? "commission" : "commissions"}. ${areas}.`;
+  const forums = c.forums.join(", ");
+  return `${c.name}: ${c.total} ${c.total === 1 ? "commission" : "commissions"}. ${forums}.`;
 }
 
 export default function GeographyExplorer({

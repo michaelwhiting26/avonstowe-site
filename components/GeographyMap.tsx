@@ -6,9 +6,10 @@ import { ACTIVE_M49, NON_JURISDICTIONAL, OVERALL, geoAttribution } from "@/lib/g
 /**
  * Geographic reach, drawn.
  *
- * An additive section: it sits below <GeographySection /> and above
- * <ContactSection /> and changes nothing above it. Removing it is one import and
- * one line in app/page.tsx.
+ * The proof link: the single statement of reach on the page. The hand-typed
+ * region grid that used to sit above this was removed in rev4 — it duplicated
+ * the map and listed Latvia, which has no commission behind it. This section
+ * cannot make that mistake: it is derived from lib/commissions.ts.
  *
  * A country is drawn active if, and only if, the commission record in
  * lib/commissions.ts contains at least one row for it. Every count below is read
@@ -99,12 +100,13 @@ export default function GeographyMap() {
   return (
     <section className="geo-map-section" id="geographic-map">
       <Reveal>
-        <p className="section-eyebrow">Where The Work Has Been</p>
+        <p className="section-eyebrow">Reach</p>
         <h2 className="geo-map-title">{drawn.length} jurisdictions</h2>
         <p className="geo-map-lead">
-          Every highlighted jurisdiction is one in which a commission has been recorded. The map is
-          drawn from the same {OVERALL.commissions} commissions listed above, not from a target
-          market.
+          Quantum analysis on matters in {drawn.length} jurisdictions, across civil and common law,
+          in arbitration, adjudication, litigation and negotiated settlement. Every highlighted
+          jurisdiction is one in which a commission has been recorded — the map is drawn from the
+          same {OVERALL.commissions} commissions listed above, not from a target market.
         </p>
       </Reveal>
 

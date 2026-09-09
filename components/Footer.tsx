@@ -13,7 +13,7 @@ export default function Footer() {
         <span className="nav-wordmark">AVONSTOWE</span>
       </div>
       <div className="footer-note">
-        Construction &amp; Engineering Disputes · Expert Appointments · Project Advisory
+        Forensic Quantum Analysis · Construction &amp; Engineering Disputes
       </div>
 
       <div className="footer-contact">

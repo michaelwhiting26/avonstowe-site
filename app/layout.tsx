@@ -27,9 +27,9 @@ const sans = Inter({
 });
 
 const SITE_URL = "https://www.avonstowe.com";
-const TITLE = "Avonstowe | Construction & Engineering Disputes";
+const TITLE = "Avonstowe | Forensic Quantum Analysis";
 const DESCRIPTION =
-  "Independent quantum, delay and commercial expertise across construction and engineering disputes. Partner-level service across the Middle East, UK and internationally.";
+  "Avonstowe provides forensic quantum analysis to appointed experts, legal teams and parties in construction and engineering disputes, across the United Kingdom, the Gulf and North Africa.";
 
 // Favicons come from the App Router file convention (app/icon.png,
 // app/apple-icon.png) using the current Avonstowe brand mark.
