@@ -16,9 +16,8 @@ export default function Hero() {
           <span className="hero-line hero-line-gold">complex construction matters</span>
         </Item>
         <Item as="p" className="hero-desc">
-          Avonstowe advises on complex construction and engineering disputes and major projects. We
-          provide independent expert analysis, commercial judgement and senior-led dispute resolution
-          - across arbitration, adjudication, litigation and project advisory.
+          Avonstowe provides independent advice where major projects and complex disputes require
+          clear analysis, commercial judgement and defensible evidence.
         </Item>
         <Item className="hero-actions">
           <MagneticButton href="#contact" className="btn-primary">

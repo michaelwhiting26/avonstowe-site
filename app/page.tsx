@@ -1,16 +1,18 @@
 import Hero from "@/components/Hero";
-import IntroBand from "@/components/IntroBand";
+import ServiceIndex from "@/components/ServiceIndex";
 import ServicesSection from "@/components/ServicesSection";
 import GeographySection from "@/components/GeographySection";
+import GeographyMap from "@/components/GeographyMap";
 import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <IntroBand />
+      <ServiceIndex />
       <ServicesSection />
       <GeographySection />
+      <GeographyMap />
       <ContactSection />
     </>
   );

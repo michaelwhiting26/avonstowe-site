@@ -10,7 +10,7 @@ import { Reveal } from "./Motion";
 import CountUp from "./CountUp";
 
 export default function ServicesSection() {
-  const [active, setActive] = useState<ServiceKey>("disputes");
+  const [active, setActive] = useState<ServiceKey>("expert");
   // The two inactive tabs pulse ("tab-hint") until the first interaction,
   // exactly as the original showServicePanel() cleared the hint on first click.
   const [interacted, setInteracted] = useState(false);

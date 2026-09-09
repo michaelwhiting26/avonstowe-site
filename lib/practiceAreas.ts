@@ -14,8 +14,23 @@ export type PracticeArea = {
 
 export const practiceAreas: PracticeArea[] = [
   {
-    key: "disputes",
+    key: "expert",
     number: "01",
+    title: "Expert Appointments",
+    desc: "We accept appointments as quantum, delay and technical experts in arbitration, adjudication and related proceedings.",
+    tags: [
+      "Quantum Expert",
+      "Delay Expert",
+      "Technical Expert",
+      "Adjudicator",
+      "Arbitrator",
+      "Expert Determination",
+    ],
+    overlayTitle: "Expert Appointments",
+  },
+  {
+    key: "disputes",
+    number: "02",
     title: "Claims & Disputes",
     desc: "We advise on complex construction and engineering disputes arising from major projects.",
     tags: [
@@ -29,21 +44,6 @@ export const practiceAreas: PracticeArea[] = [
       "Loss & Expense",
     ],
     overlayTitle: "Claims & Disputes",
-  },
-  {
-    key: "expert",
-    number: "02",
-    title: "Expert Appointments",
-    desc: "We accept appointments as quantum, delay and technical experts in arbitration, adjudication and related proceedings.",
-    tags: [
-      "Quantum Expert",
-      "Delay Expert",
-      "Technical Expert",
-      "Adjudicator",
-      "Arbitrator",
-      "Expert Determination",
-    ],
-    overlayTitle: "Expert Appointments",
   },
   {
     key: "advisory",

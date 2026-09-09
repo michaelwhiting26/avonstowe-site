@@ -36,7 +36,7 @@ export default function LegalOverlays({
           <p>
             Avonstowe FZ LLC
             <br />
-            Dubai, United Arab Emirates
+            United Arab Emirates
             <br />
             Construction and engineering disputes consultancy
             <br />

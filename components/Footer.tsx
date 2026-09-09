@@ -20,7 +20,7 @@ export default function Footer() {
         <p>
           Enquiries: <a href="mailto:michael@avonstowe.com">michael@avonstowe.com</a>
         </p>
-        <p>Dubai, United Arab Emirates</p>
+        <p>United Arab Emirates</p>
         <p>Avonstowe FZ LLC</p>
       </div>
       <div className="footer-legal">
