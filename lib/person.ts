@@ -32,6 +32,8 @@ export type CareerEntry = {
 export type Person = {
   name: string;
   postNominals: string[];
+  /** Sit directly under the name, in place of a role title. */
+  specialisms: string[];
   credentials: Credential[];
   /** Dated, so a reader can compute seniority rather than be told it. */
   career: CareerEntry[];
@@ -39,22 +41,36 @@ export type Person = {
 };
 
 /**
- * WP0-B — the RICS Registered Expert Witness credential is held back pending
- * confirmation that the registration is current. An unverified professional
- * credential is not published. Restore it to `credentials` once confirmed.
- *
  * WP0-C — no role title is published. The CV of record says "Partner",
  * LinkedIn says "Principal" and rev2 says "Founder"; three public sources
  * cannot disagree on the site. Add `role` here once one is confirmed.
  */
 export const person: Person = {
   name: "Michael Whiting",
-  postNominals: ["BSc (Hons)"],
+  postNominals: [],
+  // PLACEHOLDER — supplied 10 September 2026, to be reviewed.
+  specialisms: [
+    "Drafting, interpreting and applying commercial terms in contracts",
+    "Able objectively to rank a range of potential valuation outcomes",
+    "Quantum on international infrastructure and energy projects — airports, refineries, power and process plant",
+    "Independent, technical opinion evidence to assist a court, tribunal, or arbitrator in resolving disputes",
+  ],
   credentials: [
-    { text: "BSc (Hons) Quantity Surveying — London South Bank University", inProgress: false },
-    { text: "LLB (Hons) — University of London", inProgress: true },
-    { text: "Forensic Quantum Analysis — College of Contract Management", inProgress: true },
-    { text: "Forensic Schedule Analysis — College of Contract Management", inProgress: true },
+    /**
+     * RICS's own term, used verbatim in their criteria documents and on every
+     * register footnote. Held first because it is the only credential here with
+     * an institution behind it.
+     *
+     * NOT "RICS Registered Expert Witness". That designation does not appear
+     * against this name on the published lists (October 2025, September 2025) or
+     * on the March 2026 Accredited register, and RICS closed it to anyone
+     * passing the certificate after June 2024 — the whole designation expires on
+     * 1 January 2028. Restore it only on written confirmation from RICS DRS.
+     */
+    { text: "RICS Expert Witness Certificate", inProgress: false },
+    { text: "BSc (Hons) Quantity Surveying", inProgress: false },
+    { text: "LLB (Hons)", inProgress: true },
+    { text: "Diploma in Forensic Quantum Analysis", inProgress: true },
     { text: "Member, Society of Construction Law", inProgress: false },
   ],
   // From the CV of record (10 September 2026). Dates only — the reader draws
@@ -65,5 +81,5 @@ export const person: Person = {
     { organisation: "Balfour Beatty", period: "2014 — 2019" },
   ],
   bio:
-    "Michael Whiting leads Avonstowe's forensic work: the quantum analysis that sits beneath construction and engineering disputes. He supports party-appointed quantum experts in international arbitration and advises employers, contractors and subcontractors on prolongation, disruption, variations, productivity, loss and expense, final accounts and commercial recovery. He works across process plant and energy, infrastructure and major development, principally in the GCC, the United Kingdom and North Africa. He entered the industry at sixteen as an apprentice quantity surveyor with Balfour Beatty, and that contractor-side background — procurement, subcontract management, valuation, change control, distressed account recovery and final account negotiation — is what the forensic work is built on.",
+    "Michael Whiting supports party-appointed quantum experts in international arbitration and advises employers, contractors and subcontractors on prolongation, disruption, variations, productivity, loss and expense, final accounts and commercial recovery. He works across process plant and energy, infrastructure and major development, principally in the GCC, the United Kingdom and North Africa. He entered the industry at sixteen as an apprentice quantity surveyor with Balfour Beatty, and that contractor-side background — procurement, valuation, change control and distressed account recovery — is what the forensic work is built on.",
 };

@@ -1318,8 +1318,9 @@
      each) shout louder than the United Kingdom (125). The muted fill keeps the
      claim binary — engaged here, or not — and leaves the counts to the text. */
   .geo-map-section {
-    background: var(--navy-900);
-    padding: 5rem 3rem;
+    /* Darker than the page ground so the coastline reads without a stroke. */
+    background: #070c15;
+    padding: 4rem 1.5rem;
     border-top: 1px solid rgba(200, 164, 74, 0.12);
   }
 
@@ -1344,9 +1345,12 @@
   /* aspect-ratio reserves the space before the SVG paints, so the reveal cannot
      shift the page. */
   .geo-map-frame {
-    /* Top spacing comes from .geo-map-layout; the frame only reserves its own
-       aspect so the reveal cannot shift the page. */
+    /* aspect-ratio below reserves the space, so nothing shifts on load. */
     margin-top: 0;
+    /* The map is the only thing in this section; let it sit rather than fill. */
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .geo-map-frame-wide { aspect-ratio: 2000 / 1195; }
   .geo-map-frame-narrow { display: none; aspect-ratio: 611 / 580; }
@@ -1363,6 +1367,38 @@
     width: 100%;
     height: 100%;
     display: block;
+  }
+
+  /* Continent segments. Measured: navy-800 against navy-700 on this ground is
+     1.17:1 — invisible — and widening it broke the brass contrast. The region
+     tier is therefore a stroke on a dissolved outline, drawn under the countries,
+     which reads at any size because a hairline does not compress the way two
+     dark fills do. */
+  /* Land outside the covered regions: one dissolved silhouette per continent,
+     no internal borders and no stroke. A stroke would draw a seam down every
+     continent boundary — most visibly through Russia, where Europe meets Asia —
+     and the borders carry no information out here. */
+  .geo-continent {
+    /* Recessive: land outside the covered regions should read as ground, not as
+       a second subject competing with the brass. */
+    /* Desaturated rather than merely darkened: a charcoal silhouette recedes,
+       where a saturated navy reads as a second subject competing with the brass. */
+    fill: #131c2c;
+    stroke: none;
+  }
+
+  /* The covered regions: filled, with their country borders visible inside the
+     fill so the region reads as made of jurisdictions rather than as a blob. */
+  .geo-country.is-covered {
+    fill: url(#avonstowe-world-brass);
+    /* Borders lighter than the fill, not darker. A dark hairline reads as a
+       crack through the region; a light one reads as detail within it — the
+       same reason Hanscomb draws theirs in white. */
+    stroke: var(--brass-100);
+    stroke-opacity: 0.22;
+    stroke-width: 0.5;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
   }
 
   .geo-country {
@@ -1392,155 +1428,11 @@
 
   @media (max-width: 768px) {
     .geo-map-section {
-      padding: 3rem 1.5rem;
+      padding: 2.5rem 1rem;
     }
     .geo-map-frame-wide { display: none; }
     .geo-map-frame-narrow { display: block; }
     .geo-map-note-narrow { display: block; }
-  }
-
-  /* ---- Geographic reach map: interaction layer ---- */
-  .geo-map-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
-    gap: 3rem;
-    margin-top: 3rem;
-    align-items: start;
-  }
-  .geo-map-layout:focus { outline: none; }
-
-  .geo-hit {
-    fill: transparent;
-    stroke: none;
-    cursor: pointer;
-  }
-
-  /* Selection is a ring at the country's centroid rather than a re-filled
-     outline: the client layer holds no path geometry (see GeographyExplorer). */
-  .geo-marker {
-    fill: none;
-    stroke: var(--brass-200);
-    stroke-width: 2;
-    vector-effect: non-scaling-stroke;
-    pointer-events: none;
-  }
-
-  /* The panel footprint is fixed, not minimum: the tallest content (the United
-     Kingdom, with the longest roles list) is ~100px taller than the shortest, and
-     a min-height would let that difference push the jurisdiction list below it
-     down every time the selection changed. Anything longer scrolls inside the
-     panel rather than being clipped. */
-  .geo-panel {
-    height: 420px;
-    overflow-y: auto;
-    padding: 1.75rem;
-    border: 1px solid rgba(200, 164, 74, 0.18);
-    background: var(--navy-800);
-  }
-  .geo-panel-eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--brass-400);
-  }
-  .geo-panel-total {
-    font-family: var(--serif);
-    font-size: 3rem;
-    font-weight: 300;
-    line-height: 1;
-    color: var(--white);
-    margin-top: 0.75rem;
-    font-variant-numeric: tabular-nums;
-  }
-  .geo-panel-caption {
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--navy-300);
-    margin-top: 0.35rem;
-  }
-  .geo-panel-areas {
-    margin-top: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-  .geo-panel-areas > div {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    font-size: 12px;
-    color: var(--navy-200);
-  }
-  .geo-panel-areas dd {
-    color: var(--brass-300);
-    font-variant-numeric: tabular-nums;
-  }
-  .geo-panel-meta { margin-top: 1.25rem; }
-  .geo-panel-label {
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--brass-500);
-  }
-  .geo-panel-value {
-    font-size: 12px;
-    line-height: 1.6;
-    color: var(--navy-200);
-    margin-top: 0.3rem;
-  }
-  .geo-panel-hint {
-    margin-top: 1.5rem;
-    font-size: 11.5px;
-    line-height: 1.6;
-    color: var(--navy-300);
-  }
-
-  /* The jurisdiction list is the keyboard and touch control, not a decoration. */
-  .geo-list {
-    list-style: none;
-    margin-top: 1.5rem;
-    display: flex;
-    flex-direction: column;
-  }
-  .geo-list-btn {
-    width: 100%;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.5rem 0.25rem;
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid rgba(200, 164, 74, 0.1);
-    color: var(--navy-200);
-    font: inherit;
-    font-size: 12.5px;
-    text-align: left;
-    cursor: pointer;
-  }
-  .geo-list-btn:hover,
-  .geo-list-btn.is-selected {
-    color: var(--brass-300);
-    background: rgba(200, 164, 74, 0.06);
-  }
-  .geo-list-btn:focus-visible {
-    outline: 2px solid var(--brass-400);
-    outline-offset: -2px;
-  }
-  .geo-list-count {
-    color: var(--brass-500);
-    font-variant-numeric: tabular-nums;
-  }
-
-  @media (max-width: 1024px) {
-    .geo-map-layout {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-  }
-  @media (max-width: 768px) {
-    .geo-panel { height: 360px; padding: 1.25rem; }
   }
 
   /* ============================================================
@@ -1614,9 +1506,17 @@
     color: var(--brass-400);
     white-space: nowrap;
   }
-  .person-bio {
+  .person-intro {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
     margin-top: 1.25rem;
-    max-width: 68ch;
+  }
+
+  .person-bio {
+    margin-top: 0;
+    max-width: 60ch;
     font-size: 14px;
     line-height: 1.8;
     color: var(--navy-100);
@@ -1694,27 +1594,6 @@
     color: var(--navy-200);
     max-width: 58ch;
   }
-  .entity-disclosure {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(200, 164, 74, 0.15);
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-  .entity-disclosure > div {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    font-size: 12px;
-  }
-  .entity-disclosure dt {
-    color: var(--navy-300);
-  }
-  .entity-disclosure dd {
-    color: var(--navy-100);
-    text-align: right;
-  }
 
   @media (min-width: 769px) {
     .discipline-section,
@@ -1728,6 +1607,12 @@
       column-gap: 4rem;
       row-gap: 2.5rem;
     }
+    .person-intro {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 4rem;
+      /* The bio sits with the specialisms rather than the display heading. */
+      margin-top: 1.75rem;
+    }
     .person-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 4rem;
@@ -1736,17 +1621,6 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       column-gap: 4rem;
       row-gap: 3rem;
-    }
-    .entity-disclosure {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 2rem;
-    }
-    .entity-disclosure > div {
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-    .entity-disclosure dd {
-      text-align: left;
     }
   }
 
@@ -1896,17 +1770,15 @@
     letter-spacing: 0.06em;
     color: var(--brass-300);
   }
-  .matter-summary {
-    margin-top: 1rem;
-    font-size: 13px;
-    line-height: 1.7;
-    color: var(--navy-200);
-    /* Pushes the heads to the foot of every card, so the rail has one baseline. */
+  .matter-heads-grown {
     flex: 1;
+    align-content: start;
   }
 
   .matter-heads {
     list-style: none;
+    /* The summary sentence was removed, so the tag block takes its place and
+       pushes to the foot of the card to keep one baseline across the rail. */
     margin-top: 1.5rem;
     padding-top: 1.25rem;
     border-top: 1px solid rgba(200, 164, 74, 0.12);
@@ -1960,4 +1832,69 @@
     .matters-rail {
       scroll-snap-type: none;
     }
+  }
+
+  /* Sit under the name in the slot a role title would occupy. */
+  .person-specialisms {
+    list-style: none;
+    margin-top: 0.9rem;
+    max-width: 62ch;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .person-specialisms li {
+    position: relative;
+    padding-left: 0.9rem;
+    font-size: 13px;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    color: var(--brass-300);
+  }
+  .person-specialisms li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 5px;
+    height: 1px;
+    background: var(--brass-500);
+  }
+
+  /* Headquarters marker — the only point on a region-level map. */
+  .geo-hq-halo {
+    fill: #070c15;
+    fill-opacity: 0.82;
+  }
+  .geo-hq-ring {
+    fill: none;
+    stroke: var(--brass-200);
+    stroke-width: 1;
+    stroke-opacity: 0.85;
+    vector-effect: non-scaling-stroke;
+  }
+  .geo-hq-dot {
+    fill: var(--brass-100);
+    stroke: none;
+  }
+
+  .geo-map-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    margin: 1.5rem auto 0;
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--navy-200);
+  }
+  .geo-map-legend-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--off-white);
+    box-shadow: 0 0 0 3px rgba(226, 204, 153, 0.35);
+    flex: 0 0 auto;
   }

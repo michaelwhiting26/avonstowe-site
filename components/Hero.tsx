@@ -7,7 +7,7 @@ export default function Hero() {
       <div className="hero-rule"></div>
       <Stagger>
         <Item as="p" className="hero-eyebrow">
-          United Kingdom · Gulf · North Africa
+          Arbitration · Adjudication · Litigation
         </Item>
         <Item as="h1" className="hero-title">
           {/* The two spans render inline on mobile (<=768px); the original HTML kept a
@@ -16,8 +16,8 @@ export default function Hero() {
           <span className="hero-line hero-line-gold">for construction and engineering disputes</span>
         </Item>
         <Item as="p" className="hero-desc">
-          Avonstowe quantifies loss on construction and engineering disputes, and builds the
-          analysis that appointed experts, legal teams and parties rely on.
+          Independent specialist practice. Instructed by parties, their legal advisers and
+          appointed experts.
         </Item>
         <Item className="hero-actions">
           <MagneticButton href="#contact" className="btn-primary">

@@ -25,9 +25,21 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { feature } from "topojson-client";
+import { feature, merge } from "topojson-client";
 import { geoMercator, geoPath } from "d3-geo";
 import { createRequire } from "node:module";
+
+// Country -> continent, keyed on the Natural Earth `name` exactly as it appears
+// in lib/worldPaths.ts. Hand-authored so every assignment is deliberate.
+const CONTINENT = {
+  Africa: ["Algeria","Angola","Benin","Botswana","Burkina Faso","Burundi","Cameroon","Central African Rep.","Chad","Congo","Côte d'Ivoire","Dem. Rep. Congo","Djibouti","Egypt","Eq. Guinea","Eritrea","eSwatini","Ethiopia","Gabon","Gambia","Ghana","Guinea","Guinea-Bissau","Kenya","Lesotho","Liberia","Libya","Madagascar","Malawi","Mali","Mauritania","Morocco","Mozambique","Namibia","Niger","Nigeria","Rwanda","S. Sudan","Senegal","Sierra Leone","Somalia","South Africa","Sudan","Tanzania","Togo","Tunisia","Uganda","W. Sahara","Zambia","Zimbabwe"],
+  Asia: ["Afghanistan","Armenia","Azerbaijan","Bahrain","Bangladesh","Bhutan","Brunei","Cambodia","China","Cyprus","Georgia","India","Indonesia","Iran","Iraq","Israel","Japan","Jordan","Kazakhstan","Kuwait","Kyrgyzstan","Laos","Lebanon","Malaysia","Mongolia","Myanmar","Nepal","North Korea","Oman","Pakistan","Palestine","Philippines","Qatar","Saudi Arabia","South Korea","Sri Lanka","Syria","Taiwan","Tajikistan","Thailand","Timor-Leste","Turkey","Turkmenistan","United Arab Emirates","Uzbekistan","Vietnam","Yemen"],
+  Europe: ["Albania","Austria","Belarus","Belgium","Bosnia and Herz.","Bulgaria","Croatia","Czechia","Denmark","Estonia","Finland","France","Germany","Greece","Guernsey","Hungary","Iceland","Ireland","Italy","Kosovo","Latvia","Lithuania","Luxembourg","Macedonia","Moldova","Montenegro","Netherlands","Norway","Poland","Portugal","Romania","Russia","Serbia","Slovakia","Slovenia","Spain","Sweden","Switzerland","Ukraine","United Kingdom"],
+  "North America": ["Bahamas","Barbados","Belize","Canada","Costa Rica","Cuba","Dominican Rep.","El Salvador","Greenland","Guatemala","Haiti","Honduras","Jamaica","Mexico","Nicaragua","Panama","Puerto Rico","Trinidad and Tobago","United States of America"],
+  "South America": ["Argentina","Bolivia","Brazil","Chile","Colombia","Ecuador","Falkland Is.","Guyana","Paraguay","Peru","Suriname","Uruguay","Venezuela"],
+  Oceania: ["Australia","Fiji","New Caledonia","New Zealand","Papua New Guinea","Solomon Is.","Vanuatu"],
+  Antarctic: ["Fr. S. Antarctic Lands"],
+};
 
 const require = createRequire(import.meta.url);
 const world110 = require("world-atlas/countries-110m.json");
@@ -94,6 +106,11 @@ for (const f of feature(world50, world50.objects.countries).features) {
   fine.set(String(f.id), f);
 }
 
+const continentOf = new Map();
+for (const [continent, list] of Object.entries(CONTINENT)) {
+  for (const name of list) continentOf.set(name, continent);
+}
+
 const required = requiredM49();
 const ANTARCTICA = "010";
 
@@ -128,7 +145,13 @@ for (const [id, f] of rows) {
   // Projected bounding box, so "is this country visible in the mobile frame?"
   // is answered by geometry rather than by eye.
   const [[bx0, by0], [bx1, by1]] = pathFor.bounds(f);
+  const continent = continentOf.get(f.properties?.name ?? "");
+  if (!continent) {
+    console.error(`FATAL: no continent mapped for "${f.properties?.name}". Add it to CONTINENT.`);
+    process.exit(1);
+  }
   paths.push({
+    continent,
     m49: id,
     name: f.properties?.name ?? id,
     d: round(d),
@@ -137,13 +160,29 @@ for (const [id, f] of rows) {
     bbox: [bx0, by0, bx1, by1].map((n) => Math.round(n * 10) / 10),
   });
 }
-paths.sort((a, b) => a.name.localeCompare(b.name));
+paths.sort((a, b) => a.continent.localeCompare(b.continent) || a.name.localeCompare(b.name));
 
 const missing = [...required.keys()].filter((id) => !paths.some((p) => p.m49 === id));
 if (missing.length) {
   console.error(`FATAL: no rendered geometry for required m49 codes: ${missing.join(", ")}`);
   process.exit(1);
 }
+
+// --- Continent silhouettes -------------------------------------------------
+// Two dark navies on a near-black ground differ by about 1.17:1 — invisible.
+// Fill cannot carry the continent tier, so the continents are dissolved into a
+// single outline each and drawn as a stroke, which reads at any size.
+const geoms110 = world110.objects.countries.geometries;
+const nameOf110 = new Map(geoms110.map((g) => [String(g.id), g.properties?.name]));
+const continentPaths = [];
+for (const continent of Object.keys(CONTINENT)) {
+  if (continent === "Antarctic") continue; // outside the frame
+  const members = geoms110.filter((g) => continentOf.get(nameOf110.get(String(g.id))) === continent);
+  if (!members.length) continue;
+  const d = pathFor(merge(world110, members));
+  if (d) continentPaths.push({ continent, d: round(d) });
+}
+continentPaths.sort((a, b) => a.continent.localeCompare(b.continent));
 
 const out = `// AUTO-GENERATED.
 // Do not edit manually.
@@ -164,6 +203,8 @@ export type CountryPath = {
   cy: number;
   /** Projected bounds [x0, y0, x1, y1], used to test visibility in a frame. */
   bbox: [number, number, number, number];
+  /** Continent group. The map is drawn as continent segments of countries. */
+  continent: string;
 };
 
 /** Rectangle of the projected frame shown on narrow viewports. */
@@ -176,6 +217,10 @@ export const MAP_HEIGHT = ${HEIGHT};
 export const MOBILE_FRAME: MapFrame = ${JSON.stringify(mobileFrame)};
 
 export const worldPaths: CountryPath[] = ${JSON.stringify(paths, null, 2)};
+
+/** One dissolved outline per continent, drawn beneath the countries. */
+export type ContinentPath = { continent: string; d: string };
+export const continentPaths: ContinentPath[] = ${JSON.stringify(continentPaths, null, 2)};
 `;
 
 fs.writeFileSync(path.join("lib", "worldPaths.ts"), out);
@@ -184,4 +229,7 @@ const bytes = Buffer.byteLength(paths.map((p) => p.d).join(""), "utf8");
 const gz = require("node:zlib").gzipSync(Buffer.from(paths.map((p) => p.d).join(""))).length;
 console.log(`Wrote lib/worldPaths.ts — ${paths.length} countries, frame ${WIDTH}x${HEIGHT}`);
 if (supplemented.length) console.log(`Supplemented from 1:50m: ${supplemented.join(", ")}`);
+const byContinent = paths.reduce((acc, p) => ({ ...acc, [p.continent]: (acc[p.continent] ?? 0) + 1 }), {});
+console.log("Continent outlines:", continentPaths.map((c) => c.continent).join(" · "));
+console.log("Continents:", Object.entries(byContinent).map(([c, n]) => `${c} ${n}`).join(" · "));
 console.log(`Path data: ${(bytes / 1024).toFixed(1)} KB raw, ${(gz / 1024).toFixed(1)} KB gzipped`);

@@ -1,14 +1,11 @@
 import { Reveal, Stagger, Item } from "./Motion";
 import { method } from "@/lib/method";
-import { legalEntity } from "@/lib/entity";
 
 /**
  * Reassurance. No competitor in the twelve-firm study publishes a working
  * method, which makes this the one differentiator available truthfully and
  * immediately — and it is what answers "why should I trust how they work".
- *
- * The statutory disclosure sits under it for the same reason: two of eleven
- * publish theirs, and for a small firm identity is part of the reassurance.
+
  */
 export default function MethodSection() {
   return (
@@ -28,14 +25,6 @@ export default function MethodSection() {
         ))}
       </Stagger>
 
-      <Reveal as="dl" className="entity-disclosure">
-        {legalEntity.map((row) => (
-          <div key={row.label}>
-            <dt>{row.label}</dt>
-            <dd>{row.value}</dd>
-          </div>
-        ))}
-      </Reveal>
     </section>
   );
 }

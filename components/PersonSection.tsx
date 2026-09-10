@@ -14,13 +14,26 @@ export default function PersonSection() {
     <section className="person-section" id="person">
       <Reveal>
         <p className="section-eyebrow">Who does the work</p>
-        <h2 className="section-title">
-          {person.name}
-          {person.postNominals.length > 0 && (
-            <span className="person-postnominals"> {person.postNominals.join(" ")}</span>
-          )}
-        </h2>
-        <p className="person-bio">{person.bio}</p>
+        {/* Name and capabilities on the left, biography in the column beside
+            them — the right-hand half was empty and the bio was running to an
+            unreadable measure across the full width. Stacks on a phone in the
+            same reading order. */}
+        <div className="person-intro">
+          <div>
+            <h2 className="section-title">
+              {person.name}
+              {person.postNominals.length > 0 && (
+                <span className="person-postnominals"> {person.postNominals.join(" ")}</span>
+              )}
+            </h2>
+            <ul className="person-specialisms">
+              {person.specialisms.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <p className="person-bio">{person.bio}</p>
+        </div>
       </Reveal>
 
       <div className="person-grid">

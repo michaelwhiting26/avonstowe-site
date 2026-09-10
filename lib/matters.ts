@@ -17,7 +17,12 @@ export type Matter = {
   forum: string;
   /** Badge class suffix, matching the existing .forum-badge palette. */
   forumKey: "arbitration" | "litigation" | "adjudication";
-  jurisdiction: string;
+  /**
+   * Region, not country. Broadened so a matter cannot be identified from the
+   * combination of project type, forum and place — and so the three regions
+   * here read against the same three the coverage map shows.
+   */
+  region: string;
   parties: string;
   summary: string;
   heads: string[];
@@ -28,37 +33,37 @@ export const matters: Matter[] = [
     project: "Phosphate Plants",
     forum: "Arbitration",
     forumKey: "arbitration",
-    jurisdiction: "Morocco",
+    region: "Africa",
     parties: "Contractor v Subcontractor",
     summary:
       "Proceedings concerning prolongation, disruption, measured work, variations, loss of opportunity costs and head office overheads.",
     heads: ["Prolongation", "Disruption", "Measured work", "Variations", "Loss of opportunity", "Head office overheads"],
   },
   {
-    project: "Landmark Hotel",
-    forum: "Arbitration",
-    forumKey: "arbitration",
-    jurisdiction: "UAE",
-    parties: "Contractor v MEP Subcontractor",
-    summary:
-      "Proceedings concerning prolongation, disruption, variations and scope creep.",
-    heads: ["Prolongation", "Disruption", "Variations", "Scope creep"],
-  },
-  {
     project: "LPG Extraction & Fractionation Plant",
     forum: "Arbitration",
     forumKey: "arbitration",
-    jurisdiction: "Oman",
+    region: "Middle East",
     parties: "Contractor v Client",
     summary:
       "Proceedings concerning prolongation, disruption, variations and head office overheads.",
     heads: ["Prolongation", "Disruption", "Variations", "Head office overheads"],
   },
   {
+    project: "Landmark Hotel",
+    forum: "Arbitration",
+    forumKey: "arbitration",
+    region: "Middle East",
+    parties: "Contractor v MEP Subcontractor",
+    summary:
+      "Proceedings concerning prolongation, disruption, variations and scope creep.",
+    heads: ["Prolongation", "Disruption", "Variations", "Scope creep"],
+  },
+  {
     project: "Slaughterhouse & Associated Infrastructure",
     forum: "Arbitration",
     forumKey: "arbitration",
-    jurisdiction: "Oman",
+    region: "Middle East",
     parties: "Contractor v Client",
     summary:
       "Proceedings concerning prolongation, disruption, variations, late payment and head office overhead claims.",
@@ -68,7 +73,7 @@ export const matters: Matter[] = [
     project: "Commercial Office",
     forum: "Court of Session",
     forumKey: "litigation",
-    jurisdiction: "Scotland, UK",
+    region: "United Kingdom",
     parties: "Building Owner v Architect",
     summary:
       "Proceedings concerning remediation and additional works, prolongation, funding and financing costs, energy and operational expenditure, and internal management costs.",
@@ -78,7 +83,7 @@ export const matters: Matter[] = [
     project: "Retirement Village",
     forum: "Adjudication",
     forumKey: "adjudication",
-    jurisdiction: "UK",
+    region: "United Kingdom",
     parties: "MEP Subcontractor v Main Contractor",
     summary:
       "Proceedings concerning prolongation, contra-charges, liquidated damages, retention and interest.",

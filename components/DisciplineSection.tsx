@@ -15,12 +15,15 @@ export default function DisciplineSection() {
       <Reveal>
         <p className="section-eyebrow">One discipline</p>
         <div className="discipline-body">
-          <p>Avonstowe is an independent quantum practice.</p>
+          {/* The hero already states the discipline, the sector and the standing. This
+              section starts where the hero stops: the standard the work is held to. */}
           <p>
-            That means valuing the change, testing what the other side has claimed for it, and
-            building the analysis to a standard that survives a joint statement and a hearing. It is
-            the work that sits underneath an expert report, a claim, a defence or a settlement — and
-            it is all Avonstowe does.
+            The analysis is proportionate to what is in issue, delivered on the date agreed, and set
+            out so a tribunal can follow it.
+          </p>
+          <p>
+            The opinion is reasoned, and it covers what the evidence shows whether or not that
+            favours the party instructing.
           </p>
           <p>
             Where a matter needs delay or technical evidence alongside quantum, Avonstowe works with

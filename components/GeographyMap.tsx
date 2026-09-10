@@ -1,169 +1,193 @@
-import { Reveal } from "./Motion";
-import GeographyExplorer, { type ActiveCountry } from "./GeographyExplorer";
-import { MAP_HEIGHT, MAP_WIDTH, MOBILE_FRAME, worldPaths } from "@/lib/worldPaths";
-import { ACTIVE_M49, NON_JURISDICTIONAL, OVERALL, geoAttribution } from "@/lib/geoAttribution";
+import { MAP_HEIGHT, MAP_WIDTH, MOBILE_FRAME, continentPaths, worldPaths } from "@/lib/worldPaths";
+import { EXCLUDED_FROM_MAP, HEADQUARTERS, REGIONS } from "@/lib/publishedRegions";
 
 /**
- * Geographic reach, drawn.
+ * The map, and nothing else.
  *
- * The proof link: the single statement of reach on the page. The hand-typed
- * region grid that used to sit above this was removed in rev4 — it duplicated
- * the map and listed Latvia, which has no commission behind it. This section
- * cannot make that mistake: it is derived from lib/commissions.ts.
+ * A COVERAGE map. The regions Avonstowe works in — the United Kingdom and
+ * Europe, the Middle East, and Africa — are filled, with their country borders
+ * visible inside the fill. Everywhere else is a dissolved continent silhouette
+ * with no internal borders, so the covered regions are the only thing with
+ * detail in them.
  *
- * A country is drawn active if, and only if, the commission record in
- * lib/commissions.ts contains at least one row for it. Every count below is read
- * from lib/geoAttribution.ts, which is generated from that record.
+ * It does not claim a matter in every country shown, and is not read that way.
+ * The per-matter evidence is in Selected Matters, which names forum,
+ * jurisdiction and heads in issue for each.
  *
- * This stays a Server Component: the 177 outlines are rendered once into a <defs>
- * block here and referenced by <use> inside <GeographyExplorer />, so the heavy
- * geometry never crosses the client boundary.
+ * Two earlier attempts are recorded so they are not repeated. Tiering the
+ * continents by FILL failed on measurement — navy-800 against navy-700 on this
+ * ground is 1.17:1, which nobody can see, and widening it dropped the brass-to-
+ * base contrast below 3:1. Outlining the continents beneath the countries failed
+ * too: the outline is coincident with the country borders, so each country's own
+ * stroke drew straight over it. Dropping the inactive country borders solved
+ * both — they carried no information, and their absence lets the brass do the work.
+ *
+ * Server Component. No client JavaScript.
  */
 
-const activeSet = new Set(ACTIVE_M49);
+const excluded = new Set<string>(EXCLUDED_FROM_MAP);
+const published = REGIONS.filter((r) => r.published);
 
-/** Does any part of this country's projected geometry fall inside the frame? */
-function intersects(bbox: readonly [number, number, number, number], frame: typeof MOBILE_FRAME) {
-  const [x0, y0, x1, y1] = bbox;
-  return (
-    x1 >= frame.x && x0 <= frame.x + frame.width && y1 >= frame.y && y0 <= frame.y + frame.height
+/** Web Mercator, matching scripts/build-world-map.mjs. */
+const K = MAP_WIDTH / (2 * Math.PI);
+const mercY = (lat: number) => K * Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 180 / 2));
+const projX = (lon: number) => MAP_WIDTH / 2 + (K * lon * Math.PI) / 180;
+const projY = (lat: number) => mercY(80) - mercY(lat);
+
+const windows = published.map((r) => {
+  const [w, s, e, n] = r.bounds;
+  return { x0: projX(w), x1: projX(e), y0: projY(n), y1: projY(s) };
+});
+
+/**
+ * Natural Earth ships overseas territories inside their parent country's
+ * polygon — French Guiana with France, Svalbard with Norway. A path is a series
+ * of `M…Z` subpaths, so the fix is to drop the subpaths that fall outside every
+ * published region's bounds, not to drop the country.
+ */
+function clipToRegions(d: string): string {
+  return d
+    .split(/(?=M)/)
+    .filter((sub) => {
+      const nums = sub.match(/-?\d+(?:\.\d+)?/g);
+      if (!nums || nums.length < 4) return false;
+      let minX = Infinity;
+      let maxX = -Infinity;
+      let minY = Infinity;
+      let maxY = -Infinity;
+      for (let i = 0; i + 1 < nums.length; i += 2) {
+        const x = Number(nums[i]);
+        const y = Number(nums[i + 1]);
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+      return windows.some(
+        (win) => maxX >= win.x0 && minX <= win.x1 && maxY >= win.y0 && minY <= win.y1,
+      );
+    })
+    .join("");
+}
+
+const inPublishedRegion = (name: string, continent: string) =>
+  published.some(
+    (r) => r.continents?.includes(continent) || r.countries?.includes(name),
   );
-}
 
-const drawn = worldPaths.filter((c) => activeSet.has(c.m49));
-const offFrame = drawn.filter((c) => !intersects(c.bbox, MOBILE_FRAME));
-const offFrameNames = offFrame
-  .map((c) => geoAttribution.find((a) => a.m49 === c.m49)?.name ?? c.name)
-  .sort((a, b) => a.localeCompare(b));
+/** Every country inside a covered region, whether or not it carries a matter. */
+const covered = worldPaths
+  .filter((c) => !excluded.has(c.name) && inPublishedRegion(c.name, c.continent))
+  .map((c) => ({ ...c, d: clipToRegions(c.d) }))
+  .filter((c) => c.d.length > 0);
 
-/** Jurisdictions counted in the record but deliberately not drawn (see locationMap.ts). */
-const countedNotDrawn = geoAttribution.filter((c) => !c.render);
-const nonJurisdictional = NON_JURISDICTIONAL.reduce((n, e) => n + e.count, 0);
-const offMapTotal = countedNotDrawn.reduce((n, c) => n + c.total, 0) + nonJurisdictional;
+const coveredContinents = new Set(covered.map((c) => c.continent));
 
 /**
- * Hit areas for the 27 active countries. Derived here rather than in the client
- * so the interactive layer stays a thin state machine, and because two of these
- * rules exist to fix real defects found in testing:
- *
- *  - Russia crosses the antimeridian, so its projected bounding box is
- *    0,0 -> 2000,524: the entire northern half of the map. Left alone it would
- *    capture every hover over the United Kingdom, Scandinavia, Poland, Germany,
- *    Kazakhstan and Canada. Any box wider or taller than a quarter of the map is
- *    therefore clamped around the country's centroid.
- *  - Qatar's true box is about 5 x 10 units and Bahrain's is under 1 x 3, which
- *    is a fraction of a pixel. A floor of 8 units makes them findable with a
- *    mouse. It does not make them a touch target — nothing at this scale could
- *    be — which is why the jurisdiction list is the real control on a phone.
- *
- * Rects are then ordered largest first, so the smallest country is always
- * painted last and wins the pointer where boxes overlap.
+ * The one point on an otherwise region-level map. Both frames render at almost
+ * exactly the same pixels-per-unit — 0.55 wide, 0.56 narrow — so a single fixed
+ * radius reads at the same size in each without needing to be scaled.
  */
-const MIN_HIT = 8;
-const MAX_HIT_X = MAP_WIDTH / 4;
-const MAX_HIT_Y = MAP_HEIGHT / 4;
+const hq = worldPaths.find((c) => c.m49 === HEADQUARTERS.m49);
 
-const activeGeometry: ActiveCountry[] = drawn
-  .map((c) => {
-    const [x0, y0, x1, y1] = c.bbox;
-    const w = Math.min(Math.max(x1 - x0, MIN_HIT), MAX_HIT_X);
-    const h = Math.min(Math.max(y1 - y0, MIN_HIT), MAX_HIT_Y);
-    const cx = Math.min(Math.max(c.cx, w / 2), MAP_WIDTH - w / 2);
-    const cy = Math.min(Math.max(c.cy, h / 2), MAP_HEIGHT - h / 2);
-    return {
-      m49: c.m49,
-      cx: c.cx,
-      cy: c.cy,
-      hit: [
-        Math.round((cx - w / 2) * 10) / 10,
-        Math.round((cy - h / 2) * 10) / 10,
-        Math.round(w * 10) / 10,
-        Math.round(h * 10) / 10,
-      ] as [number, number, number, number],
-    };
-  })
-  .sort((a, b) => b.hit[2] * b.hit[3] - a.hit[2] * a.hit[3]);
-
-/** Ordered by commission count so the keyboard reaches the United Kingdom first. */
-const drawnAttribution = geoAttribution.filter((c) => c.render);
-
-const TITLE = `World map showing the ${drawn.length} jurisdictions in which Avonstowe has been engaged.`;
-
+const TITLE = `World map. The highlighted regions are the United Kingdom and Europe, the Middle East, and Africa. Avonstowe is headquartered in the United Arab Emirates, marked with a point.`;
 const SYMBOL_ID = "avonstowe-world";
-
-function formatList(names: string[]) {
-  if (names.length < 2) return names.join("");
-  return `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
-}
 
 export default function GeographyMap() {
   return (
     <section className="geo-map-section" id="geographic-map">
-      <Reveal>
-        <p className="section-eyebrow">Reach</p>
-        <h2 className="geo-map-title">{drawn.length} jurisdictions</h2>
-        <p className="geo-map-lead">
-          Quantum analysis on matters in {drawn.length} jurisdictions, across civil and common law,
-          in arbitration, adjudication, litigation and negotiated settlement. Every highlighted
-          jurisdiction is one in which a commission has been recorded — {OVERALL.commissions} in
-          total — not a target market.
-        </p>
-      </Reveal>
-
       {/*
-        Two framings of one map. The wide frame shows the world; the narrow frame
-        shows the band that carries most of the work, because a full world at
-        375px renders the United Kingdom about four pixels across. Both are static
-        markup — swapping the viewBox at runtime would mean shipping JavaScript to
-        do what a media query already does.
-
         The geometry is emitted once into a <defs> block and referenced twice with
-        <use>, because measurement showed a second literal copy of the paths costs
-        a further 54 KB gzipped: the payload is far larger than gzip's 32 KB match
-        window, so the duplicate does not compress against the original.
+        <use>: the wide frame shows the world, the narrow frame a tighter window,
+        and swapping the viewBox at runtime would mean shipping JavaScript to do
+        what a media query already does. A second literal copy of the paths was
+        measured at a further 54 KB gzipped — the payload is larger than gzip's
+        32 KB match window, so a duplicate does not compress against the original.
       */}
       <svg className="geo-map-defs" aria-hidden="true" focusable="false">
         <defs>
+          {/*
+            A single gradient in user space, so all 102 covered countries share
+            one continuous wash rather than each carrying its own flat fill. It
+            runs top to bottom across the covered band — lighter through northern
+            Europe, deeper through southern Africa — which gives the mass depth
+            and stops it reading as one slab of colour.
+          */}
+          <linearGradient
+            id={`${SYMBOL_ID}-brass`}
+            gradientUnits="userSpaceOnUse"
+            x1="0"
+            y1="200"
+            x2="0"
+            y2="1000"
+          >
+            <stop offset="0" stopColor="#c9a44a" />
+            <stop offset="0.45" stopColor="#9a7428" />
+            <stop offset="1" stopColor="#856526" />
+          </linearGradient>
           <g id={SYMBOL_ID}>
-            {worldPaths.map((country) => (
-              <path
-                key={country.m49}
-                d={country.d}
-                data-m49={country.m49}
-                className={activeSet.has(country.m49) ? "geo-country is-active" : "geo-country"}
-              />
-            ))}
+            <g className="geo-continents">
+              {continentPaths.map((c) => (
+                <path
+                  key={c.continent}
+                  className={
+                    coveredContinents.has(c.continent) ? "geo-continent is-covered" : "geo-continent"
+                  }
+                  data-continent={c.continent}
+                  d={c.d}
+                />
+              ))}
+            </g>
+            <g className="geo-covered">
+              {covered.map((country) => (
+                <path
+                  key={country.m49}
+                  className="geo-country is-covered"
+                  data-m49={country.m49}
+                  d={country.d}
+                />
+              ))}
+            </g>
+            {hq && (
+              <g className="geo-hq" aria-hidden="true">
+                {/* A dark halo cut into the brass, so the point separates from
+                    the region it sits inside rather than competing with it. */}
+                <circle className="geo-hq-halo" cx={hq.cx} cy={hq.cy} r={11} />
+                <circle className="geo-hq-ring" cx={hq.cx} cy={hq.cy} r={11} />
+                <circle className="geo-hq-dot" cx={hq.cx} cy={hq.cy} r={3.75} />
+              </g>
+            )}
           </g>
         </defs>
       </svg>
 
-      <GeographyExplorer
-        symbolId={SYMBOL_ID}
-        mapWidth={MAP_WIDTH}
-        mapHeight={MAP_HEIGHT}
-        mobileFrame={MOBILE_FRAME}
-        geometry={activeGeometry}
-        attribution={drawnAttribution}
-        title={TITLE}
-      />
+      <div className="geo-map-frame geo-map-frame-wide">
+        <svg
+          className="geo-map-svg"
+          viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
+          preserveAspectRatio="xMidYMid meet"
+          role="img"
+        >
+          <title>{TITLE}</title>
+          <use href={`#${SYMBOL_ID}`} />
+        </svg>
+      </div>
 
-      {/* Cropping must not overstate reach: say what the narrow frame leaves out. */}
-      {offFrameNames.length > 0 && (
-        <p className="geo-map-note geo-map-note-narrow">
-          Outside this frame: {formatList(offFrameNames)}.
-        </p>
-      )}
+      <div className="geo-map-frame geo-map-frame-narrow">
+        <svg
+          className="geo-map-svg"
+          viewBox={`${MOBILE_FRAME.x} ${MOBILE_FRAME.y} ${MOBILE_FRAME.width} ${MOBILE_FRAME.height}`}
+          preserveAspectRatio="xMidYMid meet"
+          role="img"
+        >
+          <title>{TITLE}</title>
+          <use href={`#${SYMBOL_ID}`} />
+        </svg>
+      </div>
 
-      <p className="geo-map-note">
-        {OVERALL.commissions} commissions across {drawn.length} jurisdictions.{" "}
-        {offMapTotal > 0 && (
-          <>
-            A further {offMapTotal} are not tied to a single jurisdiction
-            {countedNotDrawn.length > 0 &&
-              ` or fall outside the map (${countedNotDrawn.map((c) => c.name).join(", ")})`}
-            .
-          </>
-        )}
+      <p className="geo-map-legend">
+        <span className="geo-map-legend-dot" aria-hidden="true" />
+        {HEADQUARTERS.label} — {HEADQUARTERS.country}
       </p>
     </section>
   );
