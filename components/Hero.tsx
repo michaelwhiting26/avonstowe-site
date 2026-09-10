@@ -23,8 +23,8 @@ export default function Hero() {
           <MagneticButton href="#contact" className="btn-primary">
             Discuss a matter
           </MagneticButton>
-          <MagneticButton href="#analysis" className="btn-ghost">
-            The analysis
+          <MagneticButton href="#matters" className="btn-ghost">
+            Selected matters
           </MagneticButton>
         </Item>
       </Stagger>

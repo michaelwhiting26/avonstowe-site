@@ -1467,31 +1467,72 @@
     color: var(--white);
   }
 
-  /* ---- What the analysis covers ---- */
+
+
+  /* ---- Scope: two stages, one discipline ---- */
   .scope-section {
     background: var(--navy-900);
     padding: 3rem 1.5rem;
     border-top: 1px solid rgba(200, 164, 74, 0.12);
   }
   .scope-grid {
-    margin-top: 2rem;
+    margin-top: 2.5rem;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.75rem;
+    gap: 2.5rem;
   }
-  .scope-item-title {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    color: var(--brass-300);
-    line-height: 1.4;
+  .scope-panel {
+    /* A hairline above each panel, not a boxed card: the panels are two halves
+       of one argument, so only the top edge is drawn. */
+    border-top: 1px solid rgba(200, 164, 74, 0.28);
+    padding-top: 1.5rem;
   }
-  .scope-item-body {
-    margin-top: 0.5rem;
+  .scope-panel-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--brass-500);
+    font-variant-numeric: tabular-nums;
+  }
+  .scope-panel-title {
+    margin-top: 0.75rem;
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+    font-weight: 300;
+    line-height: 1.25;
+    color: var(--white);
+  }
+  .scope-panel-body {
+    margin-top: 0.85rem;
     font-size: 13.5px;
-    line-height: 1.7;
+    line-height: 1.8;
     color: var(--navy-200);
-    max-width: 58ch;
+    max-width: 56ch;
+  }
+  .scope-list {
+    list-style: none;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .scope-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(200, 164, 74, 0.1);
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--navy-100);
+    max-width: 52ch;
+  }
+  .scope-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 5px;
+    height: 1px;
+    background: var(--brass-500);
   }
 
   /* ---- Person ---- */
@@ -1605,7 +1646,6 @@
     .scope-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       column-gap: 4rem;
-      row-gap: 2.5rem;
     }
     .person-intro {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -1835,6 +1875,14 @@
   }
 
   /* Sit under the name in the slot a role title would occupy. */
+  .person-role {
+    margin-top: 0.6rem;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brass-400);
+  }
+
   .person-specialisms {
     list-style: none;
     margin-top: 0.9rem;

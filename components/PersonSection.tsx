@@ -6,8 +6,7 @@ import { person } from "@/lib/person";
  * and the one absent from this lineage entirely until now.
  *
  * The career chain carries dates rather than adjectives so the reader computes
- * seniority instead of being told it. No role title is rendered: see the WP0-C
- * note in lib/person.ts.
+ * seniority instead of being told it.
  */
 export default function PersonSection() {
   return (
@@ -26,6 +25,7 @@ export default function PersonSection() {
                 <span className="person-postnominals"> {person.postNominals.join(" ")}</span>
               )}
             </h2>
+            <p className="person-role">{person.role}</p>
             <ul className="person-specialisms">
               {person.specialisms.map((item) => (
                 <li key={item}>{item}</li>

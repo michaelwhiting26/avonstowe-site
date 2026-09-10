@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import DisciplineSection from "@/components/DisciplineSection";
-import AnalysisScope from "@/components/AnalysisScope";
+import ScopeSection from "@/components/ScopeSection";
 import MattersSection from "@/components/MattersSection";
 import GeographyMap from "@/components/GeographyMap";
 import PersonSection from "@/components/PersonSection";
@@ -9,14 +9,14 @@ import ContactSection from "@/components/ContactSection";
 
 /**
  * One page, one argument. Each section answers the question the section above it
- * provokes: claim -> proof -> person -> reassurance -> contact.
+ * provokes: claim -> scope -> proof -> person -> reassurance -> contact.
  */
 export default function Home() {
   return (
     <>
       <Hero />
       <DisciplineSection />
-      <AnalysisScope />
+      <ScopeSection />
       <MattersSection />
       <GeographyMap />
       <PersonSection />

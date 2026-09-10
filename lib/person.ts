@@ -32,7 +32,8 @@ export type CareerEntry = {
 export type Person = {
   name: string;
   postNominals: string[];
-  /** Sit directly under the name, in place of a role title. */
+  role: string;
+  /** Sit directly under the name. */
   specialisms: string[];
   credentials: Credential[];
   /** Dated, so a reader can compute seniority rather than be told it. */
@@ -48,6 +49,8 @@ export type Person = {
 export const person: Person = {
   name: "Michael Whiting",
   postNominals: [],
+  // Confirmed 10 September 2026. Must match LinkedIn and the CV of record.
+  role: "Principal",
   // PLACEHOLDER — supplied 10 September 2026, to be reviewed.
   specialisms: [
     "Drafting, interpreting and applying commercial terms in contracts",
@@ -81,5 +84,5 @@ export const person: Person = {
     { organisation: "Balfour Beatty", period: "2014 — 2019" },
   ],
   bio:
-    "Michael Whiting supports party-appointed quantum experts in international arbitration and advises employers, contractors and subcontractors on prolongation, disruption, variations, productivity, loss and expense, final accounts and commercial recovery. He works across process plant and energy, infrastructure and major development, principally in the GCC, the United Kingdom and North Africa. He entered the industry at sixteen as an apprentice quantity surveyor with Balfour Beatty, and that contractor-side background — procurement, valuation, change control and distressed account recovery — is what the forensic work is built on.",
+    "Michael supports party-appointed quantum experts in international arbitration and advises employers, contractors and subcontractors on prolongation, disruption, variations, productivity, loss and expense, final accounts and commercial recovery. He works across process plant and energy, infrastructure and major development, principally in the GCC, the United Kingdom and North Africa. He entered the industry at sixteen as an apprentice quantity surveyor with Balfour Beatty, and that contractor-side background — procurement, valuation, change control and distressed account recovery — is what the forensic work is built on.",
 };
