@@ -45,9 +45,9 @@ export type Matter = {
    * role has included quantum assessment, document review, analysis of project
    * records and expert report drafting."
    *
-   * The Court of Session and adjudication matters are NOT covered by that
-   * sentence, which is confined to international arbitration. They remain
-   * undefined pending his confirmation.
+   * The Court of Session and adjudication matters are not covered by that
+   * sentence, which is confined to international arbitration. He confirmed the
+   * same role on both directly on 10 September 2026.
    *
    * Left undefined, the card renders without it. Say nothing rather than
    * something unverified.
@@ -102,6 +102,7 @@ export const matters: Matter[] = [
   },
   {
     project: "Commercial Office",
+    contribution: "Quantum support to the appointed expert",
     forum: "Court of Session",
     forumKey: "litigation",
     region: "United Kingdom",
@@ -112,6 +113,7 @@ export const matters: Matter[] = [
   },
   {
     project: "Retirement Village",
+    contribution: "Quantum support to the appointed expert",
     forum: "Adjudication",
     forumKey: "adjudication",
     region: "United Kingdom",
