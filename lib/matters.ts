@@ -9,8 +9,11 @@
  * parties' relationship and the heads in issue — nothing that identifies a
  * matter.
  *
- * The commission record in lib/commissions.ts is retained as the data behind the
- * map, which counts jurisdictions rather than making a claim about roles.
+ * The commission record that used to sit in lib/commissions.ts was removed on
+ * 10 September 2026: cross-checking it against John Nestor's CV established it
+ * was his career, not Avonstowe's. Nothing on this site may be sourced from it.
+ * The map is driven by lib/publishedRegions.ts, which states coverage rather
+ * than making any claim about work done.
  */
 export type Matter = {
   project: string;
@@ -32,12 +35,11 @@ export type Matter = {
    * expert", "Quantum expert report", "Assisted the quantum expert").
    *
    * EVIDENCE RULE: this may only be filled from Michael Whiting's own statement
-   * of the role he held on that specific matter. It must NOT be inferred from
-   * lib/commissions.ts — that file records the career by project TYPE, holds
-   * several differing roles against the same project name, and does not contain
-   * two of these six matters at all. Matching a role across is guesswork, and a
-   * misstated role is the single claim most likely to be tested in an
-   * appointment enquiry.
+   * of the role he held on that specific matter. The former lib/commissions.ts
+   * was deleted once it was established to be John Nestor's career record, and
+   * no role on this site may be sourced from it or from any other
+   * practitioner's history. A misstated role is the single claim most likely to
+   * be tested in an appointment enquiry.
    *
    * SOURCE for the four arbitration entries: Michael Whiting's CV of 10 Sep
    * 2026, section "Quantum analysis & expert support" — "Michael has supported
