@@ -42,7 +42,7 @@ export const scope: ScopeStage[] = [
       "arbitration, adjudication and litigation, and works to the party-appointed expert's " +
       "instructions where one is appointed.",
     items: [
-      "Quantum analysis supporting party-appointed experts in institutional and ad hoc arbitration",
+      "Quantum analysis supporting party-appointed experts in ICC, DIAC and ad hoc arbitration",
       "Prolongation, disruption, variation, loss and expense and damages assessment for reports and joint statements",
       "Rebuttal and testing of an opposing expert's figures, methods and source records",
       "Analysis for adjudication, including responding within the timetable",
