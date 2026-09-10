@@ -5,7 +5,9 @@ export default function Hero() {
   return (
     <section className="hero">
       <div className="hero-rule"></div>
-      <Stagger>
+      {/* revealOnLoad: this is the first thing anyone sees, so it animates from
+          page load rather than waiting on an intersection callback. */}
+      <Stagger revealOnLoad>
         <Item as="p" className="hero-eyebrow">
           Arbitration · Adjudication · Litigation
         </Item>

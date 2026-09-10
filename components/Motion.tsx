@@ -1,100 +1,88 @@
-"use client";
-
-import { motion, useReducedMotion, type HTMLMotionProps } from "motion/react";
-import { fadeUp, stagger, staggerItem, viewportOnce } from "@/lib/motion";
+import { Children, cloneElement, isValidElement } from "react";
 
 /**
  * Motion primitives for Avonstowe's restrained reveal language.
  *
- * All of these respect `prefers-reduced-motion`: when the user has asked for
- * reduced motion, elements render in their final state with no animation
- * (an Awwwards accessibility requirement, and simply correct).
+ * WHY THESE ARE NOT CLIENT COMPONENTS ANY MORE
+ * --------------------------------------------
+ * These used to wrap `motion/react`, which serialises its `initial="hidden"`
+ * variant to an inline `opacity:0` during server rendering. That put 19
+ * elements into the served HTML invisible — the entire hero among them — so
+ * the page's opening claim depended on React hydrating successfully before
+ * anyone could read it. A failed or slow bundle left a blank hero.
+ *
+ * The resting state is now the visible one. These components emit plain
+ * elements with `data-reveal` hooks; the hidden start state exists only in CSS,
+ * and only under `html.js`, a class added by a tiny inline script in <head>.
+ * So:
+ *
+ *   - no JavaScript at all        -> everything visible, no animation
+ *   - JS that fails after parse   -> hero still animates (CSS-driven, on load)
+ *   - crawler that renders no JS  -> reads the same visible markup a person does
+ *
+ * `prefers-reduced-motion` is honoured in CSS rather than by a hook, which also
+ * means it is correct on the server instead of only after mount.
  */
 
 type Tag = keyof React.JSX.IntrinsicElements;
 
-interface RevealProps extends HTMLMotionProps<"div"> {
+type RevealProps = React.HTMLAttributes<HTMLElement> & {
   as?: Tag;
-  /** Optional stagger index -> a small, ordered delay. */
-  delay?: number;
-}
+  children?: React.ReactNode;
+};
 
-/** A single element that fades + rises into view once. */
-export function Reveal({ as = "div", delay = 0, children, ...rest }: RevealProps) {
-  const reduce = useReducedMotion();
-  const Comp = motion[as as "div"] as typeof motion.div;
-
-  if (reduce) {
-    // Render statically in the "shown" position.
-    const Static = as as "div";
-    const { className, style, id, role } = rest as Record<string, unknown>;
-    return (
-      <Static className={className as string} style={style as React.CSSProperties} id={id as string} role={role as string}>
-        {children as React.ReactNode}
-      </Static>
-    );
-  }
-
+/** A single element that fades and rises into view once, on scroll. */
+export function Reveal({ as: Comp = "div", children, ...rest }: RevealProps) {
+  const El = Comp as "div";
   return (
-    <Comp
-      initial="hidden"
-      whileInView="show"
-      viewport={viewportOnce}
-      variants={fadeUp}
-      transition={{ ...fadeUp.show.transition, delay }}
-      {...rest}
-    >
+    <El data-reveal="" {...rest}>
       {children}
-    </Comp>
+    </El>
   );
 }
 
-/** Container whose direct <Item> children cascade in. */
-export function Stagger({ as = "div", children, ...rest }: RevealProps) {
-  const reduce = useReducedMotion();
-  const Comp = motion[as as "div"] as typeof motion.div;
+type StaggerProps = RevealProps & {
+  /**
+   * Reveal on load rather than on scroll. Use for anything above the fold —
+   * an observer cannot fire before first paint, so scroll-triggering the hero
+   * would reintroduce the blank-first-frame problem this file exists to fix.
+   */
+  revealOnLoad?: boolean;
+};
 
-  if (reduce) {
-    const Static = as as "div";
-    const { className, style, id } = rest as Record<string, unknown>;
-    return (
-      <Static className={className as string} style={style as React.CSSProperties} id={id as string}>
-        {children as React.ReactNode}
-      </Static>
-    );
-  }
+/** Container whose direct <Item> children cascade in. */
+export function Stagger({ as: Comp = "div", revealOnLoad = false, children, ...rest }: StaggerProps) {
+  const El = Comp as "div";
+  // The cascade delay is positional, so the index is injected here rather than
+  // asking every call site to count its own children.
+  let index = 0;
+  const indexed = Children.map(children, (child) => {
+    // Every element child is indexed, not only <Item>: at this point <Item> has
+    // not rendered, so its data-reveal-item attribute does not exist yet on the
+    // props object. Indexing a non-Item child is harmless — the custom property
+    // simply goes unread.
+    if (!isValidElement(child)) return child;
+    const existing = (child.props as { style?: React.CSSProperties }).style;
+    const style = {
+      ...existing,
+      ["--reveal-index"]: String(index++),
+    } as React.CSSProperties;
+    return cloneElement(child as React.ReactElement<{ style?: React.CSSProperties }>, { style });
+  });
 
   return (
-    <Comp
-      initial="hidden"
-      whileInView="show"
-      viewport={viewportOnce}
-      variants={stagger}
-      {...rest}
-    >
-      {children}
-    </Comp>
+    <El data-reveal-group={revealOnLoad ? "load" : "scroll"} {...rest}>
+      {indexed}
+    </El>
   );
 }
 
 /** A child of <Stagger>. */
-export function Item({ as = "div", children, ...rest }: RevealProps) {
-  const reduce = useReducedMotion();
-  const Comp = motion[as as "div"] as typeof motion.div;
-
-  if (reduce) {
-    const Static = as as "div";
-    const { className, style } = rest as Record<string, unknown>;
-    return (
-      <Static className={className as string} style={style as React.CSSProperties}>
-        {children as React.ReactNode}
-      </Static>
-    );
-  }
-
+export function Item({ as: Comp = "div", children, ...rest }: RevealProps) {
+  const El = Comp as "div";
   return (
-    <Comp variants={staggerItem} {...rest}>
+    <El data-reveal-item="" {...rest}>
       {children}
-    </Comp>
+    </El>
   );
 }

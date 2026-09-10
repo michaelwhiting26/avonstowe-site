@@ -1,6 +1,7 @@
 "use client";
 
 import type { LegalType } from "./OverlayProvider";
+import LegalDialog from "./LegalDialog";
 
 const lastUpdatedStyle = {
   color: "var(--navy-300)",
@@ -18,12 +19,17 @@ export default function LegalOverlays({
 }) {
   return (
     <>
-      <div id="legal-privacy" className={`legal-overlay${active === "privacy" ? " active" : ""}`} data-lenis-prevent>
+      <LegalDialog
+        id="legal-privacy"
+        labelledBy="legal-privacy-title"
+        open={active === "privacy"}
+        onClose={() => onClose("privacy")}
+      >
         <div className="legal-close">
           <button onClick={() => onClose("privacy")}>Close ✕</button>
         </div>
         <div className="legal-content">
-          <h1>Privacy Notice</h1>
+          <h1 id="legal-privacy-title">Privacy Notice</h1>
           <p style={lastUpdatedStyle}>Last updated: April 23, 2026</p>
 
           <p>
@@ -103,14 +109,19 @@ export default function LegalOverlays({
             michael@avonstowe.com
           </p>
         </div>
-      </div>
+      </LegalDialog>
 
-      <div id="legal-terms" className={`legal-overlay${active === "terms" ? " active" : ""}`} data-lenis-prevent>
+      <LegalDialog
+        id="legal-terms"
+        labelledBy="legal-terms-title"
+        open={active === "terms"}
+        onClose={() => onClose("terms")}
+      >
         <div className="legal-close">
           <button onClick={() => onClose("terms")}>Close ✕</button>
         </div>
         <div className="legal-content">
-          <h1>Terms of Use</h1>
+          <h1 id="legal-terms-title">Terms of Use</h1>
           <p style={lastUpdatedStyle}>Last updated: April 23, 2026</p>
 
           <p>By using this website, you agree to the following terms:</p>
@@ -144,14 +155,19 @@ export default function LegalOverlays({
           <h2>6. Governing Law</h2>
           <p>These terms are governed by the laws of England and Wales.</p>
         </div>
-      </div>
+      </LegalDialog>
 
-      <div id="legal-cookies" className={`legal-overlay${active === "cookies" ? " active" : ""}`} data-lenis-prevent>
+      <LegalDialog
+        id="legal-cookies"
+        labelledBy="legal-cookies-title"
+        open={active === "cookies"}
+        onClose={() => onClose("cookies")}
+      >
         <div className="legal-close">
           <button onClick={() => onClose("cookies")}>Close ✕</button>
         </div>
         <div className="legal-content">
-          <h1>Cookie Policy</h1>
+          <h1 id="legal-cookies-title">Cookie Policy</h1>
           <p style={lastUpdatedStyle}>Last updated: April 23, 2026</p>
 
           <p>This website uses only essential cookies required for basic functionality.</p>
@@ -174,7 +190,7 @@ export default function LegalOverlays({
 
           <p>For more information, contact: michael@avonstowe.com</p>
         </div>
-      </div>
+      </LegalDialog>
     </>
   );
 }

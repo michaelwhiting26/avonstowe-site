@@ -14,9 +14,15 @@ const leadStyle = { fontSize: "14px", color: "#8aaee8", lineHeight: 1.8 } as con
 const statusBaseStyle = { marginTop: "1rem", color: "#d4b56a" } as const;
 
 const SUCCESS =
-  "Thank you for contacting Avonstowe. Your enquiry has been submitted successfully. A senior expert will respond within one business day.";
+  "Thank you. Your enquiry has been sent. You will have a reply within one business day.";
 const ERROR =
-  "There was a problem submitting your enquiry. Please email michael@avonstowe.com directly.";
+  "There was a problem sending your enquiry. Please email michael@avonstowe.com directly.";
+const TIMEOUT =
+  "The enquiry did not send within 15 seconds. Please email michael@avonstowe.com directly.";
+
+/** FormSubmit is a third party with no uptime commitment to us; without this the
+ *  button can sit on "Sending..." indefinitely and the enquiry is silently lost. */
+const SUBMIT_TIMEOUT_MS = 15000;
 
 export default function ContactSection() {
   const [status, setStatus] = useState<string>("");
@@ -30,11 +36,14 @@ export default function ContactSection() {
     const form = e.currentTarget;
     setStatusVisible(false);
     setSubmitting(true);
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS);
     try {
       const res = await fetch(form.action, {
         method: "POST",
         body: new FormData(form),
         headers: { Accept: "application/json" },
+        signal: controller.signal,
       });
       if (res.ok) {
         form.reset();
@@ -43,11 +52,13 @@ export default function ContactSection() {
         setStatus(ERROR);
       }
       setStatusVisible(true);
-    } catch {
-      setStatus(ERROR);
+    } catch (err) {
+      setStatus((err as Error)?.name === "AbortError" ? TIMEOUT : ERROR);
       setStatusVisible(true);
+    } finally {
+      window.clearTimeout(timer);
+      setSubmitting(false);
     }
-    setSubmitting(false);
   }
 
   return (
@@ -56,7 +67,10 @@ export default function ContactSection() {
         <p className="section-eyebrow">Enquiries</p>
         <h2 style={headingStyle}>Discuss a matter</h2>
         <p style={leadStyle}>
-          Send the issue and the documents you have. You will get a straight view on whether the quantum can be supported, and what it would take to build it. All enquiries are treated in confidence.
+          Outline the issue and what is in dispute. You will get a straight view on whether the
+          quantum can be supported, and what it would take to build it. Documents are not uploaded
+          here — once the enquiry is acknowledged, a secure route for the papers is agreed. All
+          enquiries are treated in confidence.
         </p>
         <form
           className="contact-form"
@@ -149,7 +163,15 @@ export default function ContactSection() {
               {submitting ? "Sending..." : "Submit Enquiry"}
             </button>
           </div>
-          <p id="form-status" style={{ ...statusBaseStyle, display: statusVisible ? "block" : "none" }}>
+          {/* role="status" + aria-live: a screen reader user otherwise gets no
+              signal that the submission succeeded or failed. The element stays
+              in the DOM so the live region exists before the text arrives. */}
+          <p
+            id="form-status"
+            role="status"
+            aria-live="polite"
+            style={{ ...statusBaseStyle, display: statusVisible ? "block" : "none" }}
+          >
             {status}
           </p>
         </form>

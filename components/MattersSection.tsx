@@ -42,6 +42,9 @@ export default function MattersSection() {
             <p className="matter-meta">
               {matter.region} <span aria-hidden="true">·</span> {matter.parties}
             </p>
+            {matter.contribution ? (
+              <p className="matter-contribution">{matter.contribution}</p>
+            ) : null}
 
             <ul className="matter-heads matter-heads-grown">
               {matter.heads.map((head) => (

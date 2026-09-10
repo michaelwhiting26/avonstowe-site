@@ -90,7 +90,7 @@ const coveredContinents = new Set(covered.map((c) => c.continent));
  */
 const hq = worldPaths.find((c) => c.m49 === HEADQUARTERS.m49);
 
-const TITLE = `World map. The highlighted regions are the United Kingdom and Europe, the Middle East, and Africa. Avonstowe is headquartered in the United Arab Emirates, marked with a point.`;
+const TITLE = `World map. The regions Avonstowe serves are highlighted: the United Kingdom and Europe, the Middle East, and Africa. Avonstowe is headquartered in the United Arab Emirates, marked with a point.`;
 const SYMBOL_ID = "avonstowe-world";
 
 export default function GeographyMap() {
@@ -185,10 +185,20 @@ export default function GeographyMap() {
         </svg>
       </div>
 
-      <p className="geo-map-legend">
-        <span className="geo-map-legend-dot" aria-hidden="true" />
-        {HEADQUARTERS.label} — {HEADQUARTERS.country}
-      </p>
+      {/* Two keys, not one. The fill previously had no label at all, so a reader
+          could take the highlighted area for demonstrated project experience.
+          It is not: it is where Avonstowe accepts instructions. The matters rail
+          above is what carries the record of work actually done. */}
+      <ul className="geo-map-legend">
+        <li>
+          <span className="geo-map-legend-swatch" aria-hidden="true" />
+          Regions served
+        </li>
+        <li>
+          <span className="geo-map-legend-dot" aria-hidden="true" />
+          {HEADQUARTERS.label} — {HEADQUARTERS.country}
+        </li>
+      </ul>
     </section>
   );
 }

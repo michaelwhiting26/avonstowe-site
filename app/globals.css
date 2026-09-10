@@ -55,6 +55,13 @@
     }
   }
 
+  /* Anchored sections must clear the fixed nav, or every in-page link lands
+     with its heading hidden behind the bar. */
+  section[id],
+  main[id] {
+    scroll-margin-top: 88px;
+  }
+
   body {
     font-family: var(--sans);
     background: var(--navy-900);
@@ -769,12 +776,38 @@
   
 
     nav {
-      padding: 0 1.5rem;
-      height: 64px;
+      padding: 0.5rem 1.5rem;
+      /* Two rows below 768px: brand + CTA, then the section links. Height is
+         auto because the links row wraps beneath rather than being dropped —
+         previously `.nav-links { display: none }` left mobile users with no way
+         to reach any section but the top. */
+      height: auto;
+      min-height: 64px;
+      flex-wrap: wrap;
+      row-gap: 0.35rem;
     }
-    .nav-links { display: none; }
+    .nav-links {
+      display: flex;
+      order: 3;
+      width: 100%;
+      gap: 1.5rem;
+      /* Scrolls rather than wraps, so adding a section never breaks the bar. */
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 0.35rem;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+    section[id] {
+      scroll-margin-top: 104px;
+    }
     .hero {
-      padding: 6rem 1.5rem 3rem;
+      /* Clears the two-row mobile nav (~96px) with room to breathe. */
+      padding: 7.5rem 1.5rem 3rem;
     }
     .hero h1 {
       font-size: 2.5rem;
@@ -1167,9 +1200,34 @@
 
 
 
-  /* CUSTOM CURSOR */
+  /* Skip link: visible only when focused, first thing in the tab order. */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 100000;
+    padding: 0.75rem 1.25rem;
+    background: var(--navy-800);
+    color: var(--white);
+    border: 1px solid var(--brass-400);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: top 0.2s ease;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  /* CUSTOM CURSOR
+     The native cursor is hidden only once CustomCursor has actually mounted and
+     added `has-custom-cursor` to <html>. Hiding it on `pointer: fine` alone
+     meant a failed bundle left the page with no pointer at all. */
   @media (pointer: fine) {
-    *, *::before, *::after { cursor: none !important; }
+    .has-custom-cursor,
+    .has-custom-cursor *,
+    .has-custom-cursor *::before,
+    .has-custom-cursor *::after { cursor: none !important; }
     #cursor-dot {
       position: fixed; top: 0; left: 0;
       width: 8px; height: 8px;
@@ -1439,6 +1497,54 @@
      rev4 sections — mobile-first.
      Each block defines the 375px layout, then enhances upward.
      ============================================================ */
+
+
+  /* ============================================================
+     Reveal animation
+     ------------------------------------------------------------
+     The resting state is VISIBLE. The hidden start state applies only under
+     html.js, which an inline script in <head> adds. Without JavaScript — or
+     before the bundle lands — every element below renders in its final state.
+     See components/Motion.tsx for why this is not done with framer variants.
+     ============================================================ */
+
+  @keyframes av-reveal-in {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Scroll-triggered: hidden until the observer marks it revealed. */
+  .js [data-reveal],
+  .js [data-reveal-group="scroll"] > [data-reveal-item] {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .js [data-reveal].is-revealed,
+  .js [data-reveal-group="scroll"] > [data-reveal-item].is-revealed {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--reveal-index, 0) * 0.08s);
+  }
+
+  /* Above the fold: runs on load, so it never waits on an observer callback
+     that cannot fire before first paint. */
+  .js [data-reveal-group="load"] > [data-reveal-item] {
+    animation: av-reveal-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--reveal-index, 0) * 0.08s + 0.05s);
+  }
+
+  /* An accessibility requirement, and simply correct: no motion, final state. */
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal],
+    .js [data-reveal-group] > [data-reveal-item] {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
+    }
+  }
 
   /* ---- One discipline: prose, one reading column at every width ---- */
   .discipline-section {
@@ -1926,17 +2032,40 @@
     stroke: none;
   }
 
+  .matter-contribution {
+    margin-top: 0.6rem;
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--brass-400);
+  }
+
   .geo-map-legend {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 0.55rem;
+    gap: 0.6rem 2rem;
     margin: 1.5rem auto 0;
+    list-style: none;
     font-family: var(--sans);
     font-size: 10px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--navy-200);
+  }
+  .geo-map-legend li {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .geo-map-legend-swatch {
+    width: 14px;
+    height: 8px;
+    flex: 0 0 auto;
+    /* Reads the same brass gradient the covered countries are filled with,
+       flattened to its midpoint, with the same lighter border. */
+    background: #a97f2c;
+    border: 1px solid rgba(226, 204, 153, 0.35);
   }
   .geo-map-legend-dot {
     width: 7px;

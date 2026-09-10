@@ -9,6 +9,7 @@ import BackToTop from "@/components/BackToTop";
 import CookieBanner from "@/components/CookieBanner";
 import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
+import RevealObserver from "@/components/RevealObserver";
 
 // Self-hosted via next/font: fonts are served from our own origin (no
 // render-blocking third-party request, automatic preload, display: swap).
@@ -60,16 +61,31 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable}`}>
+      <head>
+        {/* Marks the document as JavaScript-capable BEFORE first paint. Every
+            reveal animation and the custom cursor are scoped to this class, so
+            a browser with JS off — or a bundle that never arrives — renders the
+            page fully visible and fully usable. See components/Motion.tsx. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add("js")`,
+          }}
+        />
+      </head>
       <body>
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
         <OverlayProvider>
           <SmoothScroll>
             <ScrollProgress />
             <BackToTop />
             <CookieBanner />
             <Nav />
-            {children}
+            <main id="main">{children}</main>
             <Footer />
             <CustomCursor />
+            <RevealObserver />
           </SmoothScroll>
         </OverlayProvider>
       </body>

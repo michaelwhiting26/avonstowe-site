@@ -17,6 +17,12 @@ export default function CustomCursor() {
     const ring = ringRef.current;
     if (!dot || !ring) return;
 
+    // Only now is it safe to hide the native cursor: the replacement exists and
+    // is about to start tracking. The CSS keys off this class, not off
+    // `pointer: fine` alone, so a bundle that never arrives leaves the real
+    // pointer in place.
+    document.documentElement.classList.add("has-custom-cursor");
+
     // Park both offscreen until the pointer first moves, otherwise they render
     // in the top-left corner on load.
     for (const el of [dot, ring]) {
@@ -56,6 +62,7 @@ export default function CustomCursor() {
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseover", onOver);
       document.removeEventListener("mouseout", onOut);
+      document.documentElement.classList.remove("has-custom-cursor");
     };
   }, []);
 

@@ -26,6 +26,23 @@ export type Matter = {
   parties: string;
   summary: string;
   heads: string[];
+  /**
+   * What Avonstowe actually did on the matter — the role held or the deliverable
+   * produced, in a short phrase ("Quantum analysis for the party-appointed
+   * expert", "Quantum expert report", "Assisted the quantum expert").
+   *
+   * EVIDENCE RULE: this may only be filled from Michael Whiting's own statement
+   * of the role he held on that specific matter. It must NOT be inferred from
+   * lib/commissions.ts — that file records the career by project TYPE, holds
+   * several differing roles against the same project name, and does not contain
+   * two of these six matters at all. Matching a role across is guesswork, and a
+   * misstated role is the single claim most likely to be tested in an
+   * appointment enquiry.
+   *
+   * Left undefined, the card renders without it. Say nothing rather than
+   * something unverified.
+   */
+  contribution?: string;
 };
 
 export const matters: Matter[] = [
