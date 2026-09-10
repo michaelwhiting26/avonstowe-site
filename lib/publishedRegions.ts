@@ -27,6 +27,17 @@ export type Region = {
   published: boolean;
 };
 
+/*
+ * COVERAGE, NOT EXPERIENCE.
+ *
+ * A published region means Avonstowe accepts instructions there. It does NOT
+ * assert a matter has been run there — the map legend says "Regions served" for
+ * exactly this reason, and the matters rail carries the demonstrated record.
+ * The two registers must stay separate: widening this list is a business
+ * decision, widening lib/matters.ts is an evidence question.
+ *
+ * The United Kingdom is named alongside Europe rather than folded into it.
+ */
 export const REGIONS: Region[] = [
   {
     name: "United Kingdom and Europe",

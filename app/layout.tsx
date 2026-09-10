@@ -30,7 +30,7 @@ const sans = Inter({
 const SITE_URL = "https://www.avonstowe.com";
 const TITLE = "Avonstowe | Forensic Quantum Analysis";
 const DESCRIPTION =
-  "Avonstowe provides forensic quantum analysis to appointed experts, legal teams and parties in construction and engineering disputes, across the United Kingdom, the Gulf and North Africa.";
+  "Avonstowe provides forensic quantum analysis to appointed experts, legal teams and parties in construction and engineering disputes, across the United Kingdom, Europe, the Middle East and Africa.";
 
 // Favicons come from the App Router file convention (app/icon.png,
 // app/apple-icon.png) using the current Avonstowe brand mark.

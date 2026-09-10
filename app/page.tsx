@@ -6,6 +6,7 @@ import GeographyMap from "@/components/GeographyMap";
 import PersonSection from "@/components/PersonSection";
 import MethodSection from "@/components/MethodSection";
 import ContactSection from "@/components/ContactSection";
+import ProcessRail from "@/components/ProcessRail";
 
 /**
  * One page, one argument. Each section answers the question the section above it
@@ -21,7 +22,7 @@ export default function Home() {
       <GeographyMap />
       <PersonSection />
       <MethodSection />
-      <ContactSection />
+      <ContactSection aside={<ProcessRail />} />
     </>
   );
 }

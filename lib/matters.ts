@@ -39,6 +39,16 @@ export type Matter = {
    * misstated role is the single claim most likely to be tested in an
    * appointment enquiry.
    *
+   * SOURCE for the four arbitration entries: Michael Whiting's CV of 10 Sep
+   * 2026, section "Quantum analysis & expert support" — "Michael has supported
+   * appointed quantum experts in international arbitration proceedings... His
+   * role has included quantum assessment, document review, analysis of project
+   * records and expert report drafting."
+   *
+   * The Court of Session and adjudication matters are NOT covered by that
+   * sentence, which is confined to international arbitration. They remain
+   * undefined pending his confirmation.
+   *
    * Left undefined, the card renders without it. Say nothing rather than
    * something unverified.
    */
@@ -48,6 +58,7 @@ export type Matter = {
 export const matters: Matter[] = [
   {
     project: "Phosphate Plants",
+    contribution: "Quantum support to the appointed expert",
     forum: "Arbitration",
     forumKey: "arbitration",
     region: "Africa",
@@ -58,6 +69,7 @@ export const matters: Matter[] = [
   },
   {
     project: "LPG Extraction & Fractionation Plant",
+    contribution: "Quantum support to the appointed expert",
     forum: "Arbitration",
     forumKey: "arbitration",
     region: "Middle East",
@@ -68,6 +80,7 @@ export const matters: Matter[] = [
   },
   {
     project: "Landmark Hotel",
+    contribution: "Quantum support to the appointed expert",
     forum: "Arbitration",
     forumKey: "arbitration",
     region: "Middle East",
@@ -78,6 +91,7 @@ export const matters: Matter[] = [
   },
   {
     project: "Slaughterhouse & Associated Infrastructure",
+    contribution: "Quantum support to the appointed expert",
     forum: "Arbitration",
     forumKey: "arbitration",
     region: "Middle East",

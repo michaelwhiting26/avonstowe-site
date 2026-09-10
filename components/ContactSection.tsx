@@ -24,7 +24,12 @@ const TIMEOUT =
  *  button can sit on "Sending..." indefinitely and the enquiry is silently lost. */
 const SUBMIT_TIMEOUT_MS = 15000;
 
-export default function ContactSection() {
+/**
+ * `aside` is passed in from the server page rather than imported here: this is a
+ * client component, and importing the rail would pull it and its data into the
+ * client bundle for no reason. Keeping the boundary narrow is a rev4 rule.
+ */
+export default function ContactSection({ aside }: { aside?: React.ReactNode }) {
   const [status, setStatus] = useState<string>("");
   const [statusVisible, setStatusVisible] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -63,6 +68,7 @@ export default function ContactSection() {
 
   return (
     <section className="contact-section" id="contact">
+      <div className="contact-grid">
       <div className="contact-inner">
         <p className="section-eyebrow">Enquiries</p>
         <h2 style={headingStyle}>Discuss a matter</h2>
@@ -175,6 +181,8 @@ export default function ContactSection() {
             {status}
           </p>
         </form>
+      </div>
+      {aside}
       </div>
     </section>
   );
