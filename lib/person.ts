@@ -76,5 +76,5 @@ export const person: Person = {
   ],
   // Taken from the profile on the CV of 5 October 2026.
   bio:
-    "Michael advises on construction and engineering disputes across the United Kingdom, the Middle East and North Africa. His work covers quantum, commercial and contractual matters on live projects and in arbitration, adjudication and negotiated settlement. He entered the industry at sixteen with Balfour Beatty as an apprentice quantity surveyor, and that contractor-side background in procurement, live project delivery, valuation, change control, account reconstruction and final account negotiation is what the forensic work is built on.",
+    "Michael advises on construction and engineering disputes across the United Kingdom, the Middle East and North Africa. His work covers quantum, commercial and contractual matters on live projects and in arbitration, adjudication and negotiated settlement. He entered the industry at sixteen with Balfour Beatty as an apprentice quantity surveyor, and that contractor-side background in procurement, live project delivery, valuation, change control, account reconstruction and final account negotiation is the foundation of his analysis.",
 };
