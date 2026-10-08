@@ -56,7 +56,21 @@ ul { list-style: none; }
 .brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; }
 .brand img { border-radius: 7px; }
 .brand span { font-size: 13px; font-weight: 500; letter-spacing: 0.22em; }
-.header-link { font-size: 14px; text-decoration: none; padding: 8px 0; }
+.header-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 18px;
+  border: 1px solid var(--brass);
+  color: var(--brass-soft);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.header-link:hover { background: var(--brass); color: var(--navy-900); }
 
 .site-footer {
   padding: 32px var(--gutter) 40px;
@@ -244,6 +258,8 @@ html.lenis, html.lenis body { height: auto; }
 #back-to-top:hover { background: #b8902f; color: var(--navy-900); }
 #back-to-top svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
 
+/* Dot and ring start offscreen so neither shows in the corner before the
+   pointer first moves. */
 /* Custom cursor: only once CustomCursor has mounted and added the class, so a
    bundle that never arrives leaves the real pointer in place. */
 @media (pointer: fine) {
@@ -252,7 +268,7 @@ html.lenis, html.lenis body { height: auto; }
   .has-custom-cursor *::before,
   .has-custom-cursor *::after { cursor: none !important; }
   #cursor-dot {
-    position: fixed; top: 0; left: 0;
+    position: fixed; top: -100px; left: -100px;
     width: 8px; height: 8px;
     background: var(--brass);
     border-radius: 50%;
@@ -261,7 +277,7 @@ html.lenis, html.lenis body { height: auto; }
     transition: transform 0.15s ease, background 0.2s ease;
   }
   #cursor-ring {
-    position: fixed; top: 0; left: 0;
+    position: fixed; top: -100px; left: -100px;
     width: 36px; height: 36px;
     border: 1px solid rgba(201, 164, 74, 0.45);
     border-radius: 50%;
