@@ -44,4 +44,4 @@ export const services = [
 ] as const;
 
 export const enquiries =
-  "Send the issue and the documents you have. You will get a straight view on whether the quantum can be supported, and what it would take to build it. All enquiries are treated in confidence.";
+  "All enquiries are treated in confidence.";
