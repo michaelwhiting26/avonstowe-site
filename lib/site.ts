@@ -22,10 +22,17 @@ export const site = {
 } as const;
 
 export const hero = {
-  eyebrow: "Construction and engineering",
+  // The headline line of the CV.
+  eyebrow: "Construction and Engineering Disputes · Quantum Analysis · Commercial Advisory",
   titleLead: "Quantity surveying",
   titleRest: "and forensic quantum",
   sub: "Avonstowe advises on quantum, commercial and contractual matters on live projects and in arbitration, adjudication and negotiated settlement, across the United Kingdom, the Middle East and North Africa.",
+} as const;
+
+export const intro = {
+  label: "What we do",
+  heading: "From live project to final hearing.",
+  body: "Avonstowe works for employers, contractors and subcontractors across energy and process plant, infrastructure and major development.",
 } as const;
 
 export const services = [
