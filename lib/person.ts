@@ -33,8 +33,6 @@ export type Person = {
   name: string;
   postNominals: string[];
   role: string;
-  /** Sit directly under the name. */
-  specialisms: string[];
   credentials: Credential[];
   /** Dated, so a reader can compute seniority rather than be told it. */
   career: CareerEntry[];
@@ -51,13 +49,6 @@ export const person: Person = {
   postNominals: [],
   // Confirmed 10 September 2026. Must match LinkedIn and the CV of record.
   role: "Principal",
-  // PLACEHOLDER — supplied 10 September 2026, to be reviewed.
-  specialisms: [
-    "Drafting, interpreting and applying commercial terms in contracts",
-    "Able objectively to rank a range of potential valuation outcomes",
-    "Quantum on international infrastructure and energy projects — airports, refineries, power and process plant",
-    "Independent, technical opinion evidence to assist a court, tribunal, or arbitrator in resolving disputes",
-  ],
   credentials: [
     /**
      * RICS's own term, used verbatim in their criteria documents and on every
@@ -83,6 +74,7 @@ export const person: Person = {
     { organisation: "McLaren Construction", period: "2019 — 2022" },
     { organisation: "Balfour Beatty", period: "2014 — 2019" },
   ],
+  // Taken from the profile on the CV of 5 October 2026.
   bio:
-    "Michael supports party-appointed quantum experts in international arbitration and advises employers, contractors and subcontractors on prolongation, disruption, variations, productivity, loss and expense, final accounts and commercial recovery. He works across process plant and energy, infrastructure and major development, with proceedings to date principally in the Gulf, the United Kingdom and North Africa. He entered the industry at sixteen as an apprentice quantity surveyor with Balfour Beatty, and that contractor-side background — procurement, valuation, change control and distressed account recovery — is what the forensic work is built on.",
+    "Michael advises on construction and engineering disputes across the United Kingdom, the Middle East and North Africa. His work covers quantum, commercial and contractual matters on live projects and in arbitration, adjudication and negotiated settlement. He entered the industry at sixteen with Balfour Beatty as an apprentice quantity surveyor, and that contractor-side background in procurement, live project delivery, valuation, change control, account reconstruction and final account negotiation is what the forensic work is built on.",
 };
