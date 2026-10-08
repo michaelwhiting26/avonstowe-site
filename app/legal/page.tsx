@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function Legal() {
   return (
-    <article className="legal-page">
-      <p className="section-eyebrow">Last updated {lastUpdated}</p>
+    <article className="legal">
+      <p className="eyebrow">Last updated {lastUpdated}</p>
       <h1>Privacy and terms</h1>
       {legalDocs.map((doc) => (
         <section key={doc.id} id={doc.id}>

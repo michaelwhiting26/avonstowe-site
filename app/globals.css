@@ -1,2248 +1,307 @@
 /*
- * Avonstowe global styles.
- * Preserved VERBATIM from the original single-file site (index.html <style> block).
- * The original CSS is custom, animation-heavy and uses CSS variables throughout;
- * it is kept as-is rather than converted to Tailwind to guarantee identical
- * layout, spacing, typography, colours, breakpoints, hover states and transitions.
+ * Avonstowe rev5. Mobile-first: the base rules are the phone layout, and the
+ * two min-width blocks at the bottom are the only wider adjustments.
+ * Palette and typefaces carried from the earlier site.
  */
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  
-  :root {
-    --navy-900: #0a1628;
-    --navy-800: #0f2040;
-    --navy-700: #152b58;
-    --navy-600: #1c3a72;
-    --navy-500: #234a94;
-    --navy-400: #2d5db5;
-    --navy-300: #4a7dd4;
-    --navy-200: #8aaee8;
-    --navy-100: #c5d8f4;
-    --navy-50: #eef4fc;
-    --brass-700: #7a5c1e;
-    --brass-600: #9a7428;
-    --brass-500: #b8902f;
-    --brass-400: #c9a44a;
-    --brass-300: #d4b56a;
-    --brass-200: #e2cc99;
-    --brass-100: #f0e3c3;
-    --brass-50: #faf5e8;
-    --white: #ffffff;
-    --off-white: #f8f7f4;
-    --text-on-dark: #e8eef8;
-    --text-muted-on-dark: #8aaee8;
-    --serif: var(--font-serif), 'Cormorant Garamond', Georgia, serif;
-    --sans: var(--font-sans), 'Inter', system-ui, sans-serif;
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; }
+:root {
+  --navy-900: #0a1628;
+  --navy-800: #0f2040;
+  --navy-700: #152b58;
+  --brass: #c9a44a;
+  --brass-soft: #e2cc99;
+  --text: #e8eef8;
+  --muted: #9fb4d6;
+  --line: rgba(201, 164, 74, 0.28);
+  --serif: var(--font-serif), "Cormorant Garamond", Georgia, serif;
+  --sans: var(--font-sans), "Inter", system-ui, sans-serif;
+  --gutter: 20px;
+  --measure: 720px;
+}
 
-  /* Lenis smooth-scroll (JS-driven). When Lenis is active it manages scrolling,
-     so native smooth-scroll must yield to it. */
-  html.lenis, html.lenis body { height: auto; }
-  .lenis.lenis-smooth { scroll-behavior: auto !important; }
-  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-  .lenis.lenis-stopped { overflow: hidden; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
-  /* Accessibility: honour a reduced-motion request. All entrance animations,
-     transitions and smooth-scroll collapse to instant. */
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    *, *::before, *::after {
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
-    }
-  }
+body {
+  font-family: var(--sans);
+  background: var(--navy-900);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.65;
+}
 
-  /* Anchored sections must clear the fixed nav, or every in-page link lands
-     with its heading hidden behind the bar. */
-  section[id],
-  main[id] {
-    scroll-margin-top: 88px;
-  }
+a { color: var(--brass-soft); text-underline-offset: 3px; }
+a:hover { color: #fff; }
+a:focus-visible, .btn-primary:focus-visible, .btn-ghost:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+ul { list-style: none; }
 
-  body {
-    font-family: var(--sans);
-    background: var(--navy-900);
-    color: var(--text-on-dark);
-    font-size: 15px;
-    line-height: 1.7;
-    min-height: 100vh;
-  }
+.skip-link { position: absolute; left: -9999px; }
+.skip-link:focus { left: var(--gutter); top: 8px; z-index: 20; background: var(--navy-800); padding: 8px 12px; }
 
-  
+/* ---------- header and footer ---------- */
 
-  
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px var(--gutter);
+  background: var(--navy-900);
+  border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; }
+.brand img { border-radius: 7px; }
+.brand span { font-size: 13px; font-weight: 500; letter-spacing: 0.22em; }
+.header-link { font-size: 14px; text-decoration: none; padding: 8px 0; }
 
-  
+.site-footer {
+  padding: 32px var(--gutter) 40px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--muted);
+}
+.site-footer p + p { margin-top: 6px; }
 
-    .nav-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
-  }
+/* ---------- sections ---------- */
 
-  .nav-mark {
-    height: 34px;
-    width: auto;
-    display: block;
-    object-fit: contain;
-  }
+section, .legal {
+  padding: 56px var(--gutter);
+  max-width: calc(var(--measure) + 2 * var(--gutter));
+  margin: 0 auto;
+  scroll-margin-top: 64px;
+}
+section + section { border-top: 1px solid var(--line); }
 
-  .nav-wordmark {
-    font-family: var(--sans);
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #d4b56a;
-    line-height: 1;
-    white-space: nowrap;
-  }
+.eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 14px;
+}
 
-    nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 3rem;
-    height: 72px;
-    background: rgba(10, 22, 40, 0.96);
-    border-bottom: 1px solid rgba(200, 164, 74, 0.2);
-    backdrop-filter: blur(8px);
-  }
+h1, h2 { font-family: var(--serif); font-weight: 500; line-height: 1.12; }
+h1 { font-size: clamp(38px, 10.5vw, 64px); }
+h1 span { color: var(--brass); }
+h2 { font-size: clamp(30px, 8vw, 42px); margin-bottom: 20px; }
+h3 { font-size: 17px; font-weight: 500; line-height: 1.35; }
 
-  
+p + p { margin-top: 14px; }
+.muted { color: var(--muted); }
+.note { margin-top: 24px; font-size: 14px; color: var(--muted); }
 
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
+/* ---------- hero ---------- */
 
-  .nav-links a {
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--navy-200);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--brass-300); }
+.hero { padding-top: 64px; padding-bottom: 64px; }
+.lede { margin-top: 22px; font-size: 18px; color: var(--muted); }
+.actions { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
 
-  .nav-cta {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--brass-300);
-    border: 1px solid var(--brass-500);
-    padding: 8px 20px;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-  .nav-cta:hover {
-    background: var(--brass-500);
-    color: var(--navy-900);
-  }
+/* Buttons carried from the first build. */
+.btn-primary, .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 14px 32px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.btn-primary { background: #b8902f; color: var(--navy-900); border: 1px solid #b8902f; }
+.btn-primary:hover { background: var(--brass); border-color: var(--brass); color: var(--navy-900); }
+.btn-ghost { color: #8aaee8; border: 1px solid rgba(138, 174, 232, 0.3); }
+.btn-ghost:hover { border-color: var(--brass); color: var(--brass-soft); }
 
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8rem 3rem 5rem;
-    position: relative;
-    overflow: hidden;
-  }
+/* ---------- what we do ---------- */
 
+.cards { display: grid; gap: 14px; }
+.cards li {
+  padding: 22px 20px;
+  background: var(--navy-800);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.cards h3 { margin: 0 0 8px; font-family: var(--serif); font-size: 23px; }
+.cards li p:last-child { font-size: 15px; color: var(--muted); }
+
+/* ---------- selected matters ---------- */
+
+.matters li { padding: 18px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.matters li p { margin-top: 0; color: var(--muted); }
+.matters h3 span { color: var(--brass); font-weight: 400; }
+h2.second { margin-top: 48px; }
+.matters .matter-parties { color: var(--text); }
+
+/* ---------- person ---------- */
+
+#michael h2 { margin-bottom: 4px; }
+.role { color: var(--brass); margin-bottom: 18px; }
+.facts { display: grid; gap: 26px; margin-top: 30px; }
+.facts h3 { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); margin-bottom: 8px; }
+.facts li { padding: 9px 0; border-top: 1px solid var(--line); font-size: 15px; }
+
+/* ---------- contact ---------- */
+
+.contact .actions { margin-top: 24px; }
+.contact .btn-primary { overflow-wrap: anywhere; letter-spacing: 0.08em; }
+
+/* ---------- legal page ---------- */
+
+.legal h1 { font-size: clamp(34px, 9vw, 52px); margin-bottom: 8px; }
+.legal section { padding: 36px 0 0; border: 0; }
+.legal h3 { margin: 22px 0 6px; }
+.legal p, .legal li { font-size: 15px; color: var(--muted); }
+.legal ul { list-style: disc; padding-left: 20px; }
+.legal > p:last-child { margin-top: 36px; }
+
+/* ---------- wider screens ---------- */
+
+@media (min-width: 640px) {
+  :root { --gutter: 32px; }
+  .actions { flex-direction: row; }
+  .facts { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 960px) {
+  :root { --measure: 880px; }
+  section, .legal { padding-top: 88px; padding-bottom: 88px; }
+  .hero { padding-top: 112px; padding-bottom: 112px; }
+  .cards { grid-template-columns: repeat(3, 1fr); }
+  .matters { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; }
+}
+
+/* ==========================================================================
+   Motion and scroll effects carried from the first build.
+   ========================================================================== */
+
+/* Lenis smooth scroll manages scrolling when active. */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Hero: brass rule and the diagonal wash. */
+.hero { position: relative; }
+.hero-rule { width: 48px; height: 1px; background: var(--brass); margin-bottom: 28px; }
+@media (min-width: 960px) {
   .hero::before {
-    content: '';
+    content: "";
     position: absolute;
-    top: 0; right: 0;
-    width: 50%;
-    height: 100%;
+    top: 0; bottom: 0; left: 50%;
+    width: 50vw;
     background: linear-gradient(135deg, transparent 0%, rgba(21, 43, 88, 0.4) 100%);
     pointer-events: none;
   }
-
-  /* Keep hero content above the gradient wash. */
   .hero > * { position: relative; z-index: 1; }
-
-  .hero-rule {
-    width: 48px;
-    height: 1px;
-    background: var(--brass-400);
-    margin-bottom: 2rem;
-  }
-
-  .hero-eyebrow {
-    font-family: var(--sans);
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--brass-400);
-    margin-bottom: 1.5rem;
-  }
-
-  .hero h1 {
-    font-family: var(--serif);
-    font-size: clamp(3rem, 6vw, 5.5rem);
-    font-weight: 300;
-    line-height: 1.06;
-    /* Optical tightening: large serif display reads sharper slightly negative. */
-    letter-spacing: -0.02em;
-    color: var(--white);
-    margin-bottom: 2rem;
-    max-width: 780px;
-  }
-
-  .hero h1 em {
-    font-style: italic;
-    color: var(--brass-300);
-  }
-
-  .hero-title {
-    max-width: 1100px;
-  }
-  .hero-line {
-    display: block;
-  }
-  .hero-line-white {
-    color: var(--white);
-  }
-  .hero-line-gold {
-    color: var(--brass-300);
-  }
-  @media (min-width: 769px) {
-    .hero-line {
-      white-space: nowrap;
-    }
-  }
-  @media (max-width: 768px) {
-    .hero-title {
-      max-width: 100%;
-    }
-    .hero-line {
-      white-space: normal;
-    }
-    .hero-line-white {
-      display: inline;
-    }
-    .hero-line-gold {
-      display: inline;
-    }
-    .hero-actions {
-      flex-direction: column;
-      align-items: stretch;
-    }
-    .hero-actions .btn-primary,
-    .hero-actions .btn-ghost {
-      text-align: center;
-      width: 100%;
-    }
-    .hero::before {
-      display: none;
-    }
-  }
-
-  .hero-desc {
-    font-size: 15px;
-    font-weight: 300;
-    color: var(--navy-200);
-    max-width: 520px;
-    line-height: 1.8;
-    margin-bottom: 3rem;
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: 3rem;
-    margin-bottom: 3.5rem;
-  }
-
-  .stat-item {}
-  .stat-number {
-    font-family: var(--serif);
-    font-size: 2.2rem;
-    font-weight: 500;
-    color: var(--brass-300);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--navy-300);
-    margin-top: 4px;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  .btn-primary {
-    display: inline-block;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    background: var(--brass-500);
-    color: var(--navy-900);
-    padding: 14px 32px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.2s;
-    cursor: pointer;
-    border: none;
-  }
-  .btn-primary:hover { background: var(--brass-400); }
-
-  .btn-ghost {
-    display: inline-block;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--navy-200);
-    padding: 14px 32px;
-    text-decoration: none;
-    border: 1px solid rgba(138, 174, 232, 0.3);
-    transition: all 0.2s;
-    cursor: pointer;
-  }
-  .btn-ghost:hover { border-color: var(--brass-400); color: var(--brass-300); }
-
-  .intro-band {
-    background: var(--navy-800);
-    padding: 5rem 3rem;
-    border-top: 1px solid rgba(200, 164, 74, 0.12);
-    border-bottom: 1px solid rgba(200, 164, 74, 0.12);
-  }
-
-  .intro-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    max-width: 1100px;
-  }
-
-  .intro-label {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--brass-400);
-    margin-bottom: 1.2rem;
-  }
-
-  .intro-heading {
-    font-family: var(--serif);
-    font-size: 2rem;
-    font-weight: 400;
-    color: var(--white);
-    line-height: 1.2;
-    margin-bottom: 1.2rem;
-  }
-
-  .intro-body {
-    font-size: 14px;
-    color: var(--navy-200);
-    line-height: 1.85;
-  }
-
-  .differentiators {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding-top: 0.5rem;
-  }
-
-  .diff-item {
-    display: flex;
-    gap: 1.2rem;
-    align-items: flex-start;
-  }
-
-  .diff-icon {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    border: 1px solid var(--brass-600);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2px;
-  }
-
-  .diff-icon svg {
-    width: 14px;
-    height: 14px;
-    stroke: var(--brass-400);
-    fill: none;
-    stroke-width: 1.5;
-  }
-
-  .diff-title {
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--brass-300);
-    margin-bottom: 3px;
-  }
-
-  .diff-desc {
-    font-size: 13px;
-    color: var(--navy-300);
-    line-height: 1.6;
-  }
-
-  .services-section {
-    padding: 6rem 3rem;
-    background: var(--navy-900);
-  }
-
-  .section-header {
-    margin-bottom: 4rem;
-  }
-
-  .section-eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--brass-400);
-    margin-bottom: 1rem;
-  }
-
-  .section-title {
-    font-family: var(--serif);
-    /* More editorial presence on wide viewports; unchanged (2.6rem) on mobile. */
-    font-size: clamp(2.6rem, 3.4vw, 3.4rem);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -0.015em;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-  }
-
-  
-
-  
-  
-  
-
-
-
-
-
-  @keyframes tab-pulse {
-    0%, 35%, 100% {
-      color: var(--navy-300);
-      text-shadow: none;
-    }
-    15% {
-      color: var(--brass-300);
-      text-shadow: 0 0 12px rgba(200, 164, 74, 0.35);
-    }
-  }
-
-
-  /* Project Advisory fires half a cycle later */
-
-
-  
-
-  
-  
-
-
-
-
-
-
-  .tag {
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--brass-400);
-    border: 1px solid rgba(200, 164, 74, 0.3);
-    padding: 4px 12px;
-  }
-
-  .commissions-header {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--navy-300);
-    margin-bottom: 1rem;
-  }
-
-  .table-wrap {
-    max-height: 420px;
-    overflow-y: auto;
-    /* Don't chain the page scroll once this list hits its end. */
-    overscroll-behavior: contain;
-    border: 1px solid rgba(138, 174, 232, 0.12);
-  }
-
-  .table-wrap::-webkit-scrollbar { width: 4px; }
-  .table-wrap::-webkit-scrollbar-track { background: var(--navy-800); }
-  .table-wrap::-webkit-scrollbar-thumb { background: var(--brass-700); }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-  }
-
-  thead {
-    background: var(--navy-800);
-    position: sticky;
-    top: 0;
-    z-index: 2;
-  }
-
-  thead th {
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--brass-400);
-    padding: 12px 16px;
-    text-align: left;
-    font-weight: 500;
-    border-bottom: 1px solid rgba(200, 164, 74, 0.2);
-  }
-
-  tbody tr {
-    border-bottom: 1px solid rgba(138, 174, 232, 0.06);
-    transition: background 0.15s;
-  }
-  tbody tr:hover { background: rgba(21, 43, 88, 0.5); }
-
-  tbody td {
-    padding: 10px 16px;
-    color: var(--navy-200);
-    vertical-align: top;
-  }
-
-  td.forum {
-    color: var(--navy-100);
-    font-weight: 400;
-    white-space: nowrap;
-  }
-
-  td.project {
-    color: var(--text-on-dark);
-    font-size: 12px;
-  }
-
-  td.location {
-    white-space: nowrap;
-    color: var(--navy-300);
-  }
-
-  .forum-badge {
-    display: inline-block;
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    border-radius: 2px;
-    white-space: nowrap;
-  }
-
-  .forum-arbitration { background: rgba(21, 43, 88, 0.8); color: var(--navy-200); border: 1px solid rgba(45, 93, 181, 0.4); }
-  .forum-adjudication { background: rgba(122, 92, 30, 0.2); color: var(--brass-300); border: 1px solid rgba(200, 164, 74, 0.3); }
-  .forum-advisory { background: rgba(15, 32, 64, 0.8); color: var(--navy-300); border: 1px solid rgba(74, 125, 212, 0.2); }
-  .forum-litigation { background: rgba(90, 20, 20, 0.3); color: #e8a0a0; border: 1px solid rgba(200, 80, 80, 0.3); }
-  .forum-expert { background: rgba(20, 60, 40, 0.3); color: #7dcca0; border: 1px solid rgba(60, 160, 100, 0.3); }
-  .forum-project { background: rgba(40, 15, 60, 0.3); color: #b090d0; border: 1px solid rgba(140, 80, 200, 0.3); }
-
-  .geography-section {
-    background: var(--navy-800);
-    padding: 5rem 3rem;
-    border-top: 1px solid rgba(200, 164, 74, 0.12);
-  }
-
-  .geo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1px;
-    background: rgba(200, 164, 74, 0.1);
-    border: 1px solid rgba(200, 164, 74, 0.1);
-    margin-top: 3rem;
-  }
-
-  .geo-item {
-    background: var(--navy-800);
-    padding: 1.5rem;
-    text-align: center;
-  }
-
-  .geo-region {
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--brass-400);
-    margin-bottom: 0.5rem;
-  }
-
-  .geo-count {
-    font-family: var(--serif);
-    font-size: 2rem;
-    color: var(--white);
-    font-weight: 300;
-  }
-
-  .geo-label {
-    font-size: 11px;
-    color: var(--navy-300);
-    margin-top: 2px;
-  }
-
-  .contact-section {
-    padding: 6rem 3rem;
-    background: var(--navy-900);
-    border-top: 1px solid rgba(200, 164, 74, 0.12);
-  }
-
-  /* Form left, process rail right. Single column below 1024px, where the rail
-     follows the form rather than competing with it for width. */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3.5rem;
-    align-items: start;
-  }
-
-  .contact-inner {
-    max-width: 640px;
-  }
-
-  /* ---- Process rail ---- */
-  .process-list {
-    list-style: none;
-    margin-top: 1.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2.25rem;
-  }
-
-  .process-step {
-    position: relative;
-    padding-left: 2.5rem;
-  }
-
-  /* The connecting line is drawn by each step except the last, so it stops at
-     the final node instead of running past it. */
-  .process-step:not(:last-child)::before {
-    content: "";
-    position: absolute;
-    left: 5px;
-    top: 1.35rem;
-    bottom: -2.25rem;
-    width: 1px;
-    background: linear-gradient(
-      to bottom,
-      rgba(200, 164, 74, 0.5),
-      rgba(200, 164, 74, 0.12)
-    );
-    transform-origin: top;
-  }
-
-  .process-node {
-    position: absolute;
-    left: 0;
-    top: 0.35rem;
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    border: 1px solid var(--brass-500);
-    background: var(--navy-900);
-  }
-  /* The filled centre appears with the step, so the node reads as "reached". */
-  .process-node::after {
-    content: "";
-    position: absolute;
-    inset: 2px;
-    border-radius: 50%;
-    background: var(--brass-400);
-  }
-
-  .process-number {
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    color: var(--brass-500);
-    font-variant-numeric: tabular-nums;
-    line-height: 1;
-  }
-
-  .process-title {
-    margin-top: 0.5rem;
-    font-family: var(--serif);
-    font-size: 1.25rem;
-    font-weight: 300;
-    line-height: 1.25;
-    color: var(--white);
-  }
-
-  /* The commitment — a timescale or a price — is the most valuable content on
-     the rail, so it is set as a chip in the same language as the matter cards'
-     forum badges rather than as another line of running text. */
-  .process-tag {
-    display: inline-block;
-    margin-top: 0.65rem;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 3px 9px;
-    border-radius: 2px;
-    white-space: nowrap;
-    background: rgba(122, 92, 30, 0.2);
-    color: var(--brass-300);
-    border: 1px solid rgba(200, 164, 74, 0.3);
-  }
-
-  .process-body {
-    margin-top: 0.7rem;
-    font-size: 13px;
-    line-height: 1.75;
-    color: var(--navy-200);
-    max-width: 46ch;
-  }
-
-  /* The spine draws downward as each step reveals and each node fills with it.
-     This is the one place on the page where motion carries meaning rather than
-     decoration: the steps are a real sequence, so a line drawing in says so.
-     Scoped to html.js like every other reveal, so without JavaScript the spine
-     is fully drawn and the nodes are filled. */
-  .js .process-step:not(:last-child)::before {
-    transform: scaleY(0);
-  }
-  .js .process-step.is-revealed:not(:last-child)::before {
-    transform: scaleY(1);
-    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: calc(var(--reveal-index, 0) * 0.08s + 0.25s);
-  }
-  .js .process-node::after {
-    opacity: 0;
-    transform: scale(0.4);
-  }
-  .js .process-step.is-revealed .process-node::after {
-    opacity: 1;
-    transform: none;
-    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: calc(var(--reveal-index, 0) * 0.08s + 0.15s);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .js .process-step:not(:last-child)::before,
-    .js .process-node::after {
-      transform: none !important;
-      opacity: 1 !important;
-      transition: none !important;
-    }
-  }
-
-  .contact-form {
-    margin-top: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .form-label {
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--brass-400);
-  }
-
-  .form-input {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(138, 174, 232, 0.2);
-    color: var(--text-on-dark);
-    padding: 10px 14px;
-    font-size: 14px;
-    font-family: var(--sans);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .form-input:focus { border-color: var(--brass-500); }
-  .form-input::placeholder { color: rgba(138, 174, 232, 0.3); }
-
-  textarea.form-input { resize: vertical; min-height: 100px; }
-
-  footer {
-    background: var(--navy-900);
-    border-top: 1px solid rgba(200, 164, 74, 0.15);
-    padding: 2.5rem 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  
-
-  
-  .footer-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  footer .nav-mark {
-    height: 28px;
-    width: auto;
-    display: block;
-    object-fit: contain;
-  }
-
-  footer .nav-wordmark {
-    font-family: var(--sans);
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #d4b56a;
-    line-height: 1;
-    white-space: nowrap;
-  }
-
-  .footer-note {
-    font-size: 11px;
-    color: var(--navy-300);
-    letter-spacing: 0.05em;
-    text-align: right;
-  }
-
-.footer-note {
-    font-size: 11px;
-    color: var(--navy-400);
-    letter-spacing: 0.05em;
-  }
-
-
-  @media (max-width: 768px) {
-    nav {
-      padding: 0 1rem;
-      height: 64px;
-    }
-
-    .nav-brand {
-      gap: 8px;
-      min-width: 0;
-    }
-
-    .nav-mark {
-      height: 24px;
-    }
-
-    .nav-wordmark {
-      font-size: 13px;
-      letter-spacing: 0.06em;
-    }
-
-    .nav-cta {
-      padding: 8px 12px;
-      font-size: 10px;
-      letter-spacing: 0.08em;
-    }
-
-    
-    
-      
-
-    
-
-    
-
-    
-
-    
-
 }
 
-  @media (max-width: 768px) {
-            nav {
-      padding: 0 1rem;
-      height: 64px;
-    }
-
-    
-
-    
-
-    
-
-    .nav-cta {
-      padding: 8px 12px;
-      font-size: 10px;
-      letter-spacing: 0.08em;
-    }
-
-.service-tabs {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      overflow: visible;
-      margin-bottom: 2rem;
-    }
-
-
-    
-
-  
-
-  
-
-    nav {
-      padding: 0.5rem 1.5rem;
-      /* Two rows below 768px: brand + CTA, then the section links. Height is
-         auto because the links row wraps beneath rather than being dropped —
-         previously `.nav-links { display: none }` left mobile users with no way
-         to reach any section but the top. */
-      height: auto;
-      min-height: 64px;
-      flex-wrap: wrap;
-      row-gap: 0.35rem;
-    }
-    .nav-links {
-      display: flex;
-      order: 3;
-      width: 100%;
-      gap: 1.5rem;
-      /* Scrolls rather than wraps, so adding a section never breaks the bar. */
-      overflow-x: auto;
-      scrollbar-width: none;
-      padding-bottom: 0.35rem;
-    }
-    .nav-links::-webkit-scrollbar { display: none; }
-    .nav-links a {
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      white-space: nowrap;
-    }
-    section[id] {
-      scroll-margin-top: 104px;
-    }
-    .hero {
-      /* Clears the two-row mobile nav (~96px) with room to breathe. */
-      padding: 7.5rem 1.5rem 3rem;
-    }
-    .hero h1 {
-      font-size: 2.5rem;
-    }
-    .hero-stats {
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    .intro-band {
-      padding: 3rem 1.5rem;
-    }
-    .intro-grid {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-    }
-    .services-section {
-      padding: 4rem 1.5rem;
-    }
-    
-    .service-intro {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-    .service-number {
-      font-size: 2.5rem;
-    }
-    .geography-section {
-      padding: 3rem 1.5rem;
-    }
-    .contact-section {
-      padding: 4rem 1.5rem;
-    }
-    .form-row {
-      grid-template-columns: 1fr;
-    }
-        footer {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 2rem 1.5rem;
-    }
-
-    .footer-brand {
-      gap: 8px;
-    }
-
-    footer .nav-mark {
-      height: 22px;
-    }
-
-    footer .nav-wordmark {
-      font-size: 13px;
-      letter-spacing: 0.06em;
-    }
-
-    .footer-note {
-      text-align: left;
-    }
-
-
-  }
-
-
-  /* MOBILE COMMISSION LISTS */
-  .mobile-list {
-    display: none;
-  }
-
-  .mobile-card {
-    background: rgba(21, 43, 88, 0.3);
-    border: 1px solid rgba(138, 174, 232, 0.12);
-    padding: 1.25rem;
-    margin-bottom: 1rem;
-    border-radius: 2px;
-  }
-
-  .mobile-card-forum {
-    margin-bottom: 0.75rem;
-  }
-
-  .mobile-card-row {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .mobile-card-label {
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--brass-400);
-  }
-
-  .mobile-card-value {
-    font-size: 13px;
-    color: var(--navy-200);
-    line-height: 1.5;
-  }
-
-  .mobile-card-value.project {
-    color: var(--text-on-dark);
-    font-size: 14px;
-  }
-
-  .mobile-card-value.scope {
-    font-size: 12px;
-    color: var(--navy-300);
-  }
-
-
-  /* MOBILE VIEW ALL BUTTON */
-  .mobile-view-all {
-    display: none;
-    width: 100%;
-    font-family: var(--sans);
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    background: var(--brass-500);
-    color: var(--navy-900);
-    padding: 14px 32px;
-    border: none;
-    font-weight: 500;
-    margin-top: 1.5rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .mobile-view-all:hover {
-    background: var(--brass-400);
-  }
-
-  /* COMMISSIONS OVERLAY */
-  .commissions-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: var(--navy-900);
-    z-index: 1000;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .commissions-overlay.active {
-    display: block;
-  }
-
-  .overlay-header {
-    position: sticky;
-    top: 0;
-    background: var(--navy-800);
-    border-bottom: 1px solid rgba(200, 164, 74, 0.2);
-    padding: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 10;
-  }
-
-  .overlay-title {
-    font-family: var(--serif);
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--white);
-  }
-
-  .overlay-close {
-    background: none;
-    border: none;
-    color: var(--brass-300);
-    cursor: pointer;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.2s;
-  }
-  .overlay-close:hover {
-    color: var(--brass-400);
-  }
-
-  .overlay-content {
-    padding: 1.5rem;
-  }
-
-  @media (max-width: 768px) {
-        nav {
-      padding: 0 1rem;
-      height: 64px;
-    }
-
-    
-
-    
-
-    
-
-    .nav-cta {
-      padding: 8px 12px;
-      font-size: 10px;
-      letter-spacing: 0.08em;
-    }
-
-.table-wrap {
-      display: none;
-    }
-    .mobile-list {
-      display: block;
-    }
-    .mobile-view-all {
-      display: block;
-    }
-  }
-
-  @media (min-width: 769px) {
-    .commissions-overlay {
-      display: none !important;
-    }
-  }
-
-
-
-  .btn-primary:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
-
-
-
-  .footer-contact {
-    margin-bottom: 2rem;
-  }
-
-  .footer-contact p {
-    font-size: 13px;
-    color: var(--navy-200);
-    margin-bottom: 0.5rem;
-    line-height: 1.6;
-  }
-
-  .footer-contact a {
-    color: var(--brass-300);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .footer-contact a:hover {
-    color: var(--brass-400);
-  }
-
-  .footer-legal {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(138, 174, 232, 0.15);
-    display: flex;
-    gap: 2rem;
-    font-size: 11px;
-  }
-
-  .footer-legal a {
-    color: var(--navy-300);
-    text-decoration: none;
-    letter-spacing: 0.05em;
-    transition: color 0.2s;
-  }
-
-  .footer-legal a:hover {
-    color: var(--brass-300);
-  }
-
-  .legal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: var(--navy-900);
-    z-index: 1001;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .legal-overlay.active {
-    display: block;
-  }
-
-  .legal-content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 3rem 2rem;
-  }
-
-  .legal-content h1 {
-    font-family: var(--serif);
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-  }
-
-  .legal-content h2 {
-    font-family: var(--serif);
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--brass-300);
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .legal-content p {
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--navy-200);
-    margin-bottom: 1rem;
-  }
-
-  .legal-content ul {
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--navy-200);
-    margin-bottom: 1rem;
-    margin-left: 1.5rem;
-  }
-
-  .legal-close {
-    position: sticky;
-    top: 0;
-    background: var(--navy-900);
-    padding: 1.5rem 2rem;
-    display: flex;
-    justify-content: flex-end;
-    border-bottom: 1px solid rgba(200, 164, 74, 0.2);
-    z-index: 10;
-  }
-
-  .legal-close button {
-    background: none;
-    border: none;
-    color: var(--brass-300);
-    font-size: 14px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-    transition: color 0.2s;
-  }
-
-  .legal-close button:hover {
-    color: var(--brass-400);
-  }
-
-  @media (max-width: 768px) {
-  
-  .footer-contact {
-    margin-bottom: 2rem;
-  }
-
-  .footer-contact p {
-    font-size: 13px;
-    color: var(--navy-200);
-    margin-bottom: 0.5rem;
-    line-height: 1.6;
-  }
-
-  .footer-contact a {
-    color: var(--brass-300);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .footer-contact a:hover {
-    color: var(--brass-400);
-  }
-
-  .footer-legal {
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .legal-content {
-      padding: 2rem 1.5rem;
-    }
-
-    .legal-content h1 {
-      font-size: 1.8rem;
-    }
-
-    .legal-content h2 {
-      font-size: 1.2rem;
-    }
-  }
-
-
-
-  /* Skip link: visible only when focused, first thing in the tab order. */
-  .skip-link {
-    position: absolute;
-    left: 1rem;
-    top: -100px;
-    z-index: 100000;
-    padding: 0.75rem 1.25rem;
-    background: var(--navy-800);
-    color: var(--white);
-    border: 1px solid var(--brass-400);
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: top 0.2s ease;
-  }
-  .skip-link:focus {
-    top: 1rem;
-  }
-
-  /* CUSTOM CURSOR
-     The native cursor is hidden only once CustomCursor has actually mounted and
-     added `has-custom-cursor` to <html>. Hiding it on `pointer: fine` alone
-     meant a failed bundle left the page with no pointer at all. */
-  @media (pointer: fine) {
-    .has-custom-cursor,
-    .has-custom-cursor *,
-    .has-custom-cursor *::before,
-    .has-custom-cursor *::after { cursor: none !important; }
-    #cursor-dot {
-      position: fixed; top: 0; left: 0;
-      width: 8px; height: 8px;
-      background: var(--brass-400);
-      border-radius: 50%;
-      pointer-events: none; z-index: 99999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s ease, background 0.2s ease;
-    }
-    #cursor-ring {
-      position: fixed; top: 0; left: 0;
-      width: 36px; height: 36px;
-      border: 1px solid rgba(201, 164, 74, 0.45);
-      border-radius: 50%;
-      pointer-events: none; z-index: 99998;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
-    }
-    #cursor-dot.hovering {
-      background: var(--brass-300);
-      transform: translate(-50%, -50%) scale(2);
-    }
-    #cursor-ring.hovering {
-      width: 56px; height: 56px;
-      border-color: rgba(212, 181, 106, 0.75);
-    }
-  }
-
-  /* Scroll progress bar */
-  #scroll-progress {
-    position: fixed;
-    top: 0; left: 0;
-    width: 0%;
-    height: 3px;
-    background: var(--brass-400);
-    z-index: 200;
-    transition: width 0.1s linear;
-  }
-
-  /* Active nav link */
-  .nav-links a.nav-active {
-    color: var(--brass-300);
-  }
-
-  /* Back to top button */
-  #back-to-top {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 44px;
-    height: 44px;
+/* Cards and matters respond to the pointer. */
+.cards li { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, background 0.3s; }
+.matters li { transition: padding-left 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s; }
+@media (hover: hover) {
+  .cards li:hover { transform: translateY(-4px); border-color: var(--brass); background: var(--navy-700); }
+  .matters li:hover { padding-left: 12px; border-top-color: var(--brass); }
+}
+
+/* Scroll progress bar. */
+#scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--brass);
+  z-index: 200;
+  transition: width 0.1s linear;
+}
+
+/* Back to top. */
+#back-to-top {
+  position: fixed;
+  bottom: 24px; right: 20px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid #b8902f;
+  background: rgba(10, 22, 40, 0.92);
+  color: var(--brass-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, background 0.2s;
+}
+#back-to-top.visible { opacity: 1; pointer-events: auto; }
+#back-to-top:hover { background: #b8902f; color: var(--navy-900); }
+#back-to-top svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* Custom cursor: only once CustomCursor has mounted and added the class, so a
+   bundle that never arrives leaves the real pointer in place. */
+@media (pointer: fine) {
+  .has-custom-cursor,
+  .has-custom-cursor *,
+  .has-custom-cursor *::before,
+  .has-custom-cursor *::after { cursor: none !important; }
+  #cursor-dot {
+    position: fixed; top: 0; left: 0;
+    width: 8px; height: 8px;
+    background: var(--brass);
     border-radius: 50%;
-    border: 1px solid var(--brass-500);
-    background: rgba(10, 22, 40, 0.92);
-    color: var(--brass-300);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 150;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s, background 0.2s;
-    backdrop-filter: blur(6px);
+    pointer-events: none; z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, background 0.2s ease;
   }
-  #back-to-top.visible {
-    opacity: 1;
-    pointer-events: auto;
+  #cursor-ring {
+    position: fixed; top: 0; left: 0;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201, 164, 74, 0.45);
+    border-radius: 50%;
+    pointer-events: none; z-index: 99998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
   }
-  #back-to-top:hover {
-    background: var(--brass-500);
-    color: var(--navy-900);
-  }
-  #back-to-top svg {
-    width: 16px;
-    height: 16px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-  }
+  #cursor-dot.hovering { background: var(--brass-soft); transform: translate(-50%, -50%) scale(2); }
+  #cursor-ring.hovering { width: 56px; height: 56px; border-color: rgba(212, 181, 106, 0.75); }
+}
 
-  /* Cookie consent banner */
-  #cookie-banner {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: var(--navy-800);
-    border-top: 1px solid rgba(200, 164, 74, 0.2);
-    padding: 1.2rem 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    z-index: 180;
-    transform: translateY(100%);
-    transition: transform 0.4s ease;
-    flex-wrap: wrap;
-  }
-  #cookie-banner.visible {
-    transform: translateY(0);
-  }
-  #cookie-banner p {
-    font-size: 13px;
-    color: var(--navy-200);
-    margin: 0;
-    line-height: 1.6;
-  }
-  #cookie-banner a {
-    color: var(--brass-300);
-    text-decoration: none;
-  }
-  #cookie-banner a:hover {
-    text-decoration: underline;
-  }
-  .cookie-actions {
-    display: flex;
-    gap: 0.75rem;
-    flex-shrink: 0;
-  }
-  .cookie-btn {
-    font-family: var(--sans);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 8px 20px;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s;
-  }
-  .cookie-btn-accept {
-    background: var(--brass-500);
-    color: var(--navy-900);
-  }
-  .cookie-btn-accept:hover { background: var(--brass-400); }
-  .cookie-btn-decline {
-    background: transparent;
-    color: var(--navy-300);
-    border: 1px solid rgba(138, 174, 232, 0.25);
-  }
-  .cookie-btn-decline:hover { border-color: var(--brass-500); color: var(--brass-300); }
-  /* ---- Geographic reach map (additive section, below .geography-section) ----
-     Palette is measured, not assumed. Base --navy-700 on the --navy-900 ground;
-     active --brass-600. Active against base measures 3.23:1 and against the
-     section ground 4.23:1, both clearing the 3:1 WCAG 1.4.11 non-text minimum.
-     Brighter brass was tried and rejected on sight: Mercator area is not
-     commission weight, and a loud fill made Russia and Canada (one commission
-     each) shout louder than the United Kingdom (125). The muted fill keeps the
-     claim binary — engaged here, or not — and leaves the counts to the text. */
-  .geo-map-section {
-    /* Darker than the page ground so the coastline reads without a stroke. */
-    background: #070c15;
-    padding: 4rem 1.5rem;
-    border-top: 1px solid rgba(200, 164, 74, 0.12);
-  }
-
-  .geo-map-title {
-    font-family: var(--serif);
-    font-size: clamp(2.6rem, 3.4vw, 3.4rem);
-    line-height: 1.1;
-    letter-spacing: -0.015em;
-    font-weight: 300;
-    color: var(--white);
-    margin-top: 0.5rem;
-  }
-
-  .geo-map-lead {
-    font-size: 14px;
-    color: var(--navy-200);
-    line-height: 1.8;
-    margin-top: 1rem;
-    max-width: 800px;
-  }
-
-  /* aspect-ratio reserves the space before the SVG paints, so the reveal cannot
-     shift the page. */
-  .geo-map-frame {
-    /* aspect-ratio below reserves the space, so nothing shifts on load. */
-    margin-top: 0;
-    /* The map is the only thing in this section; let it sit rather than fill. */
-    max-width: 1100px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .geo-map-frame-wide { aspect-ratio: 2000 / 1195; }
-  .geo-map-frame-narrow { display: none; aspect-ratio: 611 / 580; }
-
-  /* Geometry is emitted here once and referenced by both frames. */
-  .geo-map-defs {
-    position: absolute;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-  }
-
-  .geo-map-svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-
-  /* Continent segments. Measured: navy-800 against navy-700 on this ground is
-     1.17:1 — invisible — and widening it broke the brass contrast. The region
-     tier is therefore a stroke on a dissolved outline, drawn under the countries,
-     which reads at any size because a hairline does not compress the way two
-     dark fills do. */
-  /* Land outside the covered regions: one dissolved silhouette per continent,
-     no internal borders and no stroke. A stroke would draw a seam down every
-     continent boundary — most visibly through Russia, where Europe meets Asia —
-     and the borders carry no information out here. */
-  .geo-continent {
-    /* Recessive: land outside the covered regions should read as ground, not as
-       a second subject competing with the brass. */
-    /* Desaturated rather than merely darkened: a charcoal silhouette recedes,
-       where a saturated navy reads as a second subject competing with the brass. */
-    fill: #131c2c;
-    stroke: none;
-  }
-
-  /* The covered regions: filled, with their country borders visible inside the
-     fill so the region reads as made of jurisdictions rather than as a blob. */
-  .geo-country.is-covered {
-    fill: url(#avonstowe-world-brass);
-    /* Borders lighter than the fill, not darker. A dark hairline reads as a
-       crack through the region; a light one reads as detail within it — the
-       same reason Hanscomb draws theirs in white. */
-    stroke: var(--brass-100);
-    stroke-opacity: 0.22;
-    stroke-width: 0.5;
-    stroke-linejoin: round;
-    vector-effect: non-scaling-stroke;
-  }
-
-  .geo-country {
-    fill: var(--navy-700);
-    stroke: var(--navy-900);
-    stroke-width: 0.75;
-    /* Without this, borders are hairlines on a phone and slabs on a 4K display. */
-    vector-effect: non-scaling-stroke;
-  }
-
-  /* Active jurisdictions are distinguished by fill and by a heavier edge, so the
-     distinction does not rest on colour alone. */
-  .geo-country.is-active {
-    fill: var(--brass-600);
-    stroke: var(--brass-400);
-    stroke-width: 0.9;
-  }
-
-  .geo-map-note {
-    margin-top: 1.5rem;
-    font-size: 12px;
-    line-height: 1.7;
-    color: var(--navy-300);
-    max-width: 800px;
-  }
-  .geo-map-note-narrow { display: none; }
-
-  @media (max-width: 768px) {
-    .geo-map-section {
-      padding: 2.5rem 1rem;
-    }
-    .geo-map-frame-wide { display: none; }
-    .geo-map-frame-narrow { display: block; }
-    .geo-map-note-narrow { display: block; }
-  }
-
-  /* ============================================================
-     rev4 sections — mobile-first.
-     Each block defines the 375px layout, then enhances upward.
-     ============================================================ */
-
-
-  /* ============================================================
-     Reveal animation
-     ------------------------------------------------------------
-     The resting state is VISIBLE. The hidden start state applies only under
-     html.js, which an inline script in <head> adds. Without JavaScript — or
-     before the bundle lands — every element below renders in its final state.
-     See components/Motion.tsx for why this is not done with framer variants.
-     ============================================================ */
-
-  @keyframes av-reveal-in {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: none; }
-  }
-
-  /* Scroll-triggered: hidden until the observer marks it revealed. */
+/* Reveal. The resting state is VISIBLE; the hidden start state applies only
+   under html.js, which an inline script in <head> adds. */
+@keyframes av-reveal-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+.js [data-reveal],
+.js [data-reveal-group="scroll"] > [data-reveal-item] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.js [data-reveal].is-revealed,
+.js [data-reveal-group="scroll"] > [data-reveal-item].is-revealed {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--reveal-index, 0) * 0.08s);
+}
+.js [data-reveal-group="load"] > [data-reveal-item] {
+  animation: av-reveal-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--reveal-index, 0) * 0.08s + 0.05s);
+}
+@media (prefers-reduced-motion: reduce) {
   .js [data-reveal],
-  .js [data-reveal-group="scroll"] > [data-reveal-item] {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  .js [data-reveal].is-revealed,
-  .js [data-reveal-group="scroll"] > [data-reveal-item].is-revealed {
-    opacity: 1;
-    transform: none;
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: calc(var(--reveal-index, 0) * 0.08s);
-  }
-
-  /* Above the fold: runs on load, so it never waits on an observer callback
-     that cannot fire before first paint. */
-  .js [data-reveal-group="load"] > [data-reveal-item] {
-    animation: av-reveal-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-delay: calc(var(--reveal-index, 0) * 0.08s + 0.05s);
-  }
-
-  /* An accessibility requirement, and simply correct: no motion, final state. */
-  @media (prefers-reduced-motion: reduce) {
-    .js [data-reveal],
-    .js [data-reveal-group] > [data-reveal-item] {
-      opacity: 1 !important;
-      transform: none !important;
-      animation: none !important;
-      transition: none !important;
-    }
-  }
-
-  /* ---- One discipline: prose, one reading column at every width ---- */
-  .discipline-section {
-    background: var(--navy-800);
-    padding: 3rem 1.5rem;
-    border-top: 1px solid rgba(200, 164, 74, 0.12);
-  }
-  .discipline-body {
-    margin-top: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    /* ~65 characters. The limit is the reason this never becomes three cards. */
-    max-width: 62ch;
-  }
-  .discipline-body p {
-    font-size: clamp(15px, 1.1vw, 17px);
-    line-height: 1.75;
-    color: var(--navy-100);
-  }
-  .discipline-body p:first-child {
-    font-family: var(--serif);
-    font-size: clamp(1.35rem, 3vw, 1.75rem);
-    line-height: 1.35;
-    font-weight: 300;
-    color: var(--white);
-  }
-
-
-
-  /* ---- Scope: two stages, one discipline ---- */
-  .scope-section {
-    background: var(--navy-900);
-    padding: 3rem 1.5rem;
-    border-top: 1px solid rgba(200, 164, 74, 0.12);
-  }
-  .scope-grid {
-    margin-top: 2.5rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-  .scope-panel {
-    /* A hairline above each panel, not a boxed card: the panels are two halves
-       of one argument, so only the top edge is drawn. */
-    border-top: 1px solid rgba(200, 164, 74, 0.28);
-    padding-top: 1.5rem;
-  }
-  .scope-panel-eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    color: var(--brass-500);
-    font-variant-numeric: tabular-nums;
-  }
-  .scope-panel-title {
-    margin-top: 0.75rem;
-    font-family: var(--serif);
-    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
-    font-weight: 300;
-    line-height: 1.25;
-    color: var(--white);
-  }
-  .scope-panel-body {
-    margin-top: 0.85rem;
-    font-size: 13.5px;
-    line-height: 1.8;
-    color: var(--navy-200);
-    max-width: 56ch;
-  }
-  .scope-list {
-    list-style: none;
-    margin-top: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  .scope-list li {
-    position: relative;
-    padding-left: 1.1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(200, 164, 74, 0.1);
-    font-size: 13.5px;
-    line-height: 1.65;
-    color: var(--navy-100);
-    max-width: 52ch;
-  }
-  .scope-list li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.62em;
-    width: 5px;
-    height: 1px;
-    background: var(--brass-500);
-  }
-
-  /* ---- Person ---- */
-  .person-section {
-    background: var(--navy-800);
-    padding: 3rem 1.5rem;
-    border-top: 1px solid rgba(200, 164, 74, 0.12);
-  }
-  .person-postnominals {
-    font-size: 0.45em;
-    letter-spacing: 0.12em;
-    color: var(--brass-400);
-    white-space: nowrap;
-  }
-  .person-intro {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    align-items: start;
-    margin-top: 1.25rem;
-  }
-
-  .person-bio {
-    margin-top: 0;
-    max-width: 60ch;
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--navy-100);
-  }
-  .person-grid {
-    margin-top: 2.5rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  .person-block-title {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--brass-400);
-  }
-  .person-list {
-    list-style: none;
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-  }
-  .person-list li {
-    font-size: 13.5px;
-    line-height: 1.6;
-    color: var(--navy-100);
-    padding-bottom: 0.65rem;
-    border-bottom: 1px solid rgba(200, 164, 74, 0.1);
-  }
-  .person-note {
-    color: var(--navy-300);
-  }
-  .person-career li {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-  .person-period {
-    color: var(--brass-500);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-  }
-
-  /* ---- Method ---- */
-  .method-section {
-    background: var(--navy-900);
-    padding: 3rem 1.5rem;
-    border-top: 1px solid rgba(200, 164, 74, 0.12);
-  }
-  .method-intro {
-    margin-top: 1rem;
-    max-width: 62ch;
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--navy-200);
-  }
-  .method-grid {
-    margin-top: 2.5rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  .method-point-title {
-    font-family: var(--serif);
-    font-size: 1.25rem;
-    font-weight: 300;
-    color: var(--white);
-    line-height: 1.3;
-  }
-  .method-point-body {
-    margin-top: 0.6rem;
-    font-size: 13.5px;
-    line-height: 1.75;
-    color: var(--navy-200);
-    max-width: 58ch;
-  }
-
-  @media (min-width: 769px) {
-    .discipline-section,
-    .scope-section,
-    .person-section,
-    .method-section {
-      padding: 5rem 3rem;
-    }
-    .scope-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      column-gap: 4rem;
-    }
-    .person-intro {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 4rem;
-      /* The bio sits with the specialisms rather than the display heading. */
-      margin-top: 1.75rem;
-    }
-    .person-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 4rem;
-    }
-    .method-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      column-gap: 4rem;
-      row-gap: 3rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .contact-grid {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
-      gap: 5rem;
-    }
-  }
-
-  /* Ultra-wide: constrain, do not stretch. The page stays one composition. */
-  @media (min-width: 1600px) {
-    .discipline-section > *,
-    .scope-section > *,
-    .person-section > *,
-    .method-section > *,
-    /* The contact grid became a two-column composition when the process rail
-       landed beside the form; without this it stretches past every other
-       section on ultra-wide. */
-    .contact-section > * {
-      max-width: 1400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
-  /* ---- Touch targets and iOS zoom (<=768px) ----
-     Measured at 375px: the cookie buttons (31px), nav CTA (35px), form inputs
-     (39px), submit and view-all (41px) all sat under the 44px comfortable
-     minimum, and inputs below 16px make iOS zoom the viewport on focus. These
-     are the site's original components; the floor is applied here rather than
-     by editing each one. */
-  @media (max-width: 768px) {
-    .cookie-btn,
-    .nav-cta,
-    .mobile-view-all,
-    .btn-primary,
-    .btn-ghost,
-    .form-input,
-    .form-textarea,
-    .geo-list-btn {
-      min-height: 44px;
-    }
-    .cookie-btn,
-    .nav-cta,
-    .mobile-view-all,
-    .btn-primary,
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .form-input,
-    .form-textarea,
-    select {
-      /* Anything under 16px triggers iOS's focus zoom. */
-      font-size: 16px;
-    }
-    .legal-links a,
-    #cookie-banner p a {
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
-    }
-  }
-
-  /* ============================================================
-     Selected matters — horizontal scroll-snap rail.
-     Mobile-first. No JavaScript: snapping, momentum and keyboard
-     scrolling are the browser's. Horizontal overflow on the rail
-     never blocks the page's vertical scroll.
-     ============================================================ */
-  .matters-section {
-    background: var(--navy-800);
-    padding: 3rem 0;
-    border-top: 1px solid rgba(200, 164, 74, 0.12);
-    /* The rail bleeds to the viewport edge; the head keeps the page gutter. */
-    overflow: hidden;
-  }
-  .matters-head {
-    padding: 0 1.5rem;
-  }
-  .matters-lead {
-    margin-top: 1rem;
-    max-width: 52ch;
-    font-size: 13px;
-    line-height: 1.7;
-    color: var(--navy-300);
-  }
-
-  .matters-rail {
-    list-style: none;
-    margin-top: 2.5rem;
-    display: flex;
-    gap: 1rem;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    /* Trailing padding keeps the last card off the viewport edge; leading
-       padding aligns the first card with the section head. */
-    padding: 0.25rem 1.5rem 1.5rem;
-    scrollbar-width: thin;
-    scrollbar-color: var(--brass-600) transparent;
-  }
-  .matters-rail:focus-visible {
-    outline: 2px solid var(--brass-400);
-    outline-offset: -4px;
-  }
-  .matters-rail::-webkit-scrollbar {
-    height: 3px;
-  }
-  .matters-rail::-webkit-scrollbar-thumb {
-    background: var(--brass-600);
-  }
-
-  .matter-card {
-    scroll-snap-align: start;
-    flex: 0 0 82%;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem;
-    background: var(--navy-900);
-    border: 1px solid rgba(200, 164, 74, 0.16);
-    /* A hairline top edge in brass reads as a tab, not a card shadow. */
-    border-top: 2px solid var(--brass-600);
-    transition: border-color 0.3s ease, transform 0.3s ease;
-  }
-  .matter-card:hover {
-    border-color: rgba(200, 164, 74, 0.4);
-  }
-
-  .matter-card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-  .matter-index {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--brass-500);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .matter-project {
-    margin-top: 1.25rem;
-    font-family: var(--serif);
-    font-size: clamp(1.35rem, 4vw, 1.6rem);
-    font-weight: 300;
-    line-height: 1.2;
-    color: var(--white);
-    text-wrap: balance;
-  }
-  .matter-meta {
-    margin-top: 0.6rem;
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    color: var(--brass-300);
-  }
-  .matter-heads-grown {
-    flex: 1;
-    align-content: start;
-  }
-
-  .matter-heads {
-    list-style: none;
-    /* The summary sentence was removed, so the tag block takes its place and
-       pushes to the foot of the card to keep one baseline across the rail. */
-    margin-top: 1.5rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid rgba(200, 164, 74, 0.12);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-  .matter-heads li {
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--navy-300);
-    border: 1px solid rgba(138, 174, 232, 0.2);
-    padding: 0.3rem 0.55rem;
-  }
-
-  @media (min-width: 769px) {
-    .matters-section {
-      padding: 5rem 0;
-    }
-    .matters-head {
-      padding: 0 3rem;
-    }
-    .matters-rail {
-      gap: 1.5rem;
-      padding: 0.25rem 3rem 2rem;
-    }
-    .matter-card {
-      /* Two and a bit cards visible: the overhang is the affordance. */
-      flex-basis: 38%;
-      padding: 2rem;
-    }
-    .matter-card:hover {
-      transform: translateY(-4px);
-    }
-  }
-
-  @media (min-width: 1600px) {
-    .matter-card {
-      flex-basis: 26%;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .matter-card {
-      transition: none;
-    }
-    .matter-card:hover {
-      transform: none;
-    }
-    .matters-rail {
-      scroll-snap-type: none;
-    }
-  }
-
-  /* Sit under the name in the slot a role title would occupy. */
-  .person-role {
-    margin-top: 0.6rem;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--brass-400);
-  }
-
-  .person-specialisms {
-    list-style: none;
-    margin-top: 0.9rem;
-    max-width: 62ch;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-  .person-specialisms li {
-    position: relative;
-    padding-left: 0.9rem;
-    font-size: 13px;
-    line-height: 1.6;
-    letter-spacing: 0.02em;
-    color: var(--brass-300);
-  }
-  .person-specialisms li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.62em;
-    width: 5px;
-    height: 1px;
-    background: var(--brass-500);
-  }
-
-  /* Headquarters marker — the only point on a region-level map. */
-  .geo-hq-halo {
-    fill: #070c15;
-    fill-opacity: 0.82;
-  }
-  .geo-hq-ring {
-    fill: none;
-    stroke: var(--brass-200);
-    stroke-width: 1;
-    stroke-opacity: 0.85;
-    vector-effect: non-scaling-stroke;
-  }
-  .geo-hq-dot {
-    fill: var(--brass-100);
-    stroke: none;
-  }
-
-  .matter-contribution {
-    margin-top: 0.6rem;
-    font-size: 12px;
-    line-height: 1.55;
-    color: var(--brass-400);
-  }
-
-  .geo-map-legend {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem 2rem;
-    margin: 1.5rem auto 0;
-    list-style: none;
-    font-family: var(--sans);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--navy-200);
-  }
-  .geo-map-legend li {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-  }
-  .geo-map-legend-swatch {
-    width: 14px;
-    height: 8px;
-    flex: 0 0 auto;
-    /* Reads the same brass gradient the covered countries are filled with,
-       flattened to its midpoint, with the same lighter border. */
-    background: #a97f2c;
-    border: 1px solid rgba(226, 204, 153, 0.35);
-  }
-  .geo-map-legend-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--off-white);
-    box-shadow: 0 0 0 3px rgba(226, 204, 153, 0.35);
-    flex: 0 0 auto;
-  }
-
-
-/* ==========================================================================
-   rev5 additions (8 October 2026): original design, current content.
-   ========================================================================== */
-
-a.nav-brand { text-decoration: none; }
-
-.matter-bracket { color: var(--brass-300); font-weight: 400; white-space: normal; }
-.matters-head-second { margin-top: 4rem; }
-.matter-summary { font-size: 14px; line-height: 1.7; color: var(--text-muted-on-dark); margin-top: 0.8rem; }
-
-.contact-heading { font-family: var(--serif); font-size: 2.4rem; font-weight: 300; color: #fff; margin-bottom: 0.8rem; }
-.contact-lead { font-size: 15px; color: var(--text-muted-on-dark); line-height: 1.8; max-width: 620px; }
-.contact-actions { margin-top: 2rem; }
-.contact-actions .btn-primary { overflow-wrap: anywhere; }
-.contact-note { margin-top: 1.6rem; font-size: 13px; color: var(--text-muted-on-dark); max-width: 620px; }
-
-.legal-page { max-width: 760px; margin: 0 auto; padding: 150px 24px 90px; }
-.legal-page h1 { font-family: var(--serif); font-weight: 300; font-size: clamp(2.2rem, 7vw, 3.2rem); color: #fff; line-height: 1.15; }
-.legal-page h2 { font-family: var(--serif); font-weight: 400; font-size: 1.9rem; color: var(--brass-300); margin: 3rem 0 0.4rem; }
-.legal-page h3 { font-size: 15px; font-weight: 500; color: #fff; margin: 1.6rem 0 0.4rem; }
-.legal-page p, .legal-page li { font-size: 14.5px; line-height: 1.8; color: var(--text-muted-on-dark); }
-.legal-page p + p { margin-top: 0.7rem; }
-.legal-page ul { padding-left: 1.2rem; }
-.legal-page a { color: var(--brass-300); }
-.legal-page > p:last-child { margin-top: 3rem; }
+  .js [data-reveal-group] > [data-reveal-item] {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
