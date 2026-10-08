@@ -50,7 +50,7 @@ ul { list-style: none; }
   align-items: center;
   justify-content: space-between;
   padding: 12px var(--gutter);
-  background: rgba(10, 22, 40, 0.94);
+  background: var(--navy-900);
   border-bottom: 1px solid var(--line);
 }
 .brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; }
@@ -132,8 +132,8 @@ p + p { margin-top: 14px; }
 
 .matters li { padding: 18px 0; border-top: 1px solid var(--line); font-size: 15px; }
 .matters li p { margin-top: 0; color: var(--muted); }
-.matters .matter-meta { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass); }
-.matters h3 { margin-top: 4px; }
+.matters h3 span { color: var(--brass); font-weight: 400; }
+h2.second { margin-top: 48px; }
 .matters .matter-parties { color: var(--text); }
 
 /* ---------- person ---------- */

@@ -19,7 +19,7 @@ export type Matter = {
   project: string;
   forum: string;
   /** Badge class suffix, matching the existing .forum-badge palette. */
-  forumKey: "arbitration" | "litigation" | "adjudication";
+  forumKey: "arbitration" | "litigation" | "adjudication" | "claim";
   /**
    * Region, not country. Broadened so a matter cannot be identified from the
    * combination of project type, forum and place — and so the three regions
@@ -59,15 +59,15 @@ export type Matter = {
 
 export const matters: Matter[] = [
   {
-    project: "Phosphate Plants",
-    contribution: "Quantum support to the appointed expert",
-    forum: "Arbitration",
-    forumKey: "arbitration",
-    region: "Africa",
-    parties: "Contractor v Subcontractor",
+    // Added 8 October 2026 from the CV of 5 October 2026. No role line: none is stated there.
+    project: "Gas Export Pipelines",
+    forum: "Claim",
+    forumKey: "claim",
+    region: "Middle East",
+    parties: "Contractor v Client",
     summary:
-      "Proceedings concerning prolongation, disruption, measured work, variations, loss of opportunity costs and head office overheads.",
-    heads: ["Prolongation", "Disruption", "Measured work", "Variations", "Loss of opportunity", "Head office overheads"],
+      "Interim claim concerning disruption valued by measured mile analysis, including derivation of disrupted labour and plant workhours by activity.",
+    heads: ["Disruption", "Measured mile analysis", "Labour and plant workhours by activity"],
   },
   {
     project: "LPG Extraction & Fractionation Plant",
@@ -81,26 +81,15 @@ export const matters: Matter[] = [
     heads: ["Prolongation", "Disruption", "Variations", "Head office overheads"],
   },
   {
-    project: "Landmark Hotel",
+    project: "Phosphate Plants",
     contribution: "Quantum support to the appointed expert",
     forum: "Arbitration",
     forumKey: "arbitration",
-    region: "Middle East",
-    parties: "Contractor v MEP Subcontractor",
+    region: "Africa",
+    parties: "Contractor v Subcontractor",
     summary:
-      "Proceedings concerning prolongation, disruption, variations and scope creep.",
-    heads: ["Prolongation", "Disruption", "Variations", "Scope creep"],
-  },
-  {
-    project: "Slaughterhouse & Associated Infrastructure",
-    contribution: "Quantum support to the appointed expert",
-    forum: "Arbitration",
-    forumKey: "arbitration",
-    region: "Middle East",
-    parties: "Contractor v Client",
-    summary:
-      "Proceedings concerning prolongation, disruption, variations, late payment and head office overhead claims.",
-    heads: ["Prolongation", "Disruption", "Variations", "Late payment", "Head office overheads"],
+      "Proceedings concerning prolongation, disruption, measured work, variations, loss of opportunity costs and head office overheads.",
+    heads: ["Prolongation", "Disruption", "Measured work", "Variations", "Loss of opportunity", "Head office overheads"],
   },
   {
     project: "Commercial Office",
@@ -123,5 +112,41 @@ export const matters: Matter[] = [
     summary:
       "Proceedings concerning prolongation, contra-charges, liquidated damages, retention and interest.",
     heads: ["Prolongation", "Contra-charges", "Liquidated damages", "Retention", "Interest"],
+  },
+];
+
+/**
+ * Claims and commercial recovery — the second group, added 8 October 2026.
+ * Wording is from the "Commercial Recovery, Claims & Disputes" section of the
+ * CV of 5 October 2026 and is anonymised the same way.
+ */
+export type Recovery = {
+  project: string;
+  place: string;
+  party: string;
+  summary: string;
+};
+
+export const recovery: Recovery[] = [
+  {
+    project: "Landmark Commercial Skyscraper",
+    place: "London",
+    party: "Subcontractor",
+    summary:
+      "High-value dispute involving delay, disruption, variations, contra charges, overhead and profit and finance-related claims. Project account reconstructed from first principles.",
+  },
+  {
+    project: "Landmark Power Station Redevelopment",
+    place: "London",
+    party: "Subcontractor",
+    summary:
+      "Commercial recovery and account reconstruction relating to variations, provisional sums, delay, acceleration, payment disputes, suspension, contra charges and extension of time.",
+  },
+  {
+    project: "Major Regeneration Scheme",
+    place: "London",
+    party: "Developer",
+    summary:
+      "High-value claims across MEP and drylining packages reviewed and rebutted, with negotiated settlements and interim final account agreement.",
   },
 ];

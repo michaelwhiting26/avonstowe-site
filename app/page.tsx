@@ -1,5 +1,5 @@
 import { site, hero, services, enquiries } from "@/lib/site";
-import { matters } from "@/lib/matters";
+import { matters, recovery } from "@/lib/matters";
 import { person } from "@/lib/person";
 
 /**
@@ -43,12 +43,26 @@ export default function Home() {
         <ul className="matters">
           {matters.map((m) => (
             <li key={m.project}>
-              <p className="matter-meta">
-                {m.forum} · {m.region}
-              </p>
-              <h3>{m.project}</h3>
+              <h3>
+                {m.project}{" "}
+                <span>
+                  ({m.forum}, {m.region})
+                </span>
+              </h3>
               <p className="matter-parties">{m.parties}</p>
               <p>{m.heads.join(" · ")}</p>
+            </li>
+          ))}
+        </ul>
+        <h2 className="second">Claims and commercial recovery</h2>
+        <ul className="matters">
+          {recovery.map((r) => (
+            <li key={r.project}>
+              <h3>
+                {r.project} <span>({r.place})</span>
+              </h3>
+              <p className="matter-parties">{r.party}</p>
+              <p>{r.summary}</p>
             </li>
           ))}
         </ul>
