@@ -8,6 +8,7 @@ import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
 import RevealObserver from "@/components/RevealObserver";
 import { site } from "@/lib/site";
+import { structuredData } from "@/lib/structured-data";
 
 // Self-hosted via next/font: served from our own origin, no third-party request.
 const serif = Cormorant_Garamond({
@@ -34,8 +35,11 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: site.title,
     description: site.description,
+    locale: "en_GB",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: site.title }],
   },
-  twitter: { card: "summary", title: site.title, description: site.description },
+  twitter: { card: "summary_large_image", title: site.title, description: site.description, images: ["/og.png"] },
+  robots: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large" },
 };
 
 export const viewport: Viewport = {
@@ -55,6 +59,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{
             __html: `document.documentElement.classList.add("js")`,
           }}
+        />
+        <script
+          type="application/ld+json"
+          // Structured data for search and AI engines, built from the site copy.
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData()) }}
         />
       </head>
       <body>

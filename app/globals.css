@@ -363,3 +363,104 @@ html.lenis, html.lenis body { height: auto; }
     transition: none !important;
   }
 }
+
+/* ==========================================================================
+   rev6 — refinement layer ("feel more expensive"). Styling only: no copy
+   changes. Remove this block to return to rev5 exactly.
+   ========================================================================== */
+
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+body { font-feature-settings: "kern", "liga", "calt"; letter-spacing: 0.002em; }
+::selection { background: rgba(201, 164, 74, 0.32); color: #fff; }
+
+/* Film grain + depth: a fixed, very faint noise layer over everything. */
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9000; opacity: 0.045; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Glass header: the page shows through, softened. */
+.site-header {
+  background: rgba(10, 22, 40, 0.72);
+  -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid rgba(201, 164, 74, 0.14);
+  padding-top: 14px; padding-bottom: 14px;
+}
+.brand span { letter-spacing: 0.32em; font-size: 12px; }
+.header-link { border-color: rgba(201, 164, 74, 0.55); letter-spacing: 0.2em; transition: background 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s, border-color 0.35s; }
+
+/* Section rhythm: more air, and a hairline that fades at both ends. */
+section, .legal { padding-top: 72px; padding-bottom: 72px; }
+section + section { border-top: 0; position: relative; }
+section + section::before {
+  content: ""; position: absolute; top: 0; left: var(--gutter); right: var(--gutter); height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 164, 74, 0.38) 20%, rgba(201, 164, 74, 0.38) 80%, transparent);
+}
+@media (min-width: 960px) { section, .legal { padding-top: 120px; padding-bottom: 120px; } }
+
+/* Eyebrows: wider tracking and a short brass rule. */
+.eyebrow { font-size: 11px; letter-spacing: 0.28em; display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--brass); flex: none; }
+.hero .eyebrow::before { display: none; }
+
+/* Display type: larger, tighter, the brass phrase in italic. */
+h1 { font-size: clamp(42px, 11.5vw, 92px); line-height: 1.02; letter-spacing: -0.012em; font-weight: 500; }
+h1 span { font-style: italic; font-weight: 400; color: var(--brass-soft); background: linear-gradient(100deg, #e9d29c 0%, #c9a44a 55%, #b08a35 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; padding-right: 0.06em; }
+h2 { font-size: clamp(34px, 8.6vw, 54px); letter-spacing: -0.008em; line-height: 1.06; }
+.lede { font-size: clamp(17px, 2.1vw, 20px); line-height: 1.7; color: #b6c6e2; max-width: 46em; }
+
+/* Hero: a slow brass light behind the type. The page clips sideways overflow
+   (clip, not hidden, so the sticky header keeps working). */
+html, body { overflow-x: clip; }
+@media (min-width: 960px) { .hero::before { width: 60vw; -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 100%); } }
+.hero::after {
+  content: ""; position: absolute; width: 70vmax; height: 70vmax; right: -28vmax; top: -30vmax; pointer-events: none; z-index: 0;
+  background: radial-gradient(closest-side, rgba(201, 164, 74, 0.12), rgba(201, 164, 74, 0.04) 45%, transparent 70%);
+  animation: av-drift 18s ease-in-out infinite alternate;
+}
+.hero > * { position: relative; z-index: 1; }
+.hero-rule { width: 64px; background: linear-gradient(90deg, var(--brass), rgba(201, 164, 74, 0)); }
+@keyframes av-drift { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(-6vmax, 4vmax, 0) scale(1.08); } }
+
+/* Buttons: brass gradient with a light sheen that crosses on hover. */
+.btn-primary, .btn-ghost { position: relative; overflow: hidden; letter-spacing: 0.22em; border-radius: 1px; transition: background 0.35s, border-color 0.35s, color 0.35s, box-shadow 0.35s; }
+.btn-primary { background: linear-gradient(135deg, #d2b05a 0%, #b8902f 100%); border-color: #c19a3d; box-shadow: 0 10px 30px -12px rgba(201, 164, 74, 0.55); }
+.btn-primary::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; transform: skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent); transition: left 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-primary:hover::after { left: 130%; }
+.btn-primary:hover { box-shadow: 0 14px 36px -10px rgba(201, 164, 74, 0.7); }
+.btn-ghost { border-color: rgba(201, 164, 74, 0.35); color: var(--brass-soft); }
+
+/* Service cards: open, hairline-framed, a brass line that grows on hover. */
+.cards { gap: 18px; }
+.cards li {
+  position: relative; padding: 30px 26px 28px; border-radius: 2px;
+  background: linear-gradient(180deg, rgba(21, 43, 88, 0.34) 0%, rgba(10, 22, 40, 0) 100%);
+  border: 1px solid rgba(201, 164, 74, 0.16);
+}
+.cards li::before { content: ""; position: absolute; top: -1px; left: -1px; height: 1px; width: 40px; background: var(--brass); transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.cards h3 { font-size: 26px; line-height: 1.18; margin-bottom: 12px; }
+@media (hover: hover) {
+  .cards li:hover { background: linear-gradient(180deg, rgba(21, 43, 88, 0.55) 0%, rgba(10, 22, 40, 0.1) 100%); border-color: rgba(201, 164, 74, 0.32); }
+  .cards li:hover::before { width: calc(100% + 2px); }
+}
+
+/* Matters: project names set in the serif, hairlines that fade. */
+.matters li { border-top: 0; position: relative; padding: 22px 0; }
+.matters li::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, rgba(201, 164, 74, 0.4), rgba(201, 164, 74, 0.06)); }
+.matters h3 { font-family: var(--serif); font-size: 23px; font-weight: 500; line-height: 1.25; margin-bottom: 4px; }
+.matters h3 span { font-family: var(--sans); font-size: 13px; letter-spacing: 0.04em; }
+h2.second { margin-top: 72px; }
+
+/* Person and facts. */
+.role { letter-spacing: 0.24em; text-transform: uppercase; font-size: 12px; }
+.facts li { border-top: 0; position: relative; }
+.facts li::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, rgba(201, 164, 74, 0.35), rgba(201, 164, 74, 0.05)); }
+
+/* Thin brass scrollbar where supported. */
+html { scrollbar-width: thin; scrollbar-color: rgba(201, 164, 74, 0.5) var(--navy-900); }
+#scroll-progress { height: 2px; background: linear-gradient(90deg, #b8902f, #e9d29c); box-shadow: 0 0 12px rgba(201, 164, 74, 0.6); }
+
+@media (prefers-reduced-motion: reduce) { .hero::after { animation: none; } .btn-primary::after { display: none; } }
