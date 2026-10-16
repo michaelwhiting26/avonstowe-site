@@ -17,7 +17,7 @@ export function structuredData() {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "ProfessionalService",
+        "@type": "Organization", // ProfessionalService is deprecated in schema.org; Google documents Organization
         "@id": ORG,
         name: site.name,
         legalName: site.legalEntity,
