@@ -1,0 +1,188 @@
+{
+ "rows": [
+  {
+   "date": "2026-10-16",
+   "site": "Before (rev5)",
+   "category": "Mention rate",
+   "method": "AI answers",
+   "score": null,
+   "evidence": "Not run yet: 15 questions, 6 engines, 3 runs each, logged out"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Before (rev5)",
+   "category": "Citation rate",
+   "method": "AI answers",
+   "score": null,
+   "evidence": "Not run yet: share of runs that link avonstowe.com"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Before (rev5)",
+   "category": "Share of voice",
+   "method": "AI answers",
+   "score": null,
+   "evidence": "Not run yet: your mentions against every firm named"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Before (rev5)",
+   "category": "Accuracy",
+   "method": "AI answers",
+   "score": null,
+   "evidence": "Not run yet: are the firm, services, places and credentials described correctly?"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Before (rev5)",
+   "category": "Mentions on other sites",
+   "method": "Manual",
+   "score": null,
+   "evidence": "Not counted yet: directories, articles, registers that name Avonstowe"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Before (rev5)",
+   "category": "Entity consistency",
+   "method": "Manual",
+   "score": null,
+   "evidence": "Not checked yet: site, LinkedIn, registers and directories should match"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Before (rev5)",
+   "category": "Crawl and index",
+   "method": "Audit",
+   "score": 2,
+   "evidence": "Not blocked, but no robots.txt or sitemap; indexing unconfirmed (no Search Console)"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Now (live)",
+   "category": "Crawl and index",
+   "method": "Audit",
+   "score": 4,
+   "evidence": "Google has the site: AI Mode built its answer from avonstowe.com. Bing does not cite it yet (IndexNow ping sent 16 Oct; Bing Webmaster Tools not set up)"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Before (rev5)",
+   "category": "Schema and meta tags",
+   "method": "Audit",
+   "score": 2,
+   "evidence": "Title, description and canonical present; no structured data, no share image"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Now (live)",
+   "category": "Schema and meta tags",
+   "method": "Audit",
+   "score": 4,
+   "evidence": "Live: Organization, Person and WebSite structured data plus share image; LinkedIn link missing"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Before (rev5)",
+   "category": "Content depth and freshness",
+   "method": "Audit",
+   "score": 1,
+   "evidence": "One page; copy last changed 8 October 2026"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Now (live)",
+   "category": "Content depth and freshness",
+   "method": "Audit",
+   "score": 1,
+   "evidence": "Same page and copy"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Before (rev5)",
+   "category": "Engine AI reports",
+   "method": "Manual",
+   "score": 0,
+   "evidence": "Search Console and Bing Webmaster Tools not set up"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Now (live)",
+   "category": "Engine AI reports",
+   "method": "Manual",
+   "score": 0,
+   "evidence": "Same until they are set up"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Before (rev5)",
+   "category": "AI visits leading to enquiries",
+   "method": "Manual",
+   "score": 0,
+   "evidence": "Not tracked: the site has no analytics"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Now (live)",
+   "category": "AI visits leading to enquiries",
+   "method": "Manual",
+   "score": 0,
+   "evidence": "Same until analytics is added"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Before (rev5)",
+   "category": "Page speed and stability",
+   "method": "Audit",
+   "score": 4,
+   "evidence": "Lighthouse mobile lab: performance 85, content painted at 2.8 s (good is 2.5 s), layout shift 0"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Now (live)",
+   "category": "Page speed and stability",
+   "method": "Audit",
+   "score": 4,
+   "evidence": "Same as live in a like-for-like test (84 against 84)"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Now (live)",
+   "category": "Mention rate",
+   "method": "AI answers",
+   "score": 0,
+   "evidence": "Google AI Mode and Bing Copilot, 16 Oct: 0 of 14 client questions name Avonstowe; both recognise it only when asked by name. Perplexity needs sign-in; ChatGPT not tested"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Now (live)",
+   "category": "Citation rate",
+   "method": "AI answers",
+   "score": 0,
+   "evidence": "0 of 14 client questions link avonstowe.com. Google links it only for the brand question; Bing never does"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Now (live)",
+   "category": "Share of voice",
+   "method": "AI answers",
+   "score": 0,
+   "evidence": "Named instead across 30 AI answers: HKA 9, Secretariat 5, Ankura 5, Boultwood + Associates 4, J.S. Held 3, FTI 3, Kroll 3, Masin 3, Arbicon 3"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Now (live)",
+   "category": "Accuracy",
+   "method": "AI answers",
+   "score": 2,
+   "evidence": "Google describes Avonstowe correctly from the site and LinkedIn but overstates Court of Session work ('routinely'). Bing uses only Companies House (Avonstowe Limited, 'no accounts filed yet') and mixes in a different Michael Whiting"
+  },
+  {
+   "date": "2026-10-16",
+   "site": "Now (live)",
+   "category": "Entity consistency",
+   "method": "Manual",
+   "score": 2,
+   "evidence": "Bing knows Avonstowe Limited (UK, Companies House 14299200), the site names Avonstowe FZ-LLC; a second Michael Whiting (MJW Consultancy) is confused with you"
+  }
+ ]
+}

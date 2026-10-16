@@ -1,0 +1,108 @@
+{
+ "rows": [
+  {
+   "action": "Get onto the lists AI answers are built from",
+   "category": "Mentions on other sites",
+   "impact": "High",
+   "owner": "Michael",
+   "status": "To do",
+   "detail": "Google and Bing built answers from 'best firms' articles (Novus Resolve, ConstructionPlacements), LinkedIn, Lexology and Bing's business listings. Approach the list writers with evidence; make LinkedIn complete."
+  },
+  {
+   "action": "Fix Bing's picture of Avonstowe",
+   "category": "Entity consistency",
+   "impact": "High",
+   "owner": "Michael",
+   "status": "To do",
+   "detail": "Bing reads Companies House: bring Avonstowe Limited's filings up to date, decide how the site names the UK company, and verify the site in Bing Webmaster Tools so Bing reads avonstowe.com."
+  },
+  {
+   "action": "Get named on other sites",
+   "category": "Mentions on other sites",
+   "impact": "High",
+   "owner": "Michael",
+   "status": "To do",
+   "detail": "The strongest signal in the research: Lexology Index, expert registers (Academy of Experts, EWI: check eligibility), Society of Construction Law talks and papers, trade press."
+  },
+  {
+   "action": "Publish the new build",
+   "category": "Schema and meta tags",
+   "impact": "High",
+   "owner": "Michael",
+   "status": "Done 16 Oct",
+   "detail": "Live on 16 October 2026 (gh-pages 3fd20bc); IndexNow ping accepted."
+  },
+  {
+   "action": "Search Console and Bing Webmaster Tools",
+   "category": "Engine AI reports",
+   "impact": "High",
+   "owner": "Michael",
+   "status": "To do",
+   "detail": "Needs your logins. Submit the sitemap and leave Google's generative AI setting on Include. Both now report AI impressions and citations."
+  },
+  {
+   "action": "LinkedIn to match the site",
+   "category": "Entity consistency",
+   "impact": "High",
+   "owner": "Michael",
+   "status": "Waiting on Michael",
+   "detail": "LinkedIn is the third most-cited site in AI answers. Same wording as the site; send the URL so it goes into the structured data."
+  },
+  {
+   "action": "Grow from one page to six or eight",
+   "category": "Content depth and freshness",
+   "impact": "High",
+   "owner": "Michael",
+   "status": "Your decision",
+   "detail": "Profile, a page per service, UK and Middle East pages, case notes from the selected matters. New wording, so only with your approval."
+  },
+  {
+   "action": "One original article a month",
+   "category": "Content depth and freshness",
+   "impact": "High",
+   "owner": "Michael",
+   "status": "Your decision",
+   "detail": "Real figures, quotations and sources, with the answer in the first paragraph; re-post on LinkedIn."
+  },
+  {
+   "action": "Run the monthly AI answer check",
+   "category": "Mention rate",
+   "impact": "High",
+   "owner": "Claude",
+   "status": "Baseline done 16 Oct",
+   "detail": "Google AI Mode and Bing Copilot done (0 of 14). Perplexity needs sign-in and ChatGPT runs in your account: next month, a clean browser profile."
+  },
+  {
+   "action": "Cookieless analytics for AI visits",
+   "category": "AI visits leading to enquiries",
+   "impact": "Medium",
+   "owner": "Michael",
+   "status": "Your decision",
+   "detail": "Cloudflare Web Analytics shows visits from ChatGPT and Perplexity without cookies; GA4 has an AI channel but sets cookies."
+  },
+  {
+   "action": "Same name and entity everywhere",
+   "category": "Entity consistency",
+   "impact": "Medium",
+   "owner": "Michael",
+   "status": "Your decision",
+   "detail": "Decide whether the site should also name Avonstowe Limited (UK) alongside Avonstowe FZ-LLC."
+  },
+  {
+   "action": "Decide the LPG and Phosphate matters",
+   "category": "Accuracy",
+   "impact": "Medium",
+   "owner": "Michael",
+   "status": "Waiting on Michael",
+   "detail": "Still not evidenced as your work; kept out of the AI-facing files until decided."
+  },
+  {
+   "action": "IndexNow ping on each deploy",
+   "category": "Crawl and index",
+   "impact": "Low",
+   "owner": "Claude",
+   "status": "Done 16 Oct",
+   "detail": "First ping accepted (202). Repeat on every deploy."
+  }
+ ]
+}

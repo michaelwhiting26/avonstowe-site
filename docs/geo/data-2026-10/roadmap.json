@@ -1,0 +1,60 @@
+{
+ "rows": [
+  {
+   "period": "Oct 2026",
+   "focus": "Foundation",
+   "actions": "Improved site live with robots, sitemap, structured data and IndexNow (done 16 Oct). Search Console and Bing Webmaster Tools verified, sitemap submitted, Google's generative AI setting left on Include. LinkedIn link added to the structured data. Analytics chosen. AI baseline in Perplexity, Google and Copilot.",
+   "owner": "Michael + Claude",
+   "measure": "Brand search returns avonstowe.com in Google and Bing",
+   "status": "In progress"
+  },
+  {
+   "period": "Nov 2026",
+   "focus": "Profiles and listings",
+   "actions": "LinkedIn profile and company page use the site's wording. Decide on paid listings: UK Register of Expert Witnesses, expertwitness.co.uk. Free Lexology contributor profile. Society of Construction Law member listing if offered.",
+   "owner": "Michael",
+   "measure": "Two third-party listings live and linking to the site",
+   "status": "Planned"
+  },
+  {
+   "period": "Dec 2026",
+   "focus": "Specialist pages",
+   "actions": "Grow from one page to six or eight: Michael Whiting profile, one page per service, a case-notes page built only from evidenced matters. Drafted from the CV and existing copy, published only with Michael's approval.",
+   "owner": "Claude drafts, Michael approves",
+   "measure": "Six or more pages indexed; first Search Console impressions",
+   "status": "Planned"
+  },
+  {
+   "period": "Jan 2027",
+   "focus": "First article and full panel",
+   "actions": "Article 1 (suggested: measured-mile disruption analysis, from real experience). First full AI panel: 15 questions, six engines, three runs each, logged out.",
+   "owner": "Michael + Claude",
+   "measure": "Mention rate baseline recorded; article indexed",
+   "status": "Planned"
+  },
+  {
+   "period": "Feb\u2013Apr 2027",
+   "focus": "Authority",
+   "actions": "One original article a month (suggested: head office overheads, JCT loss and expense, FIDIC claims in the UAE), each re-posted on LinkedIn. Pitch one guest piece to trade press or an SCL paper.",
+   "owner": "Michael + Claude",
+   "measure": "At least one new external mention a month; Bing AI citations appear",
+   "status": "Planned"
+  },
+  {
+   "period": "May\u2013Jul 2027",
+   "focus": "Credentials and directories",
+   "actions": "Progress the CIArb route; check eligibility for the Academy of Experts and EWI; offer a talk to an SCL branch. Second full AI panel.",
+   "owner": "Michael",
+   "measure": "Mention rate above 5% on the panel; first AI answer citing avonstowe.com",
+   "status": "Planned"
+  },
+  {
+   "period": "Aug\u2013Oct 2027",
+   "focus": "Compound and review",
+   "actions": "Refresh every page within 90 days; add new case notes as matters close; annual review against targets; decide whether a paid tracker (e.g. Otterly Lite, $29 a month) is worth it.",
+   "owner": "Michael + Claude",
+   "measure": "Oct 2027 targets: mention rate 10\u201320%, citation rate 5\u201310%, 12 articles, 6+ external mentions, one AI-sourced enquiry a quarter",
+   "status": "Planned"
+  }
+ ]
+}
