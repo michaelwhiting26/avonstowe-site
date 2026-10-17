@@ -1,4 +1,4 @@
-import { site, hero, services, enquiries } from "@/lib/site";
+import { site, hero } from "@/lib/site";
 import { matters, recovery } from "@/lib/matters";
 import { person } from "@/lib/person";
 import { Reveal, Stagger, Item } from "@/components/Motion";
@@ -6,7 +6,7 @@ import MagneticButton from "@/components/MagneticButton";
 
 /**
  * One page, read top to bottom on a phone:
- * what the practice is -> what it does -> matters -> person -> contact.
+ * what the practice does (one paragraph) -> matters -> person -> contact.
  * Motion (reveal on scroll, magnetic buttons) is carried from the first build.
  */
 export default function Home() {
@@ -17,14 +17,8 @@ export default function Home() {
         {/* revealOnLoad: above the fold, so it animates from page load rather
             than waiting on an intersection callback. */}
         <Stagger revealOnLoad>
-          <Item as="p" className="eyebrow">
-            {hero.eyebrow}
-          </Item>
-          <Item as="h1">
-            {hero.titleLead} <span>{hero.titleRest}</span>
-          </Item>
-          <Item as="p" className="lede">
-            {hero.sub}
+          <Item as="h1" className="statement">
+            {hero.lead} <span>{hero.accent}</span> {hero.rest}
           </Item>
           <Item className="actions">
             <MagneticButton href="#contact" className="btn-primary">
@@ -34,20 +28,6 @@ export default function Home() {
               Who does the work
             </MagneticButton>
           </Item>
-        </Stagger>
-      </section>
-
-      <section id="work">
-        <Reveal as="p" className="eyebrow">
-          What we do
-        </Reveal>
-        <Stagger as="ul" className="cards">
-          {services.map((v) => (
-            <Item as="li" key={v.title}>
-              <h3>{v.title}</h3>
-              <p>{v.text}</p>
-            </Item>
-          ))}
         </Stagger>
       </section>
 
@@ -87,12 +67,30 @@ export default function Home() {
       </section>
 
       <section id="michael">
-        <Reveal>
-          <p className="eyebrow">Who does the work</p>
-          <h2>{person.name}</h2>
-          <p className="role">{person.role}</p>
-          <p>{person.bio}</p>
+        <Reveal as="p" className="eyebrow">
+          Who does the work
         </Reveal>
+        <div className="profile">
+          {/* Kebiki-style portrait: ink on one flat brand colour, fading to the
+              page at the collarbone with the name set on the dark. Drawn from
+              the headshot Michael supplied on 17 October 2026. */}
+          <Reveal className="portrait">
+            {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimiser */}
+            <img
+              src="/michael.jpg"
+              alt="Illustrated portrait of Michael Whiting"
+              width={880}
+              height={1100}
+              loading="lazy"
+              decoding="async"
+            />
+            <h2>{person.name}</h2>
+          </Reveal>
+          <Reveal>
+            <p className="role">{person.role}</p>
+            <p>{person.bio}</p>
+          </Reveal>
+        </div>
         <div className="facts">
           <div>
             <h3>Qualifications</h3>
@@ -120,17 +118,12 @@ export default function Home() {
 
       <section id="contact" className="contact">
         <Reveal>
-          <p className="eyebrow">Enquiries</p>
-          <h2>Discuss a matter</h2>
-          <p>{enquiries}</p>
+          <h2>Contact Michael</h2>
           <div className="actions">
             <MagneticButton href={`mailto:${site.email}`} className="btn-primary">
               {site.email}
             </MagneticButton>
           </div>
-          <p className="note">
-            Please do not send confidential or privileged material until a conflict check is complete.
-          </p>
         </Reveal>
       </section>
     </>

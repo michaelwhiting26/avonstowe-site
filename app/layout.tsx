@@ -96,9 +96,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <p>
                 Enquiries: <a href={`mailto:${site.email}`}>{site.email}</a>
               </p>
-              <p>{site.location}</p>
               <p>
-                {site.legalEntity} · {site.licence}
+                {site.legalEntity} · {site.location}
               </p>
             </div>
             <div className="footer-legal">

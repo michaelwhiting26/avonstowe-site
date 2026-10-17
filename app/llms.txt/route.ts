@@ -1,6 +1,6 @@
 // /llms.txt — a plain summary for AI assistants (llmstxt.org format).
 // Generated at build time from the same copy as the page, so it never drifts.
-import { site, hero, services, enquiries } from "@/lib/site";
+import { site, statement, services } from "@/lib/site";
 import { person } from "@/lib/person";
 
 export const dynamic = "force-static";
@@ -13,7 +13,7 @@ export function GET() {
     "",
     `> ${site.description}`,
     "",
-    hero.sub,
+    statement,
     "",
     "## Services",
     ...services.map((s) => `- ${s.title}: ${s.text}`),
@@ -24,11 +24,11 @@ export function GET() {
     `- Career: ${person.career.map((c) => `${c.organisation} ${c.period.replace("—", "to")}`).join("; ")}.`,
     "",
     "## Contact",
-    `- Email: ${site.email}. ${enquiries}`,
+    `- Email: ${site.email}.`,
     `- ${site.legalEntity}, ${site.licence}, ${site.location}.`,
     "",
     "## Pages",
-    `- [Home](${site.url}/): services, selected matters, the practitioner and contact.`,
+    `- [Home](${site.url}/): what the practice does, selected matters, the practitioner and contact.`,
     `- [Legal](${site.url}/legal/): privacy notice, terms of use and cookie policy.`,
     "",
   ].join("\n");
