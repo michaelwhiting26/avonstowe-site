@@ -2,8 +2,6 @@
 
 > Avonstowe is a quantity surveying and forensic quantum practice for construction and engineering projects and disputes, across the United Kingdom, the Middle East and North Africa.
 
-Avonstowe is a quantity surveying and forensic quantum practice. We work out what construction and engineering work is worth, and what is owed. On live projects, that means valuations, change and final accounts. In a dispute, it means rebuilding the figures from the project records and setting them out for adjudication, arbitration or settlement. We work across the UK, the Middle East and North Africa.
-
 ## Services
 - Forensic quantum analysis: Quantum assessment, document review, analysis of project records and report drafting in arbitration, adjudication and litigation.
 - Claims, disputes and commercial recovery: Prolongation, disruption, variations, loss and expense, final accounts and payment disputes, for employers, contractors and subcontractors.
@@ -19,5 +17,5 @@ Avonstowe is a quantity surveying and forensic quantum practice. We work out wha
 - Avonstowe FZ-LLC, RAKEZ licence 47022473, United Arab Emirates.
 
 ## Pages
-- [Home](https://www.avonstowe.com/): what the practice does, selected matters, the practitioner and contact.
+- [Home](https://www.avonstowe.com/): construction and engineering disputes, selected matters, the practitioner and contact.
 - [Legal](https://www.avonstowe.com/legal/): privacy notice, terms of use and cookie policy.
