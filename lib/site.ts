@@ -23,17 +23,12 @@ export const site = {
 } as const;
 
 /**
- * The front of the page: one paragraph saying what the practice does
- * (Michael, 17 October 2026: "what it does on the tin"). `accent` is set in
- * the brass italic; the three parts read as one paragraph.
+ * The front of the page: one sentence (Michael, 17 October 2026).
  */
 export const hero = {
-  lead: "Avonstowe is a quantity surveying and forensic quantum practice. We work out what construction and engineering work is worth,",
-  accent: "and what is owed.",
-  rest: "On live projects, that means valuations, change and final accounts. In a dispute, it means rebuilding the figures from the project records and setting them out for adjudication, arbitration or settlement. We work across the UK, the Middle East and North Africa.",
+  statement:
+    "Avonstowe is a construction and engineering disputes practice, working across the United Kingdom, the Middle East and North Africa.",
 } as const;
-
-export const statement = `${hero.lead} ${hero.accent} ${hero.rest}`;
 
 export const services = [
   {

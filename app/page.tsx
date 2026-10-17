@@ -6,7 +6,7 @@ import MagneticButton from "@/components/MagneticButton";
 
 /**
  * One page, read top to bottom on a phone:
- * what the practice does (one paragraph) -> matters -> person -> contact.
+ * what the practice is and where -> matters -> person -> contact.
  * Motion (reveal on scroll, magnetic buttons) is carried from the first build.
  */
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
             than waiting on an intersection callback. */}
         <Stagger revealOnLoad>
           <Item as="h1" className="statement">
-            {hero.lead} <span>{hero.accent}</span> {hero.rest}
+            {hero.statement}
           </Item>
           <Item className="actions">
             <MagneticButton href="#contact" className="btn-primary">
