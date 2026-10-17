@@ -67,30 +67,12 @@ export default function Home() {
       </section>
 
       <section id="michael">
-        <Reveal as="p" className="eyebrow">
-          Who does the work
+        <Reveal>
+          <p className="eyebrow">Who does the work</p>
+          <h2>{person.name}</h2>
+          <p className="role">{person.role}</p>
+          <p>{person.bio}</p>
         </Reveal>
-        <div className="profile">
-          {/* Kebiki-style portrait: ink on one flat brand colour, fading to the
-              page at the collarbone with the name set on the dark. Drawn from
-              the headshot Michael supplied on 17 October 2026. */}
-          <Reveal className="portrait">
-            {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimiser */}
-            <img
-              src="/michael.jpg"
-              alt="Illustrated portrait of Michael Whiting"
-              width={880}
-              height={1100}
-              loading="lazy"
-              decoding="async"
-            />
-            <h2>{person.name}</h2>
-          </Reveal>
-          <Reveal>
-            <p className="role">{person.role}</p>
-            <p>{person.bio}</p>
-          </Reveal>
-        </div>
         <div className="facts">
           <div>
             <h3>Qualifications</h3>

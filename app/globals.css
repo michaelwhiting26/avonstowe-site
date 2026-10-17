@@ -465,18 +465,6 @@ html { scrollbar-width: thin; scrollbar-color: rgba(201, 164, 74, 0.5) var(--nav
 
 @media (prefers-reduced-motion: reduce) { .hero::after { animation: none; } .btn-primary::after { display: none; } }
 
-/* ---------- 17 Oct 2026: one-paragraph front, Kebiki-style portrait ---------- */
-/* The front is one paragraph, set as the page's heading; the accent keeps the brass italic. */
+/* ---------- 17 Oct 2026: the front is one paragraph ---------- */
+/* Set as the page's heading; the accent keeps the brass italic. */
 h1.statement { font-size: clamp(25px, 6.2vw, 38px); line-height: 1.32; letter-spacing: 0; max-width: 30em; }
-
-/* Portrait: ink on brass, fading to the page's navy at the collarbone, name set on the dark. */
-.profile { display: grid; gap: 28px; }
-.portrait { position: relative; overflow: hidden; max-width: 380px; --cover: 90%; }
-.portrait img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
-.portrait::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(to bottom, rgba(10, 22, 40, 0) calc(var(--cover) - 20%), rgba(10, 22, 40, 0.86) calc(var(--cover) - 6%), var(--navy-900) var(--cover));
-}
-.portrait h2 { position: absolute; z-index: 1; left: 7%; bottom: 5%; margin: 0; font-size: clamp(30px, 8vw, 40px); color: var(--text); }
-@media (min-width: 640px) { .profile { grid-template-columns: minmax(0, 300px) 1fr; gap: 40px; align-items: center; } }
-@media (min-width: 960px) { .profile { grid-template-columns: 360px 1fr; gap: 56px; } }
