@@ -43,7 +43,7 @@ export const experience = {
   recovery:
     "Claims and commercial recovery for contractors and developers on major projects, including residential and commercial towers, a power station redevelopment, a film studio and large regeneration schemes.",
   commercial:
-    "Commercial leadership for main contractors and developers on major projects, including a £1bn regeneration scheme, a £109m build-to-rent development, infrastructure upgrades in a live hospital, a luxury retail estate and a luxury hotel.",
+    "Commercial management for main contractors and developers on major projects, including a £1bn regeneration scheme, a £109m build-to-rent development, infrastructure upgrades in a live hospital, a luxury retail estate and a luxury hotel.",
 } as const;
 
 export const services = [
