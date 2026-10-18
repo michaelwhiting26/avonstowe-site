@@ -25,7 +25,7 @@ export default function Home() {
               Discuss a matter
             </MagneticButton>
             <MagneticButton href="#michael" className="btn-ghost">
-              Who does the work
+              About Michael
             </MagneticButton>
           </Item>
         </Stagger>
@@ -68,7 +68,7 @@ export default function Home() {
 
       <section id="michael">
         <Reveal>
-          <p className="eyebrow">Who does the work</p>
+          <p className="eyebrow">About Michael</p>
           <h2>{person.name}</h2>
           <p className="role">{person.role}</p>
           <p>{person.bio}</p>

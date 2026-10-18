@@ -16,7 +16,7 @@ export function GET() {
     "## Services",
     ...services.map((s) => `- ${s.title}: ${s.text}`),
     "",
-    "## Who does the work",
+    "## About Michael",
     `- ${person.name}, ${person.role}. ${[...held, ...reading].join("; ")}.`,
     `- ${person.bio}`,
     `- Career: ${person.career.map((c) => `${c.organisation} ${c.period.replace("—", "to")}`).join("; ")}.`,

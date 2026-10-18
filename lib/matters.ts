@@ -129,24 +129,31 @@ export type Recovery = {
 
 export const recovery: Recovery[] = [
   {
-    project: "Landmark Commercial Skyscraper",
+    project: "Commercial Skyscraper",
     place: "London",
     party: "Subcontractor",
     summary:
-      "High-value dispute involving delay, disruption, variations, contra charges, overhead and profit and finance-related claims. Project account reconstructed from first principles.",
+      "Dispute involving delay, disruption, variations, contra charges, overhead and profit and finance-related claims. Project account reconstructed from first principles.",
   },
   {
-    project: "Landmark Power Station Redevelopment",
+    project: "Residential Tower",
+    place: "Nine Elms",
+    party: "Subcontractor",
+    summary:
+      "Commercial recovery and forensic reconstruction of a distressed project account involving delay, disruption, acceleration, suspension, remobilisation, variations, water ingress, deed of variation and extension of time.",
+  },
+  {
+    project: "Power Station Redevelopment",
     place: "London",
     party: "Subcontractor",
     summary:
       "Commercial recovery and account reconstruction relating to variations, provisional sums, delay, acceleration, payment disputes, suspension, contra charges and extension of time.",
   },
   {
-    project: "Major Regeneration Scheme",
+    project: "Regeneration Scheme",
     place: "London",
     party: "Developer",
     summary:
-      "High-value claims across MEP and drylining packages reviewed and rebutted, with negotiated settlements and interim final account agreement.",
+      "Claims across MEP and drylining packages reviewed and rebutted, with negotiated settlements and interim final account agreement.",
   },
 ];
