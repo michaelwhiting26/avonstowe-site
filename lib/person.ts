@@ -36,8 +36,11 @@ export type Person = {
   credentials: Credential[];
   /** Dated, so a reader can compute seniority rather than be told it. */
   career: CareerEntry[];
-  bio:
-    "Michael entered the industry at sixteen as an apprentice quantity surveyor with Balfour Beatty. He now advises on quantum, claims and commercial matters in arbitration, adjudication and court proceedings, and on live projects. His contractor-side background, from procurement to final account, is the foundation of his analysis.",
+  bio: string;
+};
+
+/**
+ * WP0-C — no role title is published. The CV of record says "Partner",
  * LinkedIn says "Principal" and rev2 says "Founder"; three public sources
  * cannot disagree on the site. Add `role` here once one is confirmed.
  */
@@ -73,5 +76,5 @@ export const person: Person = {
   ],
   // Taken from the profile on the CV of 5 October 2026.
   bio:
-    "Michael advises on construction and engineering disputes across the United Kingdom, the Middle East and North Africa. His work covers quantum, commercial and contractual matters on live projects and in arbitration, adjudication and negotiated settlement. He entered the industry at sixteen with Balfour Beatty as an apprentice quantity surveyor, and that contractor-side background in procurement, live project delivery, valuation, change control, account reconstruction and final account negotiation is the foundation of his analysis.",
+    "Michael entered the industry at sixteen as an apprentice quantity surveyor with Balfour Beatty. He now advises on quantum, claims and commercial matters in arbitration, adjudication and court proceedings, and on live projects. His contractor-side background, from procurement to final account, is the foundation of his analysis.",
 };
