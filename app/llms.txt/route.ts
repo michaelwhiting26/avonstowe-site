@@ -26,7 +26,7 @@ export function GET() {
     `- ${site.legalEntity}, ${site.licence}, ${site.location}.`,
     "",
     "## Pages",
-    `- [Home](${site.url}/): construction and engineering disputes, selected matters, the practitioner and contact.`,
+    `- [Home](${site.url}/): construction and engineering disputes, experience, the practitioner and contact.`,
     `- [Legal](${site.url}/legal/): privacy notice, terms of use and cookie policy.`,
     "",
   ].join("\n");

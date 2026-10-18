@@ -1,5 +1,4 @@
-import { site, hero } from "@/lib/site";
-import { matters, recovery, commercial } from "@/lib/matters";
+import { site, hero, experience } from "@/lib/site";
 import { person } from "@/lib/person";
 import { Reveal, Stagger, Item } from "@/components/Motion";
 import MagneticButton from "@/components/MagneticButton";
@@ -7,7 +6,7 @@ import SectionNav from "@/components/SectionNav";
 
 /**
  * One page, read top to bottom on a phone:
- * what the practice is and where -> matters -> person -> contact.
+ * what the practice is and where -> experience -> person -> contact.
  * Motion (reveal on scroll, magnetic buttons) is carried from the first build.
  */
 export default function Home() {
@@ -36,53 +35,24 @@ export default function Home() {
 
       <section id="quantum">
         <Reveal>
-          <p className="eyebrow">Selected matters</p>
+          <p className="eyebrow">Experience</p>
           <h2>Quantum analysis</h2>
+          <p>{experience.quantum}</p>
         </Reveal>
-        <Stagger as="ul" className="matters">
-          {matters.map((m) => (
-            <Item as="li" key={m.project}>
-              <h3>
-                {m.project}{" "}
-                <span>
-                  ({m.forum}, {m.region})
-                </span>
-              </h3>
-              <p className="matter-parties">{m.parties}</p>
-              <p>{m.heads.join(" · ")}</p>
-            </Item>
-          ))}
-        </Stagger>
       </section>
 
       <section id="recovery">
-        <Reveal as="h2">Claims and commercial recovery</Reveal>
-        <Stagger as="ul" className="matters">
-          {recovery.map((r) => (
-            <Item as="li" key={r.project}>
-              <h3>
-                {r.project} <span>({r.place})</span>
-              </h3>
-              <p className="matter-parties">{r.party}</p>
-              <p>{r.summary}</p>
-            </Item>
-          ))}
-        </Stagger>
+        <Reveal>
+          <h2>Claims and commercial recovery</h2>
+          <p>{experience.recovery}</p>
+        </Reveal>
       </section>
 
       <section id="commercial">
-        <Reveal as="h2">Commercial management</Reveal>
-        <Stagger as="ul" className="matters">
-          {commercial.map((r) => (
-            <Item as="li" key={r.project}>
-              <h3>
-                {r.project} <span>({r.place})</span>
-              </h3>
-              <p className="matter-parties">{r.party}</p>
-              <p>{r.summary}</p>
-            </Item>
-          ))}
-        </Stagger>
+        <Reveal>
+          <h2>Commercial management</h2>
+          <p>{experience.commercial}</p>
+        </Reveal>
       </section>
 
       <section id="michael">

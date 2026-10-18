@@ -30,6 +30,21 @@ export const hero = {
     "Avonstowe is a construction and engineering disputes practice, working across the United Kingdom, the Middle East and North Africa.",
 } as const;
 
+/**
+ * Experience, written about rather than listed (Michael, 18 October 2026: "take
+ * them off but write about them"). No project cards: the arbitration matters
+ * were other experts' instructions, and a client should not wonder whether its
+ * own project is next. Every phrase is drawn from the CV of 15 October 2026.
+ */
+export const experience = {
+  quantum:
+    "Quantum analysis in international arbitration, court proceedings and adjudication, on energy, process plant, hospitality, commercial and residential projects across the Middle East, Africa and the United Kingdom. The work covers prolongation, disruption and measured mile analysis, variations, measured work, loss of opportunity, head office overheads, remediation, liquidated damages and finance costs, built up from the project records.",
+  recovery:
+    "Claims and commercial recovery for subcontractors and developers on major London projects, including residential and commercial towers, a power station redevelopment and large regeneration schemes. Distressed project accounts reconstructed from first principles, and claims for delay, disruption, acceleration, suspension, variations, contra charges and extension of time prepared, rebutted and settled.",
+  commercial:
+    "Lifecycle quantity surveying and commercial leadership for main contractors and developers on schemes of up to £1bn, across residential, healthcare, luxury retail, hospitality, education and mixed-use regeneration. Procurement, contract management, valuation, change control, cost forecasting, risk reporting and final account, under JCT, NEC, FIDIC, PFI and bespoke forms.",
+} as const;
+
 export const services = [
   {
     title: "Forensic quantum analysis",
