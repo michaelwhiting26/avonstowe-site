@@ -78,5 +78,5 @@ export const person: Person = {
   ],
   // Taken from the profile on the CV of 5 October 2026.
   bio:
-    "Michael entered the industry at sixteen as an apprentice quantity surveyor with Balfour Beatty. He now advises on quantum, claims and commercial matters in arbitration, adjudication and court proceedings, and on live projects. His contractor-side background, from procurement to final account, is the foundation of his analysis.",
+    "Michael advises on construction and engineering disputes in the United Kingdom, the Middle East and North Africa, covering quantum, commercial and contractual matters in arbitration, adjudication and court proceedings, and on live projects. He supports appointed experts and advises employers, contractors and subcontractors on prolongation, disruption, variations, loss and expense, final accounts and commercial recovery.\n\nHe began his career at sixteen as an apprentice quantity surveyor with Balfour Beatty. His contractor-side experience, from procurement and live project delivery to distressed project recovery and final account negotiation, is the foundation of his analysis.",
 };

@@ -57,7 +57,9 @@ export default function Home() {
           <p className="eyebrow">About Michael</p>
           <h2>{person.name}</h2>
           <p className="role">{person.role}</p>
-          <p>{person.bio}</p>
+          {person.bio.split("\n\n").map((t) => (
+            <p key={t.slice(0, 24)}>{t}</p>
+          ))}
         </Reveal>
         <div className="facts">
           <div>

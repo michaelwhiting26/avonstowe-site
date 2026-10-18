@@ -46,7 +46,7 @@ export function structuredData() {
         name: person.name,
         jobTitle: person.role,
         url: `${site.url}/#michael`,
-        description: person.bio,
+        description: person.bio.replace(/\n\n/g, " "),
         worksFor: { "@id": ORG },
         hasCredential: held.map((c) => ({ "@type": "EducationalOccupationalCredential", name: c.text })),
         ...(membership ? { memberOf: { "@type": "Organization", name: membership.text.replace("Member, ", "") } } : {}),

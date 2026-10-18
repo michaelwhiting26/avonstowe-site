@@ -18,7 +18,7 @@ export function GET() {
     "",
     "## About Michael",
     `- ${person.name}, ${person.role}. ${[...held, ...reading].join("; ")}.`,
-    `- ${person.bio}`,
+    `- ${person.bio.replace(/\n\n/g, " ")}`,
     `- Career: ${person.career.map((c) => `${c.organisation} ${c.period.replace("—", "to")}`).join("; ")}.`,
     "",
     "## Contact",
