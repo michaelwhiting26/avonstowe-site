@@ -5,7 +5,8 @@
  * CONTENT RULE (carried from rev2): every statement must be independently
  * verifiable. Nothing is inferred, rounded or invented. Wording follows
  * Michael Whiting's CV of 5 October 2026: the practice is described as a
- * quantity surveying and forensic quantum practice, and the three services
+ * quantity surveying and forensic quantum practice (on 17 October 2026 the front
+ * became "a construction and engineering disputes practice"), and the three services
  * mirror the CV's three experience sections.
  */
 
@@ -17,9 +18,9 @@ export const site = {
   // Verified 22 August 2026 against the RAKEZ licence.
   legalEntity: "Avonstowe FZ-LLC",
   licence: "RAKEZ licence 47022473",
-  title: "Avonstowe | Quantity Surveying and Forensic Quantum",
+  title: "Avonstowe | Construction and Engineering Disputes",
   description:
-    "Avonstowe is a quantity surveying and forensic quantum practice for construction and engineering projects and disputes, across the United Kingdom, the Middle East and North Africa.",
+    "Avonstowe is a construction and engineering disputes practice working across the United Kingdom, the Middle East and North Africa: quantum analysis, claims and commercial recovery, and commercial management.",
 } as const;
 
 /**
