@@ -170,3 +170,41 @@ export const recovery: Recovery[] = [
       "Claims across MEP and drylining packages reviewed and rebutted, with negotiated settlements and interim final account agreement.",
   },
 ];
+
+/**
+ * Commercial management (Michael, 18 October 2026: "quantum analysis, claims
+ * and commercial recovery, and then… contract commercial management").
+ * Wording from the "Project Advisory & Lifecycle Commercial Management" section
+ * of the CV of 15 October 2026, shortened and anonymised the same way;
+ * "Major"/"Flagship" dropped, as for the recovery matters.
+ */
+export const commercial: Recovery[] = [
+  {
+    project: "Urban Regeneration",
+    place: "London",
+    party: "Main Contractor",
+    summary:
+      "Commercial lead on a £109m mixed-use residential scheme of 407 apartments across six buildings. Procurement, contract management, valuation, change control, cost forecasting, risk reporting and final account.",
+  },
+  {
+    project: "Urban Redevelopment",
+    place: "London",
+    party: "Developer",
+    summary:
+      "Lifecycle quantity surveying and commercial advice on a £1bn regeneration scheme. Procured and managed MEP, drylining and high-end leisure packages.",
+  },
+  {
+    project: "Hospital",
+    place: "London",
+    party: "Main Contractor",
+    summary:
+      "Infrastructure upgrades in a live hospital under NEC4: energy centre, HV and LV distribution and air handling. Procurement, compensation events, valuations and final account across multiple packages.",
+  },
+  {
+    project: "Luxury Retail",
+    place: "London",
+    party: "Main Contractor",
+    summary:
+      "Commercial lead on structural alteration, basement waterproofing and façade replacement. Variation accounts, extensions of time, contractor termination and replacement procurement, and acceleration.",
+  },
+];

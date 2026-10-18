@@ -1,8 +1,9 @@
 import { site, hero } from "@/lib/site";
-import { matters, recovery } from "@/lib/matters";
+import { matters, recovery, commercial } from "@/lib/matters";
 import { person } from "@/lib/person";
 import { Reveal, Stagger, Item } from "@/components/Motion";
 import MagneticButton from "@/components/MagneticButton";
+import SectionNav from "@/components/SectionNav";
 
 /**
  * One page, read top to bottom on a phone:
@@ -31,7 +32,9 @@ export default function Home() {
         </Stagger>
       </section>
 
-      <section id="matters">
+      <SectionNav />
+
+      <section id="quantum">
         <Reveal>
           <p className="eyebrow">Selected matters</p>
           <h2>Quantum analysis</h2>
@@ -50,11 +53,27 @@ export default function Home() {
             </Item>
           ))}
         </Stagger>
-        <Reveal as="h2" className="second">
-          Claims and commercial recovery
-        </Reveal>
+      </section>
+
+      <section id="recovery">
+        <Reveal as="h2">Claims and commercial recovery</Reveal>
         <Stagger as="ul" className="matters">
           {recovery.map((r) => (
+            <Item as="li" key={r.project}>
+              <h3>
+                {r.project} <span>({r.place})</span>
+              </h3>
+              <p className="matter-parties">{r.party}</p>
+              <p>{r.summary}</p>
+            </Item>
+          ))}
+        </Stagger>
+      </section>
+
+      <section id="commercial">
+        <Reveal as="h2">Commercial management</Reveal>
+        <Stagger as="ul" className="matters">
+          {commercial.map((r) => (
             <Item as="li" key={r.project}>
               <h3>
                 {r.project} <span>({r.place})</span>
