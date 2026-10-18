@@ -2,7 +2,6 @@ import { site, hero, experience } from "@/lib/site";
 import { person } from "@/lib/person";
 import { Reveal, Stagger, Item } from "@/components/Motion";
 import MagneticButton from "@/components/MagneticButton";
-import SectionNav from "@/components/SectionNav";
 
 /**
  * One page, read top to bottom on a phone:
@@ -30,8 +29,6 @@ export default function Home() {
           </Item>
         </Stagger>
       </section>
-
-      <SectionNav />
 
       <section id="quantum">
         <Reveal>
