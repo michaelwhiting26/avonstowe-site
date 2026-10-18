@@ -90,8 +90,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <img src="/mark.png" alt="" className="footer-mark" />
               <span className="footer-wordmark">AVONSTOWE</span>
             </div>
-            <div className="footer-note">Quantity Surveying · Forensic Quantum</div>
-          
             <div className="footer-contact">
               <p>
                 Enquiries: <a href={`mailto:${site.email}`}>{site.email}</a>
