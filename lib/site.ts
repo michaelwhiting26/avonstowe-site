@@ -41,7 +41,7 @@ export const experience = {
   quantum:
     "Quantum analysis in international arbitration, adjudication and court proceedings, on energy, process plant and construction projects across the Middle East, the United Kingdom and North Africa.",
   recovery:
-    "Claims and commercial recovery for subcontractors and developers on major London projects, including residential and commercial towers, a power station redevelopment and large regeneration schemes. Distressed project accounts reconstructed from first principles, and claims for delay, disruption, acceleration, suspension, variations, contra charges and extension of time prepared, rebutted and settled.",
+    "Claims and commercial recovery for subcontractors and developers on major London projects, including residential and commercial towers, a power station redevelopment and large regeneration schemes.",
   commercial:
     "Lifecycle quantity surveying and commercial leadership for main contractors and developers on schemes of up to £1bn, across residential, healthcare, luxury retail, hospitality, education and mixed-use regeneration. Procurement, contract management, valuation, change control, cost forecasting, risk reporting and final account, under JCT, NEC, FIDIC, PFI and bespoke forms.",
 } as const;
