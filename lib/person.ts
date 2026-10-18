@@ -36,11 +36,8 @@ export type Person = {
   credentials: Credential[];
   /** Dated, so a reader can compute seniority rather than be told it. */
   career: CareerEntry[];
-  bio: string;
-};
-
-/**
- * WP0-C — no role title is published. The CV of record says "Partner",
+  bio:
+    "Michael entered the industry at sixteen as an apprentice quantity surveyor with Balfour Beatty. He now advises on quantum, claims and commercial matters in arbitration, adjudication and court proceedings, and on live projects. His contractor-side background, from procurement to final account, is the foundation of his analysis.",
  * LinkedIn says "Principal" and rev2 says "Founder"; three public sources
  * cannot disagree on the site. Add `role` here once one is confirmed.
  */
