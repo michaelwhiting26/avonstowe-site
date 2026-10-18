@@ -22,6 +22,8 @@ export type Credential = {
   text: string;
   /** true where the qualification is being read rather than held. */
   inProgress: boolean;
+  /** Expected completion year, shown in place of "in progress" (Michael, 18 Oct 2026). */
+  expected?: string;
 };
 
 export type CareerEntry = {
@@ -63,7 +65,7 @@ export const person: Person = {
      */
     { text: "RICS Expert Witness Certificate", inProgress: false },
     { text: "BSc (Hons) Quantity Surveying", inProgress: false },
-    { text: "LLB (Hons)", inProgress: true },
+    { text: "LLB (Hons)", inProgress: true, expected: "2027" },
     { text: "Diploma in Forensic Quantum Analysis", inProgress: true },
     { text: "Member, Society of Construction Law", inProgress: false },
   ],

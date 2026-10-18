@@ -66,7 +66,7 @@ export default function Home() {
               {person.credentials.map((c) => (
                 <Item as="li" key={c.text}>
                   {c.text}
-                  {c.inProgress && <span className="muted"> (in progress)</span>}
+                  {c.inProgress && <span className="muted"> ({c.expected ?? "in progress"})</span>}
                 </Item>
               ))}
             </Stagger>

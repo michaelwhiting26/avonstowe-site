@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 
 export function GET() {
   const held = person.credentials.filter((c) => !c.inProgress).map((c) => c.text);
-  const reading = person.credentials.filter((c) => c.inProgress).map((c) => `${c.text} (in progress)`);
+  const reading = person.credentials.filter((c) => c.inProgress).map((c) => `${c.text} (${c.expected ? `expected ${c.expected}` : "in progress"})`);
   const body = [
     `# ${site.name}`,
     "",
