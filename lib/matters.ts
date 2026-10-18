@@ -150,7 +150,7 @@ export const recovery: Recovery[] = [
   },
   {
     project: "Residential Tower",
-    place: "Nine Elms",
+    place: "London",
     party: "Subcontractor",
     summary:
       "Commercial recovery and forensic reconstruction of a distressed project account involving delay, disruption, acceleration, suspension, remobilisation, variations, water ingress, deed of variation and extension of time.",
