@@ -481,3 +481,10 @@ section { scroll-margin-top: 110px; }
 /* Headings read clearly on a phone (Michael, 18 Oct 2026: the title "merges
    into the page"): heavier weight and full white. */
 h2 { font-weight: 600; color: #ffffff; }
+
+/* Phones (Michael, 18 Oct 2026): no justified gaps or hyphenated words, and a
+   slightly wider side margin. Laptops keep justified text. */
+@media (max-width: 767px) {
+  :root { --gutter: 24px; }
+  main p, main dd { text-align: left; hyphens: none; -webkit-hyphens: none; overflow-wrap: normal; }
+}
