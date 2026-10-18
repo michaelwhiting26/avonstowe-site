@@ -492,3 +492,14 @@ h1.statement { font-size: clamp(24px, 5.8vw, 34px); line-height: 1.3; letter-spa
 .section-nav + section { border-top: 0; }
 @media (max-width: 480px) { .section-nav a { font-size: 10px; letter-spacing: 0.12em; padding: 11px 4px; } }
 section { scroll-margin-top: 110px; }
+
+/* Laptop and desktop scale (Michael, 18 Oct 2026: "too zoomed in" on a MacBook).
+   Phone sizes are unchanged. */
+@media (min-width: 960px) {
+  h2 { font-size: 38px; margin-bottom: 18px; }
+  h1.statement { font-size: 29px; }
+  section, .legal { padding-top: 80px; padding-bottom: 80px; }
+  .hero { padding-top: 88px; padding-bottom: 88px; }
+  section p { font-size: 15px; }
+  .btn-primary, .btn-ghost { padding-top: 14px; padding-bottom: 14px; }
+}
