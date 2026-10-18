@@ -39,7 +39,7 @@ export const hero = {
  */
 export const experience = {
   quantum:
-    "Quantum analysis in international arbitration, court proceedings and adjudication, on energy, process plant, hospitality, commercial and residential projects across the Middle East, Africa and the United Kingdom. The work covers prolongation, disruption and measured mile analysis, variations, measured work, loss of opportunity, head office overheads, remediation, liquidated damages and finance costs, built up from the project records.",
+    "Quantum analysis in international arbitration, adjudication and court proceedings, on energy, process plant and construction projects across the Middle East, the United Kingdom and Africa. Issues covered include prolongation, disruption and measured mile analysis, variations, measured work, loss of opportunity, head office overheads, remediation, liquidated damages and finance costs.",
   recovery:
     "Claims and commercial recovery for subcontractors and developers on major London projects, including residential and commercial towers, a power station redevelopment and large regeneration schemes. Distressed project accounts reconstructed from first principles, and claims for delay, disruption, acceleration, suspension, variations, contra charges and extension of time prepared, rebutted and settled.",
   commercial:
