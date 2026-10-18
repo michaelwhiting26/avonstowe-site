@@ -43,7 +43,7 @@ export const experience = {
   recovery:
     "Claims and commercial recovery for contractors and developers on major projects, including residential and commercial towers, a power station redevelopment, a film studio and large regeneration schemes.",
   commercial:
-    "Lifecycle quantity surveying and commercial leadership for main contractors and developers on schemes of up to £1bn, across residential, healthcare, luxury retail, hospitality, education and mixed-use regeneration. Procurement, contract management, valuation, change control, cost forecasting, risk reporting and final account, under JCT, NEC, FIDIC, PFI and bespoke forms.",
+    "Commercial leadership for main contractors and developers on major projects, including a luxury hotel in Sloane Gardens, a £1bn regeneration scheme, a £109m build-to-rent development, infrastructure upgrades in a live hospital and a luxury retail estate.",
 } as const;
 
 export const services = [
