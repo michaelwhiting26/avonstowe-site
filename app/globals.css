@@ -482,9 +482,9 @@ section { scroll-margin-top: 110px; }
    into the page"): heavier weight and full white. */
 h2 { font-weight: 600; color: #ffffff; }
 
-/* Phones (Michael, 18 Oct 2026): no justified gaps or hyphenated words, and a
-   slightly wider side margin. Laptops keep justified text. */
+/* Phones (Michael, 18 Oct 2026): justified both sides ("square both sides"),
+   never hyphenated words, and a slightly wider side margin. */
 @media (max-width: 767px) {
   :root { --gutter: 24px; }
-  main p, main dd { text-align: left; hyphens: none; -webkit-hyphens: none; overflow-wrap: normal; }
+  main p, main dd { text-align: justify; text-justify: inter-word; hyphens: none; -webkit-hyphens: none; overflow-wrap: normal; }
 }
