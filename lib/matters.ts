@@ -81,6 +81,19 @@ export const matters: Matter[] = [
     heads: ["Prolongation", "Disruption", "Variations", "Head office overheads"],
   },
   {
+    // Added 18 October 2026 at Michael's request ("the hotel on the palm"); wording from the
+    // CV of 15 October 2026 ("Landmark Hotel - Arbitration (UAE) - Contractor v MEP
+    // Subcontractor"). Region kept broad, as for the other matters.
+    project: "Hotel",
+    contribution: "Quantum support to the appointed expert",
+    forum: "Arbitration",
+    forumKey: "arbitration",
+    region: "Middle East",
+    parties: "Contractor v MEP Subcontractor",
+    summary: "Proceedings concerning prolongation, disruption, variations and scope creep.",
+    heads: ["Prolongation", "Disruption", "Variations", "Scope creep"],
+  },
+  {
     project: "Phosphate Plants",
     contribution: "Quantum support to the appointed expert",
     forum: "Arbitration",
