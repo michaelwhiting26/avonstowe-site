@@ -75,13 +75,10 @@ function validate(step: number, v: Values): Errors {
     if (!v.stage) e.stage = "Select where the matter is now";
   }
   if (step === 2) {
-    if (!t(v.parties)) e.parties = "Enter the names of the parties";
-    else if (v.parties.length > 600) e.parties = "Parties must be 600 characters or fewer";
-    if (!t(v.project)) e.project = "Enter the project and country";
-    else if (v.project.length > 160) e.project = "Project and country must be 160 characters or fewer";
-    if (!t(v.outline)) e.outline = "Describe what you need help with";
-    else if (t(v.outline).length < 20) e.outline = "Add a little more detail, at least 20 characters";
-    else if (v.outline.length > 1500) e.outline = "Outline must be 1,500 characters or fewer";
+    // Step 2 is optional (Michael, 19 Oct 2026: "allow them to continue, don't force them").
+    if (v.parties.length > 600) e.parties = "Parties must be 600 characters or fewer";
+    if (v.project.length > 160) e.project = "Project and country must be 160 characters or fewer";
+    if (v.outline.length > 1500) e.outline = "Outline must be 1,500 characters or fewer";
     if (v.keyDate.length > 120) e.keyDate = "Key date must be 120 characters or fewer";
   }
   if (step === 3) {
@@ -104,7 +101,7 @@ function asText(v: Values) {
 }
 
 function mailtoHref(v: Values) {
-  const subject = `Enquiry: ${v.role}, ${v.project.trim()}`.slice(0, 120);
+  const subject = [`Enquiry: ${v.role}`, v.project.trim()].filter(Boolean).join(", ").slice(0, 120);
   const body = asText(v).slice(0, 1800);
   return `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
@@ -345,18 +342,20 @@ export default function ContactForm() {
       {step === 2 && (
         <div className="cf-panel" key="s2">
           <p className="cf-note">
-            Michael needs the parties&rsquo; names to check for conflicts before he can discuss the matter. A brief
-            outline is enough at this stage. {CONFIDENTIAL}
+            All optional. If you can, name the parties so Michael can check for conflicts before he discusses the
+            matter. A brief outline is enough at this stage. {CONFIDENTIAL}
           </p>
           {field("parties", "Who are the parties?", {
             area: 3,
             max: 600,
+            optional: true,
             hint: "Name each party, including the other side.",
           })}
-          {field("project", "Project and country", { max: 160, hint: "For example: hospital extension, Leeds, UK" })}
+          {field("project", "Project and country", { max: 160, optional: true, hint: "For example: hospital extension, Leeds, UK" })}
           {field("outline", "What do you need help with?", {
             area: 5,
             max: 1500,
+            optional: true,
             hint: "A short, non-confidential outline: the issue, the sums involved if known, and what you need.",
           })}
           {field("keyDate", "Any key date?", {
@@ -398,15 +397,17 @@ export default function ContactForm() {
                 </button>
               </dd>
             </div>
+            {(v.parties.trim() || v.project.trim()) && (
             <div>
               <dt>Matter</dt>
               <dd>
-                {v.parties.trim()} · {v.project.trim()}{" "}
+                {[v.parties.trim(), v.project.trim()].filter(Boolean).join(" · ")}{" "}
                 <button type="button" className="cf-change" onClick={() => setStep(2)}>
                   Change
                 </button>
               </dd>
             </div>
+            )}
           </dl>
           <p className="cf-note">{CONFIDENTIAL}</p>
         </div>

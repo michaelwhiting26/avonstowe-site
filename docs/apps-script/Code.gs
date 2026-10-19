@@ -39,7 +39,7 @@ function doPost(e) {
       v[k] = String(d[k] || "").trim().slice(0, FIELDS[i][2]);
     }
     var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email);
-    if (!v.role || !v.stage || !v.parties || !v.project || v.outline.length < 20 ||
+    if (!v.role || !v.stage ||
         !v.name || !v.organisation || !emailOk) {
       return reply_(false, "invalid");
     }
@@ -61,7 +61,7 @@ function doPost(e) {
       to: TO,
       replyTo: v.email,
       name: "Avonstowe website",
-      subject: ("Enquiry: " + v.role + ", " + v.project).slice(0, 150),
+      subject: ("Enquiry: " + v.role + (v.project ? ", " + v.project : "")).slice(0, 150),
       body: body + "\n\n---\nSent from the enquiry form on avonstowe.com. Reply to answer the enquirer directly."
     });
     return reply_(true);
