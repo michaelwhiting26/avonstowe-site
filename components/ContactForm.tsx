@@ -103,6 +103,8 @@ function mailtoHref(v: Values) {
 }
 
 export default function ContactForm() {
+  // Closed until asked for (Michael, 20 Oct 2026: show email + WhatsApp first, form behind a button).
+  const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [v, setV] = useState<Values>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
@@ -125,7 +127,7 @@ export default function ContactForm() {
       return;
     }
     top.current?.focus();
-  }, [step, status]);
+  }, [step, status, open]);
 
   const set = (k: keyof Values) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setV((p) => ({ ...p, [k]: e.target.value }));
@@ -187,6 +189,14 @@ export default function ContactForm() {
 
   const errList = Object.entries(errors).filter(([, m]) => m) as [keyof Values, string][];
   const firstName = v.name.trim().split(/\s+/)[0];
+
+  if (!open) {
+    return (
+      <button type="button" className="btn-ghost cf-open" onClick={() => setOpen(true)} aria-expanded="false">
+        Send an enquiry
+      </button>
+    );
+  }
 
   if (status === "sent") {
     return (

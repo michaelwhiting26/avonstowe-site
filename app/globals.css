@@ -263,6 +263,10 @@ textarea.cf-input { resize: vertical; }
 .cf-change { background: none; border: 0; padding: 0 0 0 6px; font: inherit; font-size: 13px; color: #8aaee8; text-decoration: underline; cursor: pointer; }
 .cf-legal { font-size: 12px; color: var(--muted); margin-top: 16px; text-align: left; }
 .cf-or { margin-top: 36px; font-size: 14px; color: var(--muted); }
+.cf-wrap { margin-top: 12px; }
+.cf-wrap .cf { margin-top: 28px; }
+.cf-open { width: 100%; font-family: inherit; background: transparent; letter-spacing: 0.08em; }
+@media (min-width: 768px) { .cf-open { width: auto; } }
 .cf-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .cf-done h3 { font-family: var(--serif); font-size: 28px; margin: 0 0 10px; outline: none; }
 .cf-done a { color: var(--brass); }

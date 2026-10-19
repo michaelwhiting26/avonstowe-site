@@ -93,8 +93,6 @@ export default function Home() {
       <section id="contact" className="contact">
         <Reveal>
           <h2>Contact Michael</h2>
-          <ContactForm />
-          <p className="cf-or">Or contact Michael directly:</p>
           <div className="actions">
             <MagneticButton href={`mailto:${site.email}`} className="btn-primary">
               {site.email}
@@ -102,6 +100,9 @@ export default function Home() {
             <MagneticButton href={site.whatsappUrl} className="btn-ghost">
               WhatsApp {site.whatsapp}
             </MagneticButton>
+          </div>
+          <div className="cf-wrap">
+            <ContactForm />
           </div>
         </Reveal>
       </section>
