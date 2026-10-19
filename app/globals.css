@@ -542,3 +542,17 @@ h2 { font-weight: 600; color: #ffffff; }
   :root { --gutter: 24px; }
   main p, main dd { text-align: justify; text-justify: inter-word; hyphens: none; -webkit-hyphens: none; overflow-wrap: normal; }
 }
+
+
+/* Experience as one compact numbered list (19 Oct 2026, Michael: the three
+   blocks sat too far apart). Overrides the generic section padding above. */
+section.exp:not(#commercial) { padding-bottom: 28px; }
+section.exp + section.exp { padding-top: 0; }
+section.exp + section.exp::before { display: none; }
+section.exp + section.exp > * { border-top: 1px solid var(--line); padding-top: 28px; }
+.exp-num { font-size: 12px; letter-spacing: 0.2em; color: var(--brass); margin: 0 0 6px; font-variant-numeric: tabular-nums; }
+.exp h2 { margin-bottom: 12px; }
+@media (min-width: 960px) {
+  section.exp:not(#commercial) { padding-bottom: 40px; }
+  section.exp + section.exp > * { padding-top: 40px; }
+}

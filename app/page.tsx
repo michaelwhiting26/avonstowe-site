@@ -31,23 +31,26 @@ export default function Home() {
         </Stagger>
       </section>
 
-      <section id="quantum">
+      <section id="quantum" className="exp">
         <Reveal>
           <p className="eyebrow">Experience</p>
+          <p className="exp-num" aria-hidden="true">01</p>
           <h2>Quantum analysis</h2>
           <p>{experience.quantum}</p>
         </Reveal>
       </section>
 
-      <section id="recovery">
+      <section id="recovery" className="exp">
         <Reveal>
+          <p className="exp-num" aria-hidden="true">02</p>
           <h2>Claims and commercial recovery</h2>
           <p>{experience.recovery}</p>
         </Reveal>
       </section>
 
-      <section id="commercial">
+      <section id="commercial" className="exp">
         <Reveal>
+          <p className="exp-num" aria-hidden="true">03</p>
           <h2>Commercial management</h2>
           <p>{experience.commercial}</p>
         </Reveal>
