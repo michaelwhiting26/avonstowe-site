@@ -210,6 +210,60 @@ h2.second { margin-top: 48px; }
 .contact .actions { margin-top: 24px; }
 .contact .btn-primary, .contact .btn-ghost { overflow-wrap: anywhere; letter-spacing: 0.08em; }
 
+/* ---------- enquiry form (components/ContactForm.tsx) ---------- */
+
+.cf { margin-top: 8px; max-width: 640px; }
+.cf-progress { height: 1px; background: var(--line); margin-bottom: 14px; }
+.cf-progress span { display: block; height: 1px; background: var(--brass); transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+.cf-step { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); margin-bottom: 18px; outline: none; }
+.cf-panel { animation: cf-in 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes cf-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.cf-field { border: 0; margin: 0 0 22px; padding: 0; min-width: 0; }
+.cf-field legend, .cf-field label { display: block; font-size: 15px; color: var(--text); margin-bottom: 6px; }
+.cf-opt { color: var(--muted); }
+.cf-hint { font-size: 13px; color: var(--muted); margin: -2px 0 8px; text-align: left; }
+.cf-err { font-size: 14px; color: #ff8f87; margin: 0 0 8px; text-align: left; }
+.cf-input {
+  display: block; width: 100%; font: inherit; font-size: 16px; line-height: 1.5; color: var(--text);
+  background: var(--navy-800); border: 1px solid rgba(159, 180, 214, 0.35); border-radius: 6px;
+  padding: 12px 14px; min-height: 48px; transition: border-color 0.2s;
+}
+textarea.cf-input { resize: vertical; }
+.cf-input:focus { outline: 2px solid var(--brass); outline-offset: 1px; border-color: var(--brass); }
+.cf-input.cf-invalid { border-color: #ff8f87; }
+.cf-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.cf-chip { position: relative; margin: 0 !important; }
+.cf-chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.cf-chip span {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; font-size: 14px;
+  color: var(--muted); border: 1px solid rgba(159, 180, 214, 0.35); border-radius: 999px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.cf-chip:hover span { border-color: var(--brass); color: var(--brass-soft); }
+.cf-chip.is-on span { background: rgba(201, 164, 74, 0.14); border-color: var(--brass); color: var(--brass-soft); }
+.cf-chip input:focus-visible + span { outline: 2px solid var(--brass); outline-offset: 2px; }
+.cf-note { font-size: 14px; color: var(--muted); border-left: 2px solid var(--brass); padding: 4px 0 4px 14px; margin: 0 0 22px; text-align: left; }
+.cf-summary { border: 1px solid #ff8f87; border-radius: 6px; padding: 16px 18px; margin-bottom: 22px; outline: none; }
+.cf-summary h3 { font-family: var(--sans); font-size: 16px; margin: 0 0 8px; color: var(--text); }
+.cf-summary a { color: #ff8f87; }
+.cf-summary p { text-align: left; }
+.cf-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.cf-nav { margin-top: 6px; }
+.cf button.btn-ghost, .cf button.btn-primary { font-family: inherit; background-clip: padding-box; }
+.cf button.btn-ghost { background: transparent; }
+.cf-nav .btn-primary { flex: 1 1 auto; }
+.cf-review { margin: 4px 0 18px; border-top: 1px solid var(--line); }
+.cf-review div { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.cf-review dt { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--brass); margin-bottom: 4px; }
+.cf-review dd { margin: 0; font-size: 15px; text-align: left; overflow-wrap: anywhere; }
+.cf-change { background: none; border: 0; padding: 0 0 0 6px; font: inherit; font-size: 13px; color: #8aaee8; text-decoration: underline; cursor: pointer; }
+.cf-legal { font-size: 12px; color: var(--muted); margin-top: 16px; text-align: left; }
+.cf-or { margin-top: 36px; font-size: 14px; color: var(--muted); }
+.cf-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.cf-done h3 { font-family: var(--serif); font-size: 28px; margin: 0 0 10px; outline: none; }
+.cf-done a { color: var(--brass); }
+@media (prefers-reduced-motion: reduce) { .cf-panel { animation: none; } .cf-progress span { transition: none; } }
+
 /* ---------- legal page ---------- */
 
 .legal h1 { font-size: clamp(34px, 9vw, 52px); margin-bottom: 8px; }

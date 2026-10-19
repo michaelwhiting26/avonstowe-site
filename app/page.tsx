@@ -2,6 +2,7 @@ import { site, hero, experience } from "@/lib/site";
 import { person } from "@/lib/person";
 import { Reveal, Stagger, Item } from "@/components/Motion";
 import MagneticButton from "@/components/MagneticButton";
+import ContactForm from "@/components/ContactForm";
 
 /**
  * One page, read top to bottom on a phone:
@@ -89,6 +90,8 @@ export default function Home() {
       <section id="contact" className="contact">
         <Reveal>
           <h2>Contact Michael</h2>
+          <ContactForm />
+          <p className="cf-or">Or contact Michael directly:</p>
           <div className="actions">
             <MagneticButton href={`mailto:${site.email}`} className="btn-primary">
               {site.email}

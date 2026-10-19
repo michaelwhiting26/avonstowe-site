@@ -17,6 +17,9 @@ export const site = {
   // UK number, WhatsApp only (his choice for CV, signature and site, 19 Oct 2026).
   whatsapp: "+44 7762 124220",
   whatsappUrl: "https://wa.me/447762124220",
+  // Google Apps Script web app URL (docs/apps-script/Code.gs). Empty = the form
+  // opens the visitor's email app instead, so it works before the script is live.
+  formEndpoint: "" as string,
   location: "United Arab Emirates",
   // Verified 22 August 2026 against the RAKEZ licence.
   legalEntity: "Avonstowe FZ-LLC",
