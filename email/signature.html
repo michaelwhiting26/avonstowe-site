@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Avonstowe email signature</title>
+<style>
+  body { margin: 0; padding: 48px 24px; background: #f3f1ec; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #0a1628; }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  h1 { font-size: 15px; font-weight: 600; margin: 0 0 6px; }
+  p.note { font-size: 13px; line-height: 1.55; color: #555; margin: 0 0 24px; }
+  .card { background: #fff; border: 1px solid #e3ded5; border-radius: 6px; padding: 28px; }
+  button { margin-top: 18px; font: 600 13px/1 inherit; padding: 11px 16px; border: 0; border-radius: 999px; background: #0f2040; color: #c9a44a; cursor: pointer; }
+  ol { font-size: 13px; line-height: 1.7; color: #333; padding-left: 20px; }
+  #status { font-size: 12px; color: #2b7a3d; margin-left: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Avonstowe email signature</h1>
+  <p class="note">Tables and inline styles only, so it holds its layout in Gmail, Apple Mail and Outlook.</p>
+
+  <div class="card">
+    <!-- SIGNATURE START -->
+    <div id="signature">
+      <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;">
+        <tr>
+          <td valign="top" style="padding:0 18px 0 0;">
+            <a href="https://www.avonstowe.com" style="text-decoration:none;"><img src="https://www.avonstowe.com/email/logo.png" width="80" height="80" alt="Avonstowe" style="display:block;border:0;width:80px;height:80px;"></a>
+          </td>
+          <td valign="top" style="padding:0 0 0 18px;border-left:1px solid #c9a44a;">
+            <div style="font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:24px;font-weight:bold;color:#0a1628;">Michael Whiting</div>
+            <div style="font-size:12px;line-height:18px;color:#6b6b6b;padding-top:2px;">Principal</div>
+            <div style="font-size:11px;line-height:16px;font-weight:bold;letter-spacing:2px;color:#c9a44a;padding-top:10px;">AVONSTOWE</div>
+            <div style="font-size:12px;line-height:18px;padding-top:2px;">
+              <a href="mailto:michael@avonstowe.com" style="color:#0a1628;text-decoration:none;">michael@avonstowe.com</a>
+              <span style="color:#bbbbbb;">&nbsp;|&nbsp;</span>
+              <a href="https://wa.me/447762124220" style="color:#0a1628;text-decoration:none;">+44 7762 124220</a> <span style="color:#6b6b6b;">(WhatsApp)</span>
+            </div>
+            <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;margin-top:12px;">
+              <tr>
+                <td style="padding:0 6px 0 0;"><a href="https://www.avonstowe.com"><img src="https://www.avonstowe.com/email/icon-web.png" width="28" height="28" alt="Website" style="display:block;border:0;"></a></td>
+                <td style="padding:0;"><a href="https://wa.me/447762124220"><img src="https://www.avonstowe.com/email/icon-whatsapp.png" width="28" height="28" alt="WhatsApp" style="display:block;border:0;"></a></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="padding:16px 0 0 0;font-size:10px;line-height:14px;color:#8a8a8a;max-width:520px;">
+            Avonstowe FZ-LLC &middot; United Arab Emirates<br>
+            This email and any attachments are confidential and may be legally privileged. If you are not the intended recipient, please tell the sender and delete it.
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- SIGNATURE END -->
+  </div>
+
+  <button id="copy" type="button">Copy signature</button><span id="status"></span>
+
+  <ol>
+    <li>Click <b>Copy signature</b> above.</li>
+    <li>Gmail &rarr; Settings (cog) &rarr; <b>See all settings</b> &rarr; General &rarr; <b>Signature</b>. Delete the old one or click <b>Create new</b>.</li>
+    <li>Click in the signature box and paste (&#8984;V). Set it as the default for new emails and replies, scroll down and <b>Save changes</b>.</li>
+  </ol>
+</div>
+<script>
+  document.getElementById("copy").addEventListener("click", async () => {
+    const el = document.getElementById("signature");
+    const status = document.getElementById("status");
+    try {
+      await navigator.clipboard.write([new ClipboardItem({
+        "text/html": new Blob([el.innerHTML], { type: "text/html" }),
+        "text/plain": new Blob([el.innerText], { type: "text/plain" }),
+      })]);
+      status.textContent = "Copied - paste it into Gmail.";
+    } catch (e) {
+      const r = document.createRange(); r.selectNodeContents(el);
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      status.textContent = "Selected - press ⌘C, then paste into Gmail.";
+    }
+  });
+</script>
+</body>
+</html>
