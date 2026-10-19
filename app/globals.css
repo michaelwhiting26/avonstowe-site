@@ -215,12 +215,13 @@ h2.second { margin-top: 48px; }
 .cf { margin-top: 8px; max-width: 640px; }
 .cf-progress { height: 1px; background: var(--line); margin-bottom: 14px; }
 .cf-progress span { display: block; height: 1px; background: var(--brass); transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
-.cf-step { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); margin-bottom: 18px; outline: none; }
+.cf-step { scroll-margin-top: 120px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); margin-bottom: 18px; outline: none; }
 .cf-panel { animation: cf-in 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
 @keyframes cf-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 .cf-field { border: 0; margin: 0 0 22px; padding: 0; min-width: 0; }
 .cf-field legend, .cf-field label { display: block; font-size: 15px; color: var(--text); margin-bottom: 6px; }
-.cf-opt { color: var(--muted); }
+.cf-opt { color: var(--muted); font-weight: 400; }
+.cf-sub { font-family: var(--sans); font-size: 17px; font-weight: 500; margin: 0 0 8px; color: var(--text); }
 .cf-hint { font-size: 13px; color: var(--muted); margin: -2px 0 8px; text-align: left; }
 .cf-err { font-size: 14px; color: #ff8f87; margin: 0 0 8px; text-align: left; }
 .cf-input {

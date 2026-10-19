@@ -59,7 +59,7 @@ const LABELS: Record<keyof Values, string> = {
   stage: "Where the matter is now",
   parties: "Parties",
   project: "Project and country",
-  outline: "Outline",
+  outline: "Overview",
   keyDate: "Key date",
   name: "Name",
   organisation: "Organisation",
@@ -74,14 +74,11 @@ function validate(step: number, v: Values): Errors {
     if (!v.role) e.role = "Select who you are";
     if (!v.stage) e.stage = "Select where the matter is now";
   }
-  if (step === 2) {
-    // Step 2 is optional (Michael, 19 Oct 2026: "allow them to continue, don't force them").
-    if (v.parties.length > 600) e.parties = "Parties must be 600 characters or fewer";
-    if (v.project.length > 160) e.project = "Project and country must be 160 characters or fewer";
-    if (v.outline.length > 1500) e.outline = "Outline must be 1,500 characters or fewer";
-    if (v.keyDate.length > 120) e.keyDate = "Key date must be 120 characters or fewer";
-  }
   if (step === 3) {
+    // One optional overview box (Michael, 19 Oct 2026: "don't force them", "just have one box").
+    if (v.outline.length > 1500) e.outline = "Overview must be 1,500 characters or fewer";
+  }
+  if (step === 2) {
     if (!t(v.name)) e.name = "Enter your name";
     if (!t(v.organisation)) e.organisation = "Enter your organisation, or say you are writing as an individual";
     if (!t(v.email)) e.email = "Enter your email address";
@@ -101,7 +98,7 @@ function asText(v: Values) {
 }
 
 function mailtoHref(v: Values) {
-  const subject = [`Enquiry: ${v.role}`, v.project.trim()].filter(Boolean).join(", ").slice(0, 120);
+  const subject = [`Enquiry: ${v.role}`, v.organisation.trim()].filter(Boolean).join(", ").slice(0, 120);
   const body = asText(v).slice(0, 1800);
   return `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
@@ -341,33 +338,6 @@ export default function ContactForm() {
 
       {step === 2 && (
         <div className="cf-panel" key="s2">
-          <p className="cf-note">
-            All optional. If you can, name the parties so Michael can check for conflicts before he discusses the
-            matter. A brief outline is enough at this stage. {CONFIDENTIAL}
-          </p>
-          {field("parties", "Who are the parties?", {
-            area: 3,
-            max: 600,
-            optional: true,
-            hint: "Name each party, including the other side.",
-          })}
-          {field("project", "Project and country", { max: 160, optional: true, hint: "For example: hospital extension, Leeds, UK" })}
-          {field("outline", "What do you need help with?", {
-            area: 5,
-            max: 1500,
-            optional: true,
-            hint: "A short, non-confidential outline: the issue, the sums involved if known, and what you need.",
-          })}
-          {field("keyDate", "Any key date?", {
-            max: 120,
-            optional: true,
-            hint: "For example: expert report due 12 December 2026",
-          })}
-        </div>
-      )}
-
-      {step === 3 && (
-        <div className="cf-panel" key="s3">
           {field("name", "Your name", { max: 120, auto: "name" })}
           {field("organisation", "Organisation", {
             max: 160,
@@ -387,6 +357,17 @@ export default function ContactForm() {
             optional: true,
             hint: "Include the country code.",
           })}
+        </div>
+      )}
+
+      {step === 3 && (
+        <div className="cf-panel" key="s3">
+          {field("outline", "Overview", {
+            area: 6,
+            max: 1500,
+            optional: true,
+            hint: "A few basic details: the parties, the project and country, and what you need.",
+          })}
           <dl className="cf-review">
             <div>
               <dt>You are</dt>
@@ -397,17 +378,15 @@ export default function ContactForm() {
                 </button>
               </dd>
             </div>
-            {(v.parties.trim() || v.project.trim()) && (
             <div>
-              <dt>Matter</dt>
+              <dt>Your details</dt>
               <dd>
-                {[v.parties.trim(), v.project.trim()].filter(Boolean).join(" · ")}{" "}
+                {[v.name.trim(), v.organisation.trim(), v.email.trim()].filter(Boolean).join(" · ")}{" "}
                 <button type="button" className="cf-change" onClick={() => setStep(2)}>
                   Change
                 </button>
               </dd>
             </div>
-            )}
           </dl>
           <p className="cf-note">{CONFIDENTIAL}</p>
         </div>

@@ -22,7 +22,7 @@ var LIMITS = { min: 4000, perHour: 20, perSenderPerHour: 3 };
 var FIELDS = [
   ["role", "You are", 60], ["stage", "Where the matter is now", 60],
   ["parties", "Parties", 600], ["project", "Project and country", 160],
-  ["outline", "Outline", 1500], ["keyDate", "Key date", 120],
+  ["outline", "Overview", 1500], ["keyDate", "Key date", 120],
   ["name", "Name", 120], ["organisation", "Organisation", 160],
   ["email", "Email", 200], ["phone", "Phone or WhatsApp", 30]
 ];
@@ -61,7 +61,7 @@ function doPost(e) {
       to: TO,
       replyTo: v.email,
       name: "Avonstowe website",
-      subject: ("Enquiry: " + v.role + (v.project ? ", " + v.project : "")).slice(0, 150),
+      subject: ("Enquiry: " + v.role + ", " + v.organisation).slice(0, 150),
       body: body + "\n\n---\nSent from the enquiry form on avonstowe.com. Reply to answer the enquirer directly."
     });
     return reply_(true);
