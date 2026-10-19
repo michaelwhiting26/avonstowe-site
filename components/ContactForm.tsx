@@ -80,7 +80,6 @@ function validate(step: number, v: Values): Errors {
   }
   if (step === 2) {
     if (!t(v.name)) e.name = "Enter your name";
-    if (!t(v.organisation)) e.organisation = "Enter your organisation, or say you are writing as an individual";
     if (!t(v.email)) e.email = "Enter your email address";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t(v.email)))
       e.email = "Enter an email address in the correct format, like name@example.com";
@@ -342,7 +341,7 @@ export default function ContactForm() {
           {field("organisation", "Organisation", {
             max: 160,
             auto: "organization",
-            hint: "If you are writing as an individual, say so.",
+            optional: true,
           })}
           {field("email", "Email address", {
             max: 200,

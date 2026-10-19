@@ -230,6 +230,9 @@ h2.second { margin-top: 48px; }
   padding: 12px 14px; min-height: 48px; transition: border-color 0.2s;
 }
 textarea.cf-input { resize: vertical; }
+.cf-input:-webkit-autofill, .cf-input:-webkit-autofill:hover, .cf-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--navy-800) inset; -webkit-text-fill-color: var(--text); caret-color: var(--text);
+}
 .cf-input:focus { outline: 2px solid var(--brass); outline-offset: 1px; border-color: var(--brass); }
 .cf-input.cf-invalid { border-color: #ff8f87; }
 .cf-chips { display: flex; flex-wrap: wrap; gap: 10px; }
