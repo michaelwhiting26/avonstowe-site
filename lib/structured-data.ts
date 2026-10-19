@@ -23,6 +23,7 @@ export function structuredData() {
         legalName: site.legalEntity,
         url: `${site.url}/`,
         email: site.email,
+        telephone: site.whatsapp,
         description: site.description,
         logo: `${site.url}/mark.png`,
         image: `${site.url}/og.png`,

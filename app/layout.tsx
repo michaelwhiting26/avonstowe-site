@@ -95,6 +95,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 Enquiries: <a href={`mailto:${site.email}`}>{site.email}</a>
               </p>
               <p>
+                WhatsApp: <a href={site.whatsappUrl}>{site.whatsapp}</a>
+              </p>
+              <p>
                 {site.legalEntity} · {site.location}
               </p>
             </div>

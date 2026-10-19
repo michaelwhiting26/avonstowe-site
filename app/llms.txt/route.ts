@@ -23,6 +23,7 @@ export function GET() {
     "",
     "## Contact",
     `- Email: ${site.email}.`,
+    `- WhatsApp: ${site.whatsapp}.`,
     `- ${site.legalEntity}, ${site.licence}, ${site.location}.`,
     "",
     "## Pages",

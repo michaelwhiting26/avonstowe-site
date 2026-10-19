@@ -14,6 +14,9 @@ export const site = {
   name: "Avonstowe",
   url: "https://www.avonstowe.com",
   email: "michael@avonstowe.com",
+  // UK number, WhatsApp only (his choice for CV, signature and site, 19 Oct 2026).
+  whatsapp: "+44 7762 124220",
+  whatsappUrl: "https://wa.me/447762124220",
   location: "United Arab Emirates",
   // Verified 22 August 2026 against the RAKEZ licence.
   legalEntity: "Avonstowe FZ-LLC",

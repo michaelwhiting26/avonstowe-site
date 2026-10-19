@@ -93,6 +93,9 @@ export default function Home() {
             <MagneticButton href={`mailto:${site.email}`} className="btn-primary">
               {site.email}
             </MagneticButton>
+            <MagneticButton href={site.whatsappUrl} className="btn-ghost">
+              WhatsApp {site.whatsapp}
+            </MagneticButton>
           </div>
         </Reveal>
       </section>

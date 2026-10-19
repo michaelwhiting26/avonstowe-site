@@ -208,7 +208,7 @@ h2.second { margin-top: 48px; }
 /* ---------- contact ---------- */
 
 .contact .actions { margin-top: 24px; }
-.contact .btn-primary { overflow-wrap: anywhere; letter-spacing: 0.08em; }
+.contact .btn-primary, .contact .btn-ghost { overflow-wrap: anywhere; letter-spacing: 0.08em; }
 
 /* ---------- legal page ---------- */
 
