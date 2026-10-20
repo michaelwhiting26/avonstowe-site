@@ -47,7 +47,7 @@ export const experience = {
   quantum:
     "Quantum analysis in international arbitration, adjudication and court proceedings, on energy, process plant and construction projects across the Middle East, the United Kingdom and North Africa.",
   recovery:
-    "Claims and commercial recovery for contractors and developers on major projects, including residential and commercial towers, a power station redevelopment, a film studio and large regeneration schemes.",
+    "Claims and commercial recovery for contractors and developers on major projects, including gas export pipelines in Saudi Arabia, residential and commercial towers, a power station redevelopment, a film studio and large regeneration schemes.",
   commercial:
     "Commercial management and leadership for main contractors and developers on major projects, including a £1bn regeneration scheme, a £109m build-to-rent development, infrastructure upgrades in a live hospital, a luxury retail estate and a luxury hotel.",
 } as const;
