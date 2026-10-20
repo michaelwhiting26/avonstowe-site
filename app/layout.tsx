@@ -50,7 +50,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable}`} suppressHydrationWarning>
+    <html lang="en-GB" className={`${serif.variable} ${sans.variable}`} suppressHydrationWarning>
       <head>
         {/* Marks the document as JavaScript-capable BEFORE first paint. The
             reveal animations are scoped to this class, so with JS off the page
