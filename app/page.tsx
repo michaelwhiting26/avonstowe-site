@@ -67,7 +67,7 @@ export default function Home() {
         </Reveal>
         <div className="facts">
           <div>
-            <h3>Qualifications</h3>
+            <h3>Qualifications &amp; Memberships</h3>
             <Stagger as="ul">
               {person.credentials.map((c) => (
                 <Item as="li" key={c.text}>
