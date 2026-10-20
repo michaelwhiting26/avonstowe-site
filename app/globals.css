@@ -145,10 +145,10 @@ h2 { font-size: clamp(30px, 8vw, 42px); margin-bottom: 20px; }
 h3 { font-size: 17px; font-weight: 500; line-height: 1.35; }
 
 p + p { margin-top: 14px; }
-/* Body text is ragged-right (20 Oct 2026: justified text left wide gaps
-   between words on phones). text-wrap: pretty evens the line lengths and
-   stops one-word last lines; browsers without it simply ignore it. */
-main p, main dd { text-align: left; hyphens: manual; -webkit-hyphens: manual; text-wrap: pretty; }
+/* Body text is justified ("square both sides", Michael 18 Oct 2026; ragged
+   tried 20 Oct and rejected). text-wrap: pretty evens the lines and stops
+   one-word last lines; browsers without it ignore it. */
+main p, main dd { text-align: justify; text-justify: inter-word; hyphens: manual; -webkit-hyphens: manual; text-wrap: pretty; }
 h1, h2, h3 { text-wrap: balance; }
 main .eyebrow, main .role, main .matter-parties { text-align: left; hyphens: manual; -webkit-hyphens: manual; }
 .muted { color: var(--muted); }
@@ -547,11 +547,12 @@ section { scroll-margin-top: 110px; }
    into the page"): heavier weight and full white. */
 h2 { font-weight: 600; color: #ffffff; }
 
-/* Phones: never hyphenate, slightly wider side margin. (Justified text was
-   tried 18 Oct 2026 and dropped 20 Oct 2026 for the word gaps it caused.) */
+/* Phones: justified, never hyphenated, slightly wider side margin. */
 @media (max-width: 767px) {
   :root { --gutter: 24px; }
   main p, main dd { hyphens: none; -webkit-hyphens: none; }
+  /* Slightly smaller body text fits more words a line, so justified lines need smaller gaps. */
+  main p:not(.eyebrow):not(.role), main dd { font-size: 15.5px; }
 }
 
 
