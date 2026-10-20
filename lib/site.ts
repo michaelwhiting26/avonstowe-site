@@ -49,7 +49,7 @@ export const experience = {
   recovery:
     "Claims and commercial recovery for contractors and developers, including gas export pipelines in Saudi Arabia and major UK projects: residential and commercial towers, a power station redevelopment, a film studio and large regeneration schemes.",
   commercial:
-    "Commercial management and leadership for main contractors and developers on major projects, from procurement to final account, including a £1bn regeneration scheme and a £109m build-to-rent development.",
+    "Commercial management and leadership for main contractors and developers on major projects, from procurement to final account, including a £1bn regeneration scheme and a £109m development.",
 } as const;
 
 export const services = [
