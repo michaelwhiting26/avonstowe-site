@@ -24,8 +24,6 @@ const ROLES = [
   "Other",
 ];
 const STAGES = ["On a live project", "Adjudication", "Arbitration", "Court proceedings", "Not sure yet"];
-const CONFIDENTIAL =
-  "Please don't send confidential or privileged material until a conflict check is complete.";
 
 type Values = {
   role: string;
@@ -397,7 +395,6 @@ export default function ContactForm() {
               </dd>
             </div>
           </dl>
-          <p className="cf-note">{CONFIDENTIAL}</p>
         </div>
       )}
 
@@ -417,9 +414,6 @@ export default function ContactForm() {
           {step < 3 ? "Continue" : status === "sending" ? "Sending…" : "Send enquiry"}
         </button>
       </div>
-      <p className="cf-legal">
-        Contacting Avonstowe does not create an engagement; that only follows a conflict check and agreed terms.
-      </p>
     </form>
   );
 }
